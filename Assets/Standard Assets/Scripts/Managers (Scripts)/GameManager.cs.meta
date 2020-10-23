@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7e77218ad6dce4c4c83b9f0cabd25e0f
+timeCreated: 1493757090
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - guiSkin: {fileID: 11400000, guid: f01a8623d12448c4792f282abdeb0d8a, type: 2}
+  - pauseButton: {instanceID: 0}
+  - sayDialogPrefab: {fileID: 11488894, guid: 8a005a9e0713f4cc1b5ad29fb07657d3, type: 2}
+  executionOrder: -300
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

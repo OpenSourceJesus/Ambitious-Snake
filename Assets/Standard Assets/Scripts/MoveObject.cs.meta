@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 4628a19bc329ba84686f03492fc4d9e0
+timeCreated: 1493757090
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - wayPointsParent: {instanceID: 0}
+  - path: {fileID: 114000011589138580, guid: ba118a52bb79d7846876fb6a8fea218d, type: 2}
+  - rotationViewerPrefab: {fileID: 224000012392692776, guid: 1024673a48766434b90eccfb8df44f7d,
+      type: 2}
+  executionOrder: -100
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

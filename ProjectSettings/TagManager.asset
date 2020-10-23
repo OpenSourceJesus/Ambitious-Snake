@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Fire
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Wall
+  - Snake
+  - Bullet
+  - Turret
+  - Hazard
+  - EventTrigger
+  - NoCollision
+  - SnakeMimic
+  - Star
+  - Duplicater
+  - BreakTile
+  - Sticky
+  - End
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Back
+    uniqueID: 1093696345
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Front
+    uniqueID: 1859086223
+    locked: 0
+  - name: UI
+    uniqueID: 771169021
+    locked: 0

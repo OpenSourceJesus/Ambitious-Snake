@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: distL
+  m_Shader: {fileID: 4800000, guid: aeecae9464c274cf2a7ebcbf9e37246d, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+    - first:
+        name: _BumpMap
+      second:
+        m_Texture: {fileID: 2800000, guid: 8286e13f5b70d4792857d7f1deb1dce3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DistortTex
+      second:
+        m_Texture: {fileID: 2800000, guid: 8286e13f5b70d4792857d7f1deb1dce3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _EnvMap
+      second:
+        m_Texture: {fileID: 2800000, guid: c35537df2db764f1c907c382b978ff4c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MainTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _NoiseTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Tex
+      second:
+        m_Texture: {fileID: 2800000, guid: 5461cc1bee5074b91ba4b7f638701792, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - first:
+        name: _BumpAmt
+      second: 49.23077
+    - first:
+        name: _Distortion
+      second: 0.042307694
+    - first:
+        name: _HeatForce
+      second: 0.1
+    - first:
+        name: _HeatTime
+      second: 1.5
+    - first:
+        name: _InvFade
+      second: 1
+    - first:
+        name: _Refraction
+      second: 68.30769
+    - first:
+        name: strength
+      second: 0.3
+    - first:
+        name: transparency
+      second: 0.01
+    m_Colors:
+    - first:
+        name: _EmisColor
+      second: {r: 0.2, g: 0.2, b: 0.2, a: 0}
+    - first:
+        name: _TintColor
+      second: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}

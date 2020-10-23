@@ -1,0 +1,126 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using Extensions;
+
+namespace AmbitiousSnake
+{
+	public class GameLevelButton : LevelButton
+	{
+		public int scoreToUnlock;
+		bool unlocked;
+		string displayName;
+		[SerializeField]
+		[HideInInspector]
+		int siblingIndex;
+		float lastPressedTime;
+		
+		public override void Start ()
+		{
+#if UNITY_EDITOR
+			if (!Application.isPlaying)
+			{
+				if (trs == null)
+					trs = GetComponent<Transform>();
+				siblingIndex = trs.GetSiblingIndex();
+				button.colors = unfinishedColors;
+				return;
+			}
+#endif
+			base.Start ();
+			level.name = levelName;
+			name = levelName;
+			nameText.text = levelName;
+			parText.enabled = unlocked;
+			completed = LevelTime < Mathf.Infinity;
+			gotParTime = LevelTime <= parTime;
+			if (unlocked)
+			{
+				if (completed)
+				{
+					parText.text += string.Format("\n" + "Time: {0:F1}", LevelTime);
+					if (GotStar && gotParTime)
+						button.colors = acedColors;
+					else
+						button.colors = completedColors;
+				}
+				starIcon.SetActive(GotStar);
+				parIcon.SetActive(gotParTime);
+				button.onClick.RemoveAllListeners ();
+				button.onClick.AddListener(delegate { SetLevel (); });
+			}
+			else
+				nameText.text = "Unlock: " + scoreToUnlock + " Score";
+
+			scoreToUnlock = LevelSelect.scoresToUnlock[siblingIndex];
+			unlocked = GameManager.Score >= scoreToUnlock;
+			button.interactable = unlocked;
+			parText.enabled = unlocked;
+			if (unlocked)
+			{
+				name = levelName;
+				if (levelName.Contains(" ("))
+					displayName = levelName.Substring(0, levelName.IndexOf(" ("));
+				else
+					displayName = levelName;
+				nameText.text = displayName;
+				completed = LevelTime < Mathf.Infinity;
+				gotParTime = LevelTime <= LevelSelect.parTimes[siblingIndex];
+				if (completed)
+				{
+					nameText.text += string.Format("\n" + "Time: {0:F1}", LevelTime);
+					if (GotStar && gotParTime)
+						button.colors = acedColors;
+					else
+						button.colors = completedColors;
+				}
+				starIcon.SetActive(GotStar);
+				parIcon.SetActive(gotParTime);
+				button.onClick.RemoveAllListeners ();
+				button.onClick.AddListener(delegate { SetLevel (); });
+			}
+			else
+				nameText.text = "Unlock: " + scoreToUnlock + " Score";
+		}
+
+#if UNITY_EDITOR
+		public override void Update ()
+		{
+			base.Update ();
+			if (Application.isPlaying)
+				return;
+			GameManager.GetSingleton<LevelSelect>()._parTimes[siblingIndex] = parTime;
+			GameManager.GetSingleton<LevelSelect>()._scoresToUnlock[siblingIndex] = scoreToUnlock;
+			parText.text = "Par: " + "\n" + parTime;
+		}
+#endif
+
+		public override void SetLevel ()
+		{
+			// GameManager.GetSingleton<GameManager>().UnloadLevel (levelName);
+			// GameManager.GetSingleton<GameManager>().LoadLevelAdditive (levelName);
+			GameManager.GetSingleton<LevelMap>().MakeLevelMap (levelName);
+			GameManager.GetSingleton<LevelSelect>().levelTitle.text = levelName;
+			// if (Time.realtimeSinceStartup - lastPressedTime <= GameManager.GetSingleton<InputManager>().maxDoubleClickDelay)
+			// 	LoadLevel ();
+			lastPressedTime = Time.realtimeSinceStartup;
+		}
+		
+		public override void LoadLevel ()
+		{
+			base.LoadLevel ();
+			button.onClick.RemoveAllListeners();
+			GameManager.GetSingleton<LevelSelect>().startButton.onClick.RemoveAllListeners();
+			LevelSelect.PreviousLevelIndex = siblingIndex;
+			// GameManager.GetSingleton<SaveAndLoadManager>().Save ();
+			GameManager.GetSingleton<GameManager>().LoadLevelAdditive ("Level");
+			foreach (string sceneName in extraScenes)
+				GameManager.GetSingleton<GameManager>().LoadLevelAdditive (sceneName);
+			GameManager.singletons.Remove(typeof(Level));
+			GameManager.singletons.Add(typeof(Level), level);
+			GameManager.GetSingleton<Level>().Start();
+		}
+	}
+}
