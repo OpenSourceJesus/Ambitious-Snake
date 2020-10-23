@@ -6,7 +6,7 @@ using System.Reflection;
 using UnityEngine.UI;
 using System.IO;
 using System;
-// using Utf8Json;
+using Utf8Json;
 
 namespace AmbitiousSnake
 {
@@ -65,14 +65,12 @@ namespace AmbitiousSnake
 
 		public static string Serialize (object value, Type type)
 		{
-			// return JsonSerializer.NonGeneric.ToJsonString(type, value);
-			return null;
+			return JsonSerializer.NonGeneric.ToJsonString(type, value);
 		}
 
 		public static object Deserialize (string serializedState, Type type)
 		{
-			// return JsonSerializer.NonGeneric.Deserialize(type, serializedState);
-			return null;
+			return JsonSerializer.NonGeneric.Deserialize(type, serializedState);
 		}
 
 		public virtual void _SetValue (string key, object value)
@@ -90,8 +88,9 @@ namespace AmbitiousSnake
 
 		public static T GetValue<T> (string key, T defaultValue = default(T))
 		{
-			if (data.ContainsKey(key))
-				return (T) Deserialize(data[key], typeof(T));
+			string dataString;
+			if (data.TryGetValue(key, out dataString))
+				return (T) Deserialize(dataString, typeof(T));
 			else
 				return defaultValue;
 		}
