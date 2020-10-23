@@ -167,7 +167,7 @@ namespace AmbitiousSnake
 				if (UsingGamepad)
 					return Gamepad.current.startButton.isPressed || Gamepad.current.selectButton.isPressed;
 				else
-					return Keyboard.current.escapeKey.isPressed;
+					return Keyboard.current.escapeKey.isPressed || Keyboard.current.spaceKey.isPressed;
 			}
 		}
 		public bool _PauseInput

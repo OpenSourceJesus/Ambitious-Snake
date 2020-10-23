@@ -59,7 +59,7 @@ public class _Selectable : MonoBehaviour
 			return;
 		}
 #endif
-		UIControlManager.Instance.AddSelectable (this);
+		UIControlManager.selectables = UIControlManager.selectables.Add(this);
 		UpdateCanvas ();
 	}
 	
@@ -69,7 +69,7 @@ public class _Selectable : MonoBehaviour
 		if (!Application.isPlaying)
 			return;
 #endif
-		UIControlManager.Instance.RemoveSelectable (this);
+		UIControlManager.selectables = UIControlManager.selectables.Remove(this);
 	}
 	
 #if UNITY_EDITOR

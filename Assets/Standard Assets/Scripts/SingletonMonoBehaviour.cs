@@ -1,7 +1,4 @@
-﻿﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using AmbitiousSnake;
+﻿﻿using UnityEngine;
 
 public class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
 {

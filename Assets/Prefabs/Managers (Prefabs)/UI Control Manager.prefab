@@ -45,10 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handleMultipleInstances: 0
-  setInstance: 1
   persistant: 0
   currentSelected: {fileID: 0}
   colorMultiplier: {fileID: 562122923215111437}
+  angleEffectiveness: 1
+  distanceEffectiveness: 1
   repeatTimer:
     duration: 0.25
     timeRemaining: 0
@@ -56,9 +57,6 @@ MonoBehaviour:
     realtime: 1
     pauseWhileNotFocused: 1
     autoStopIfNotLooping: 1
-  angleEffectiveness: 1
-  distanceEffectiveness: 1
-  autoScrollAmount: 0.01
 --- !u!114 &562122923215111437
 MonoBehaviour:
   m_ObjectHideFlags: 0
