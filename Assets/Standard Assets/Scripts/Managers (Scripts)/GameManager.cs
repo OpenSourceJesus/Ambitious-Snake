@@ -88,11 +88,11 @@ namespace AmbitiousSnake
 			LoadLevelAdditive ("Settings");
 			yield return new WaitForEndOfFrame();
 			Settings.Instance.Init ();
-			UnloadLevel ("Settings");
+			UnloadLevelAsync ("Settings");
 			LoadLevelAdditive ("Extra Settings");
 			yield return new WaitForEndOfFrame();
 			ExtraSettings.Instance.Init ();
-			UnloadLevel ("Extra Settings");
+			UnloadLevelAsync ("Extra Settings");
 		}
 
 		public virtual void FadeIn (Scene scene = new Scene(), LoadSceneMode loadMode = LoadSceneMode.Single)
@@ -323,16 +323,6 @@ namespace AmbitiousSnake
 			}
 			if (SceneManager.GetSceneByName(levelName).isLoaded)
 				unloadLevel = SceneManager.UnloadSceneAsync(levelName);
-		}
-		
-		public virtual void UnloadLevel (string levelName)
-		{
-			SceneManager.UnloadSceneAsync(levelName);
-		}
-		
-		public virtual void UnloadLevel (int levelIndex)
-		{
-			UnloadLevel (SceneManager.GetSceneAt(levelIndex).name);
 		}
 		
 		public virtual void UnloadLevelAsync (int levelIndex)

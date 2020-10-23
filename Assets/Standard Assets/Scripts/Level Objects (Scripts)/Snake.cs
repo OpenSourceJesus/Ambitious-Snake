@@ -135,10 +135,14 @@ namespace AmbitiousSnake
 		public virtual bool IsStuck ()
 		{
 			Physics2D.queriesStartInColliders = true;
+			Vector2 previousVertexPosition = GetVertexPosition(0);
+			Vector2 vertexPosition;
 			for (int i = 1; i < verticies.Count; i ++)
 			{
-				if (Physics2D.Linecast(GetVertexPosition(i - 1), GetVertexPosition(i), whatIStickTo).collider != null)
+				vertexPosition = GetVertexPosition(i);
+				if (Physics2D.Linecast(previousVertexPosition, vertexPosition, whatIStickTo).collider != null)
 					return true;
+				previousVertexPosition = vertexPosition;
 			}
 			return false;
 		}
@@ -270,10 +274,11 @@ namespace AmbitiousSnake
 			RaycastHit2D hit;
 			for (int i = 0; i < verticies.Count; i ++)
 			{
-				hit = Physics2D.Linecast(GetVertexPosition(i), GetVertexPosition(i) + (Vector2.down * gravity * Time.deltaTime), whatICrashInto);
+				Vector2 vertexPosition = GetVertexPosition(i);
+				hit = Physics2D.Linecast(vertexPosition, vertexPosition + (Vector2.down * gravity * Time.deltaTime), whatICrashInto);
 				if (hit.collider != null)
 				{
-					float checkDistFromGround = GetVertexPosition(i).y - hit.point.y;
+					float checkDistFromGround = vertexPosition.y - hit.point.y;
 					if (checkDistFromGround >= 0 && checkDistFromGround < distFromGround)
 	                    distFromGround = checkDistFromGround;
 					Breakable breakTile = hit.collider.GetComponent<Breakable>();

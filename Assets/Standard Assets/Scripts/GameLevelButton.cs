@@ -119,7 +119,9 @@ namespace AmbitiousSnake
 			foreach (string sceneName in extraScenes)
 				GameManager.Instance.LoadLevelAdditive (sceneName);
 			Level.instance = level;
-			Level.instance.Start();
+			Level.instance.Start ();
+			GameManager.Instance.UnloadLevelAsync ("Level Select");
+			GameManager.Instance.SetPaused (false);
 		}
 	}
 }

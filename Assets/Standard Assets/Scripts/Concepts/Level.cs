@@ -46,6 +46,7 @@ public class Level : IUpdatable
 
 	public virtual void Restart ()
 	{
+		GameManager.updatables = GameManager.updatables.Remove(this);
 		hasStar = false;
 		if (CommunityLevelHub.Instance == null)
 		{
