@@ -1,21 +1,19 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 namespace AmbitiousSnake
 {
-	public class SnakeMeasurer : MonoBehaviour
+	public class SnakeMeasurer : SingletonMonoBehaviour<SnakeMeasurer>, IUpdatable
 	{
-		public static SnakeMeasurer instance;
-		Text displayText;
-		
-		void Start ()
+		public bool PauseWhileUnfocused
 		{
-			instance = this;
-			displayText = GetComponent<Text>();
+			get
+			{
+				return true;
+			}
 		}
+		public Text displayText;
 		
-		void Update ()
+		public void DoUpdate ()
 		{
 			float numerator = Snake.instance.targetLength.GetValue() - Snake.instance.targetLength.min;
 			float denominator = Snake.instance.targetLength.max - Snake.instance.targetLength.min;

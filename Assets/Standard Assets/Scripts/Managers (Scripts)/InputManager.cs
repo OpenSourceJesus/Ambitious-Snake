@@ -42,61 +42,6 @@ namespace AmbitiousSnake
 				return Touchscreen.current != null;
 			}
 		}
-		public static int MoveInput
-		{
-			get
-			{
-				int output = Input.touchCount;
-#if UNITY_EDITOR || UNITY_STANDALONE
-				if (Mouse.current.leftButton.isPressed)
-					output ++;
-				if (Mouse.current.rightButton.isPressed)
-					output ++;
-#endif
-				return output;
-			}
-		}
-		public int _MoveInput
-		{
-			get
-			{
-				return MoveInput;
-			}
-		}
-		public static bool InteractInput
-		{
-			get
-			{
-				if (UsingGamepad)
-					return Gamepad.current.aButton.isPressed;
-				else
-					return Keyboard.current.eKey.isPressed;
-			}
-		}
-		public bool _InteractInput
-		{
-			get
-			{
-				return InteractInput;
-			}
-		}
-		public static float ZoomInput
-		{
-			get
-			{
-				if (UsingGamepad)
-					return Gamepad.current.rightStick.y.ReadValue();
-				else
-					return Mouse.current.scroll.y.ReadValue();
-			}
-		}
-		public float _ZoomInput
-		{
-			get
-			{
-				return ZoomInput;
-			}
-		}
 		public static bool SubmitInput
 		{
 			get
@@ -114,65 +59,12 @@ namespace AmbitiousSnake
 				return SubmitInput;
 			}
 		}
-		public static int SwitchMenuSectionInput
-		{
-			get
-			{
-				if (UsingGamepad)
-				{
-					int output = 0;
-					if (Gamepad.current.rightShoulder.isPressed)
-						output ++;
-					if (Gamepad.current.leftShoulder.isPressed)
-						output --;
-					return output;
-				}
-				else
-					return 0;
-			}
-		}
-		public int _SwitchMenuSectionInput
-		{
-			get
-			{
-				return SwitchMenuSectionInput;
-			}
-		}
-		public static Vector2 PlayerMovementInput
-		{
-			get
-			{
-				if (UsingGamepad)
-					return Vector2.ClampMagnitude(Gamepad.current.leftStick.ToVec2(), 1);
-				else
-				{
-					int x = 0;
-					if (DKeyInput)
-						x ++;
-					if (AKeyInput)
-						x --;
-					int y = 0;
-					if (WKeyInput)
-						y ++;
-					if (SKeyInput)
-						y --;
-					return Vector2.ClampMagnitude(new Vector2(x, y), 1);
-				}
-			}
-		}
-		public Vector2 _PlayerMovementInput
-		{
-			get
-			{
-				return PlayerMovementInput;
-			}
-		}
 		public static Vector2 UIMovementInput
 		{
 			get
 			{
 				if (UsingGamepad)
-					return Vector2.ClampMagnitude(Gamepad.current.leftStick.ToVec2(), 1);
+					return Vector2.ClampMagnitude(Gamepad.current.leftStick.ReadValue(), 1);
 				else
 				{
 					int x = 0;
@@ -266,7 +158,7 @@ namespace AmbitiousSnake
 			get
 			{
 				if (UsingMouse)
-					return Mouse.current.position.ToVec2();
+					return Mouse.current.position.ReadValue();
 				else
 					return VectorExtensions.NULL;
 			}

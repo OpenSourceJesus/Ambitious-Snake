@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem.Controls;
+﻿using UnityEngine;
 
 namespace Extensions
 {
@@ -78,11 +75,6 @@ namespace Extensions
 		public static Vector2 ToVec2 (this Vector2Int v)
 		{
 			return new Vector2(v.x, v.y);
-		}
-
-		public static Vector2 ToVec2 (this Vector2Control control)
-		{
-			return new Vector2(control.x.ReadValue(), control.y.ReadValue());
 		}
 	}
 }

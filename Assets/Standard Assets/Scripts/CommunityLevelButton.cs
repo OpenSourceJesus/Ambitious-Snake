@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using Extensions;
 
 namespace AmbitiousSnake
 {
@@ -35,7 +32,7 @@ namespace AmbitiousSnake
 			}
 		}
 		
-		public virtual void Start ()
+		public override void Start ()
 		{
 			name = levelName;
 			nameText.text = levelName;
@@ -55,7 +52,7 @@ namespace AmbitiousSnake
 			button.onClick.AddListener(delegate { SetLevel (); });
 		}
 		
-		public virtual void SetLevel ()
+		public override void SetLevel ()
 		{
 			CommunityLevelHub.Instance.currentLevel = this;
 			if (LevelMap.previousLevelName == levelName)
@@ -88,13 +85,13 @@ namespace AmbitiousSnake
 				PartOfLevelEditor part = PartOfLevelEditor.instances[i];
 				DestroyImmediate (part.gameObject);
 			}
-			PartOfLevelEditor.CreateObjects(mapData);
+			PartOfLevelEditor.CreateObjects (mapData);
 		}
 		
-		public virtual void LoadLevel ()
+		public override void LoadLevel ()
 		{
-			GameManager.Instance.SetPaused(false);
-			GameManager.Instance.LoadLevelAdditive("Level");
+			GameManager.Instance.SetPaused (false);
+			GameManager.Instance.LoadLevelAdditive ("Level");
 			foreach (GameObject canvas in CommunityLevelHub.Instance.canvases)
 				canvas.SetActive(false);
 		}

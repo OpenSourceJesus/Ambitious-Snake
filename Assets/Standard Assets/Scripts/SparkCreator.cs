@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Extensions;
 
 namespace AmbitiousSnake
 {
@@ -37,11 +35,11 @@ namespace AmbitiousSnake
 		{
 			if (!enabled || sparkCount >= maxSparks || Time.time - lastSparkTime < sparkRate)
 				yield break;
-			Transform spark = ObjectPool.Instance.SpawnComponent<Transform>(sparkPrefabIndex, position);
+			Transform spark = ObjectPool.Instance.SpawnComponent<Transform> (sparkPrefabIndex, position);
 			lastSparkTime = Time.time;
 			sparkCount ++;
 			yield return new WaitForSeconds(.1f);
-			ObjectPool.Instance.Despawn(sparkPrefabIndex, spark.gameObject, spark);
+			ObjectPool.Instance.Despawn (sparkPrefabIndex, spark.gameObject, spark);
 			sparkCount --;
 		}
 	}

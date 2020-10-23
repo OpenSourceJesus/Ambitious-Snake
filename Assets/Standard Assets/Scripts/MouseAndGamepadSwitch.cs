@@ -9,7 +9,6 @@ namespace AmbitiousSnake
 	public class MouseAndGamepadSwitch : MonoBehaviour
 	{
 		public GameObject[] toggleGos = new GameObject[0];
-		bool wasMouse = true;
 		static bool previousUsingGamepad;
 		
 		void OnEnable ()

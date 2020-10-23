@@ -1,10 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
-using System;
 using Extensions;
-using AmbitiousSnake.Analytics;
 
 namespace AmbitiousSnake
 {
