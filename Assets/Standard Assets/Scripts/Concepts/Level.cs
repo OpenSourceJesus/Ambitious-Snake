@@ -1,4 +1,3 @@
-using UnityEngine;
 using System;
 using Extensions;
 using AmbitiousSnake;
@@ -8,17 +7,18 @@ using AmbitiousSnake.Analytics;
 [Serializable]
 public class Level : IUpdatable
 {
+	public static Level instance;
 	public string name;
 	public static bool hasStar;
 	public static bool KeptStar
 	{
 		get
 		{
-			return SaveAndLoadManager.GetValue<bool>(GameManager.GetSingleton<Level>().name + " Kept Star", false);
+			return SaveAndLoadManager.GetValue<bool>(Level.instance.name + " Kept Star", false);
 		}
 		set
 		{
-			SaveAndLoadManager.SetValue (GameManager.GetSingleton<Level>().name + " Kept Star", value);
+			SaveAndLoadManager.SetValue (Level.instance.name + " Kept Star", value);
 		}
 	}
 	public bool PauseWhileUnfocused
@@ -34,7 +34,7 @@ public class Level : IUpdatable
 	public virtual void Start ()
 	{
 		hasStar = false;
-		GameManager.onLevelTransitionDone += GameManager.GetSingleton<GameManager>().OnLevelLoaded;
+		GameManager.onLevelTransitionDone += GameManager.Instance.OnLevelLoaded;
 		GameManager.updatables = GameManager.updatables.Add(this);
 	}
 
@@ -47,21 +47,21 @@ public class Level : IUpdatable
 	public virtual void Restart ()
 	{
 		hasStar = false;
-		if (GameManager.GetSingleton<CommunityLevelHub>() == null)
+		if (CommunityLevelHub.Instance == null)
 		{
-			GameManager.GetSingleton<ObjectPool>().DespawnAll ();
-			GameManager.GetSingleton<GameManager>().screenEffectAnimator.Play("Opaque Screen");
-			GameManager.GetSingleton<GameManager>().UnloadLevelAsync (LevelMap.previousLevelName);
-			GameManager.GetSingleton<LevelTimer>().timer.Reset ();
-			SceneManager.sceneLoaded += GameManager.GetSingleton<GameManager>().FadeIn;
-			GameManager.onLevelTransitionDone += GameManager.GetSingleton<GameManager>().OnLevelLoaded;
-			GameManager.GetSingleton<GameManager>().LoadLevel (LevelMap.previousLevelName, LoadSceneMode.Additive);
+			ObjectPool.Instance.DespawnAll ();
+			GameManager.Instance.screenEffectAnimator.Play("Opaque Screen");
+			GameManager.Instance.UnloadLevelAsync (LevelMap.previousLevelName);
+			LevelTimer.Instance.timer.Reset ();
+			SceneManager.sceneLoaded += GameManager.Instance.FadeIn;
+			GameManager.onLevelTransitionDone += GameManager.Instance.OnLevelLoaded;
+			GameManager.Instance.LoadLevel (LevelMap.previousLevelName, LoadSceneMode.Additive);
 		}
 		else
-			GameManager.GetSingleton<CommunityLevelHub>().currentLevel.ReloadLevel ();
+			CommunityLevelHub.Instance.currentLevel.ReloadLevel ();
 		if (!GameManager.paused)
 			SnakeRecorder.areRecording = new SnakeRecorder[0];
 		AnalyticsManager.PlayerDiedEvent playerDiedEvent = new AnalyticsManager.PlayerDiedEvent();
-		GameManager.GetSingleton<AnalyticsManager>().LogEvent (playerDiedEvent);
+		AnalyticsManager.Instance.LogEvent (playerDiedEvent);
 	}
 }

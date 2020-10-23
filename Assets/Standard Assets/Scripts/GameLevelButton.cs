@@ -91,19 +91,19 @@ namespace AmbitiousSnake
 			base.Update ();
 			if (Application.isPlaying)
 				return;
-			GameManager.GetSingleton<LevelSelect>()._parTimes[siblingIndex] = parTime;
-			GameManager.GetSingleton<LevelSelect>()._scoresToUnlock[siblingIndex] = scoreToUnlock;
+			LevelSelect.Instance._parTimes[siblingIndex] = parTime;
+			LevelSelect.Instance._scoresToUnlock[siblingIndex] = scoreToUnlock;
 			parText.text = "Par: " + "\n" + parTime;
 		}
 #endif
 
 		public override void SetLevel ()
 		{
-			// GameManager.GetSingleton<GameManager>().UnloadLevel (levelName);
-			// GameManager.GetSingleton<GameManager>().LoadLevelAdditive (levelName);
-			GameManager.GetSingleton<LevelMap>().MakeLevelMap (levelName);
-			GameManager.GetSingleton<LevelSelect>().levelTitle.text = levelName;
-			// if (Time.realtimeSinceStartup - lastPressedTime <= GameManager.GetSingleton<InputManager>().maxDoubleClickDelay)
+			// GameManager.Instance.UnloadLevel (levelName);
+			// GameManager.Instance.LoadLevelAdditive (levelName);
+			LevelMap.Instance.MakeLevelMap (levelName);
+			LevelSelect.Instance.levelTitle.text = levelName;
+			// if (Time.realtimeSinceStartup - lastPressedTime <= InputManager.Instance.maxDoubleClickDelay)
 			// 	LoadLevel ();
 			lastPressedTime = Time.realtimeSinceStartup;
 		}
@@ -112,15 +112,14 @@ namespace AmbitiousSnake
 		{
 			base.LoadLevel ();
 			button.onClick.RemoveAllListeners();
-			GameManager.GetSingleton<LevelSelect>().startButton.onClick.RemoveAllListeners();
+			LevelSelect.Instance.startButton.onClick.RemoveAllListeners();
 			LevelSelect.PreviousLevelIndex = siblingIndex;
-			// GameManager.GetSingleton<SaveAndLoadManager>().Save ();
-			GameManager.GetSingleton<GameManager>().LoadLevelAdditive ("Level");
+			// SaveAndLoadManager.Instance.Save ();
+			GameManager.Instance.LoadLevelAdditive ("Level");
 			foreach (string sceneName in extraScenes)
-				GameManager.GetSingleton<GameManager>().LoadLevelAdditive (sceneName);
-			GameManager.singletons.Remove(typeof(Level));
-			GameManager.singletons.Add(typeof(Level), level);
-			GameManager.GetSingleton<Level>().Start();
+				GameManager.Instance.LoadLevelAdditive (sceneName);
+			Level.instance = level;
+			Level.instance.Start();
 		}
 	}
 }

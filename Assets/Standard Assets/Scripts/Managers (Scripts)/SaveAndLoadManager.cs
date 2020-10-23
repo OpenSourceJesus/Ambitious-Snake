@@ -6,15 +6,13 @@ using System.Reflection;
 using UnityEngine.UI;
 using System.IO;
 using System;
-using UnityEngine.SceneManagement;
-using FullSerializer;
+// using Utf8Json;
 
 namespace AmbitiousSnake
 {
 	[ExecuteAlways]
 	public class SaveAndLoadManager : SingletonMonoBehaviour<SaveAndLoadManager>
 	{
-		public static fsSerializer serializer = new fsSerializer();
 		[HideInInspector]
 		public SaveAndLoadObject[] saveAndLoadObjects = new SaveAndLoadObject[0];
 		public static SavedObjectEntry[] savedObjectEntries = new SavedObjectEntry[0];
@@ -67,17 +65,14 @@ namespace AmbitiousSnake
 
 		public static string Serialize (object value, Type type)
 		{
-			fsData data;
-			serializer.TrySerialize(type, value, out data).AssertSuccessWithoutWarnings();
-			return fsJsonPrinter.CompressedJson(data);
+			// return JsonSerializer.NonGeneric.ToJsonString(type, value);
+			return null;
 		}
 
 		public static object Deserialize (string serializedState, Type type)
 		{
-			fsData data = fsJsonParser.Parse(serializedState);
-			object deserialized = null;
-			serializer.TryDeserialize(data, type, ref deserialized).AssertSuccessWithoutWarnings();
-			return deserialized;
+			// return JsonSerializer.NonGeneric.Deserialize(type, serializedState);
+			return null;
 		}
 
 		public virtual void _SetValue (string key, object value)
@@ -111,10 +106,10 @@ namespace AmbitiousSnake
 #if UNITY_WEBGL
 			PlayerPrefs.DeleteAll();
 #else
-			File.Delete(GameManager.GetSingleton<SaveAndLoadManager>().saveFileFullPath);
+			File.Delete(SaveAndLoadManager.Instance.saveFileFullPath);
 #endif
 			data.Clear();
-			GameManager.GetSingleton<GameManager>().LoadLevel (0);
+			GameManager.Instance.LoadLevel (0);
 		}
 
 		public virtual void _RemoveData (string key)
@@ -129,9 +124,9 @@ namespace AmbitiousSnake
 		
 		public virtual void Save ()
 		{
-			if (GameManager.GetSingleton<SaveAndLoadManager>() != this)
+			if (SaveAndLoadManager.Instance != this)
 			{
-				GameManager.GetSingleton<SaveAndLoadManager>().Save ();
+				SaveAndLoadManager.Instance.Save ();
 				return;
 			}
 			for (int i = 0; i < savedObjectEntries.Length; i ++)
@@ -144,7 +139,7 @@ namespace AmbitiousSnake
 #else
 			File.WriteAllText(saveFileFullPath, saveFileText);
 #endif
-			GameManager.GetSingleton<GameManager>().StartCoroutine(displayOnSave.DisplayRoutine ());
+			GameManager.Instance.StartCoroutine(displayOnSave.DisplayRoutine ());
 		}
 		
 		public virtual void Load ()
@@ -184,7 +179,7 @@ namespace AmbitiousSnake
 			}
 			for (int i = 0; i < savedObjectEntries.Length; i ++)
 				savedObjectEntries[i].Load ();
-			GameManager.GetSingleton<GameManager>().SetGosActive ();
+			GameManager.Instance.SetGosActive ();
 		}
 		
 		public class SavedObjectEntry

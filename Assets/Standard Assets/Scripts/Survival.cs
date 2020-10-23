@@ -43,7 +43,7 @@ namespace AmbitiousSnake
 		public override void Awake ()
 		{
 			base.Awake ();
-			GameManager.GetSingleton<GameManager>().SetPaused (false);
+			GameManager.Instance.SetPaused (false);
 			Time.timeScale = 1;
 			highestWaveText.text = "Highscore: " + Highscore;
 		}

@@ -29,14 +29,14 @@ namespace AmbitiousSnake
 			areRecording = areRecording.Add(this);
 			isRecording = true;
 			currentRecording = new SnakeRecording();
-			foreach (Vector3 vertex in GameManager.GetSingleton<Snake>().verticies)
+			foreach (Vector3 vertex in Snake.instance.verticies)
 				currentRecording.nextPositions.Add(vertex);
-			currentRecording.translations.Add(GameManager.GetSingleton<Snake>().trs.position);
+			currentRecording.translations.Add(Snake.instance.trs.position);
 			while (isRecording)
 			{
-				currentRecording.nextPositions.Add(GameManager.GetSingleton<Snake>().verticies[GameManager.GetSingleton<Snake>().verticies.Count - 1]);
-				currentRecording.lengths.Add(GameManager.GetSingleton<Snake>().actualLength);
-				currentRecording.translations.Add(GameManager.GetSingleton<Snake>().trs.position);
+				currentRecording.nextPositions.Add(Snake.instance.verticies[Snake.instance.verticies.Count - 1]);
+				currentRecording.lengths.Add(Snake.instance.actualLength);
+				currentRecording.translations.Add(Snake.instance.trs.position);
 				yield return new WaitForFixedUpdate();
 			}
 			areRecording = areRecording.Remove(this);

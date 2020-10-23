@@ -53,7 +53,6 @@ namespace AmbitiousSnake
 			survivalButton.interactable = Survival.Unlocked;
 			LevelMap.previousLevelName = "";
 			levelButtons = GetComponentsInChildren<LevelButton>();
-			Level level;
 			foreach (LevelButton levelButton in levelButtons)
 			{
 				levelButton.level = new Level();
@@ -63,7 +62,7 @@ namespace AmbitiousSnake
 			LevelButton previousLevelButton = levelButtons[PreviousLevelIndex];
 			previousLevelButton.Start ();
 			previousLevelButton.SetLevel ();
-			GameManager.GetSingleton<UIControlManager>().ChangeSelected (previousLevelButton);
+			UIControlManager.Instance.ChangeSelected (previousLevelButton);
 			startButton.onClick.AddListener(StartSelectedLevel);
 		}
 		

@@ -23,7 +23,7 @@ namespace AmbitiousSnake
 			StartCoroutine(Init ());
 		}
 		
-		public override void DoFixedUpdate ()
+		public override void DoUpdate ()
 		{
 			if (currentFrame >= playing.lengths.Count - 1)
 			{

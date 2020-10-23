@@ -2,13 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-using System.Reflection;
 using UnityEngine.UI;
 using Extensions;
-using System.IO;
 using System;
 using Random = UnityEngine.Random;
-using Object = UnityEngine.Object;
+using UnityEngine.InputSystem;
 
 namespace AmbitiousSnake
 {
@@ -38,13 +36,12 @@ namespace AmbitiousSnake
 		}
 		public delegate void OnLevelTransitionDone();
 		public static event OnLevelTransitionDone onLevelTransitionDone;
-		public static Dictionary<Type, object> singletons = new Dictionary<Type, object>();
+		// public static Dictionary<Type, object> singletons = new Dictionary<Type, object>();
 		static bool initialized;
 		public static IUpdatable[] updatables = new IUpdatable[0];
-		public static SortedDictionary<int, IUpdatable> pausedUpdatablesDict = new SortedDictionary<int, IUpdatable>();
-		public static IFixedUpdatable[] fixedUpdatables = new IFixedUpdatable[0];
-		public static SortedDictionary<int, IFixedUpdatable> pausedFixedUpdatablesDict = new SortedDictionary<int, IFixedUpdatable>();
-		public static string pauseMenuLevelName = "Pause Menu";
+		// public static SortedDictionary<int, IUpdatable> pausedUpdatablesDict = new SortedDictionary<int, IUpdatable>();
+		public const string PAUSE_MENU_SCENE_NAME = "Pause Menu";
+
 
 		public override void Awake ()
 		{
@@ -54,8 +51,8 @@ namespace AmbitiousSnake
 				SceneManager.sceneLoaded += WaitForLevelTransitionEnd;
 				initialized = true;
 			}
-			GetSingleton<SaveAndLoadManager>().Load ();
-			GetSingleton<UnlockablesManager>().GetUnlocks ();
+			SaveAndLoadManager.Instance.Load ();
+			UnlockablesManager.Instance.GetUnlocks ();
 			// StartCoroutine(InitSettingsRoutine ());
 		}
 
@@ -66,84 +63,43 @@ namespace AmbitiousSnake
 
 		public virtual void OnLevelLoaded (Scene scene = new Scene(), LoadSceneMode loadMode = LoadSceneMode.Single)
 		{
-			if (GetSingleton<LevelSelect>() == null)
+			if (LevelSelect.Instance == null)
 			{
-				if (GetSingleton<Level>() != null)
+				if (Level.instance != null)
 				{
 					SetPaused (false);
-					GetSingleton<Level>().Start ();
+					Level.instance.Start ();
 				}
 			}
 			else
-				updatables = updatables.Remove(GetSingleton<Level>());
-		}
-
-		public static T GetSingleton<T> ()
-		{
-			if (!singletons.ContainsKey(typeof(T)))
-				return GetSingleton<T>(FindObjectsOfType<Object>());
-			else
-			{
-				if (singletons[typeof(T)] == null || singletons[typeof(T)].Equals(default(T)))
-				{
-					T singleton = GetSingleton<T>(FindObjectsOfType<Object>());
-					singletons[typeof(T)] = singleton;
-					return singleton;
-				}
-				else
-					return (T) singletons[typeof(T)];
-			}
-		}
-
-		public static T GetSingleton<T> (Object[] objects)
-		{
-			if (typeof(T).IsSubclassOf(typeof(Object)))
-			{
-				foreach (Object obj in objects)
-				{
-					if (obj is T)
-					{
-						singletons.Remove(typeof(T));
-						singletons.Add(typeof(T), obj);
-						break;
-					}
-				}
-			}
-			if (singletons.ContainsKey(typeof(T)))
-				return (T) singletons[typeof(T)];
-			else
-				return default(T);
+				updatables = updatables.Remove(Level.instance);
 		}
 
 		public virtual void Update ()
 		{
 			foreach (IUpdatable updatable in updatables)
 				updatable.DoUpdate ();
-		}
-
-		public virtual void FixedUpdate ()
-		{
-			foreach (IFixedUpdatable fixedUpdatable in fixedUpdatables)
-				fixedUpdatable.DoFixedUpdate ();
+			Physics2D.Simulate (Time.deltaTime);
+			InputSystem.Update ();
 		}
 
 		public virtual IEnumerator InitSettingsRoutine ()
 		{
 			LoadLevelAdditive ("Settings");
 			yield return new WaitForEndOfFrame();
-			GetSingleton<Settings>().Init ();
+			Settings.Instance.Init ();
 			UnloadLevel ("Settings");
 			LoadLevelAdditive ("Extra Settings");
 			yield return new WaitForEndOfFrame();
-			GetSingleton<ExtraSettings>().Init ();
+			ExtraSettings.Instance.Init ();
 			UnloadLevel ("Extra Settings");
 		}
 
 		public virtual void FadeIn (Scene scene = new Scene(), LoadSceneMode loadMode = LoadSceneMode.Single)
 		{
-			if (GetSingleton<GameManager>() != this)
+			if (Instance != this)
 			{
-				GetSingleton<GameManager>().FadeIn (scene, loadMode);
+				Instance.FadeIn (scene, loadMode);
 				return;
 			}
 			WaitForLevelTransitionEnd (scene, loadMode);
@@ -153,9 +109,9 @@ namespace AmbitiousSnake
 
 		public virtual void WaitForLevelTransitionEnd (Scene scene = new Scene(), LoadSceneMode loadMode = LoadSceneMode.Single)
 		{
-			if (GetSingleton<GameManager>() != this)
+			if (Instance != this)
 			{
-				GetSingleton<GameManager>().WaitForLevelTransitionEnd (scene, loadMode);
+				Instance.WaitForLevelTransitionEnd (scene, loadMode);
 				return;
 			}
 			StartCoroutine(WaitForLevelTransitionEndRoutine ());
@@ -190,9 +146,9 @@ namespace AmbitiousSnake
 			
 		public virtual void SetGosActive ()
 		{
-			if (GetSingleton<GameManager>() != this)
+			if (Instance != this)
 			{
-				GetSingleton<GameManager>().SetGosActive ();
+				Instance.SetGosActive ();
 				return;
 			}
 			string[] stringSeperators = { STRING_SEPERATOR };
@@ -219,9 +175,9 @@ namespace AmbitiousSnake
 		
 		public virtual void ActivateGoForever (GameObject go)
 		{
-			if (GetSingleton<GameManager>() != this)
+			if (Instance != this)
 			{
-				GetSingleton<GameManager>().ActivateGoForever (go);
+				Instance.ActivateGoForever (go);
 				return;
 			}
 			go.SetActive(true);
@@ -232,9 +188,9 @@ namespace AmbitiousSnake
 		
 		public virtual void DeactivateGoForever (GameObject go)
 		{
-			if (GetSingleton<GameManager>() != this)
+			if (Instance != this)
 			{
-				GetSingleton<GameManager>().DeactivateGoForever (go);
+				Instance.DeactivateGoForever (go);
 				return;
 			}
 			go.SetActive(false);
@@ -245,9 +201,9 @@ namespace AmbitiousSnake
 		
 		public virtual void ActivateGoForever (string goName)
 		{
-			if (GetSingleton<GameManager>() != this)
+			if (Instance != this)
 			{
-				GetSingleton<GameManager>().ActivateGoForever (goName);
+				Instance.ActivateGoForever (goName);
 				return;
 			}
 			for (int i = 0; i < registeredGos.Count; i ++)
@@ -262,9 +218,9 @@ namespace AmbitiousSnake
 		
 		public virtual void DeactivateGoForever (string goName)
 		{
-			if (GetSingleton<GameManager>() != this)
+			if (Instance != this)
 			{
-				GetSingleton<GameManager>().DeactivateGoForever (goName);
+				Instance.DeactivateGoForever (goName);
 				return;
 			}
 			GameObject go = GameObject.Find(goName);
@@ -274,9 +230,9 @@ namespace AmbitiousSnake
 
 		public virtual void OnApplicationFocus (bool isFocused)
 		{
-			if (!isFocused && SceneManager.GetSceneByName("Level").isLoaded && GetSingleton<LevelSelect>() == null && !SceneManager.GetSceneByName(pauseMenuLevelName).isLoaded)
+			if (!isFocused && SceneManager.GetSceneByName("Level").isLoaded && LevelSelect.Instance == null && !SceneManager.GetSceneByName(PAUSE_MENU_SCENE_NAME).isLoaded)
 			{
-				LoadLevelAdditive (pauseMenuLevelName);
+				LoadLevelAdditive (PAUSE_MENU_SCENE_NAME);
 				return;
 			}
 		}
@@ -309,9 +265,9 @@ namespace AmbitiousSnake
 		
 		public virtual void SetPaused (bool pause)
 		{
-			if (GetSingleton<GameManager>() != this)
+			if (Instance != this)
 			{
-				GetSingleton<GameManager>().SetPaused (pause);
+				Instance.SetPaused (pause);
 				return;
 			}
 			paused = pause;
@@ -319,9 +275,9 @@ namespace AmbitiousSnake
 			{
 				pauseButton.SetActive(!pause);
 				if (paused)
-					GameManager.GetSingleton<LevelTimer>().timer.Stop ();
+					LevelTimer.Instance.timer.Stop ();
 				else
-					GameManager.GetSingleton<LevelTimer>().timer.Start ();
+					LevelTimer.Instance.timer.Start ();
 			}
 			Time.timeScale = 1 - paused.GetHashCode();
 			foreach (Rigidbody2D rigid in _Rigidbody2D.allInstances)
@@ -360,9 +316,9 @@ namespace AmbitiousSnake
 		
 		public virtual void UnloadLevelAsync (string levelName)
 		{
-			if (GetSingleton<GameManager>() != this)
+			if (Instance != this)
 			{
-				GetSingleton<GameManager>().UnloadLevelAsync (levelName);
+				Instance.UnloadLevelAsync (levelName);
 				return;
 			}
 			if (SceneManager.GetSceneByName(levelName).isLoaded)
@@ -371,8 +327,7 @@ namespace AmbitiousSnake
 		
 		public virtual void UnloadLevel (string levelName)
 		{
-			if (SceneManager.GetSceneByName(levelName).isLoaded)
-				SceneManager.UnloadScene(levelName);
+			SceneManager.UnloadSceneAsync(levelName);
 		}
 		
 		public virtual void UnloadLevel (int levelIndex)

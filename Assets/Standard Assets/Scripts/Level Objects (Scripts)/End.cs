@@ -12,19 +12,19 @@ namespace AmbitiousSnake
 			float levelTime = SaveAndLoadManager.GetValue<float>(LevelMap.previousLevelName + " Time", Mathf.Infinity);
 			if (levelTime == Mathf.Infinity)
 				GameManager.Score ++;
-			if (!GameManager.GetSingleton<LevelTimer>().IsOverParTime() && LevelTimer.IsOverParTime(levelTime))
+			if (!LevelTimer.Instance.IsOverParTime() && LevelTimer.IsOverParTime(levelTime))
 				GameManager.Score ++;
-			if (GameManager.GetSingleton<LevelTimer>().timer.TimeElapsed < levelTime)
-				SaveAndLoadManager.SetValue (LevelMap.previousLevelName + " Time", GameManager.GetSingleton<LevelTimer>().timer.TimeElapsed);
+			if (LevelTimer.Instance.timer.TimeElapsed < levelTime)
+				SaveAndLoadManager.SetValue (LevelMap.previousLevelName + " Time", LevelTimer.Instance.timer.TimeElapsed);
 			if (Snake.hasStar)
 			{
 				if (!SaveAndLoadManager.GetValue<bool>(LevelMap.previousLevelName + " Got Star", false))
 					GameManager.Score ++;
 				SaveAndLoadManager.SetValue (LevelMap.previousLevelName + " Got Star", true);
 			}
-			GameManager.GetSingleton<SaveAndLoadManager>().Save ();
-			GameManager.GetSingleton<UnlockablesManager>().GetUnlocks ();
-			GameManager.GetSingleton<WinAnimation>().enabled = true;
+			SaveAndLoadManager.Instance.Save ();
+			UnlockablesManager.Instance.GetUnlocks ();
+			WinAnimation.instance.enabled = true;
 		}
 	}
 }

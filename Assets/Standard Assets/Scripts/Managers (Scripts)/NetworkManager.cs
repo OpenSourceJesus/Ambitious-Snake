@@ -36,7 +36,7 @@ namespace AmbitiousSnake
 
         public virtual void PostFormToResource (string resourceName, WWWForm form)
         {
-            GameManager.GetSingleton<NetworkManager>().StartCoroutine(PostFormToResourceRoutine (resourceName, form));
+            NetworkManager.Instance.StartCoroutine(PostFormToResourceRoutine (resourceName, form));
         }
 
 		public virtual IEnumerator PostFormToResourceRoutine (string resourceName, WWWForm form)
@@ -47,20 +47,16 @@ namespace AmbitiousSnake
 				if (webRequest.isHttpError || webRequest.isNetworkError)
 				{
 					notificationText.text = webRequest.error;
-					GameManager.GetSingleton<GameManager>().StartCoroutine(notificationTextObject.DisplayRoutine ());
+					GameManager.Instance.StartCoroutine(notificationTextObject.DisplayRoutine ());
 					yield return new Exception(notificationText.text);
-					yield break;
 				}
 				else
 				{
 					yield return webRequest.downloadHandler.text;
-					yield break;
 				}
 				webRequest.Dispose();
+				yield break;
 			}
-			notificationText.text = "Unknown error";
-			GameManager.GetSingleton<GameManager>().StartCoroutine(notificationTextObject.DisplayRoutine ());
-			yield return new Exception(notificationText.text);
 		}
 	}
 }

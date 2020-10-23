@@ -31,7 +31,7 @@ namespace AmbitiousSnake
 		
 		public virtual IEnumerator GetMapListRoutine ()
 		{
-			CoroutineWithData cd = new CoroutineWithData(this, GameManager.GetSingleton<NetworkManager>().PostFormToResourceRoutine("GetMapList", NetworkManager.defaultDatabaseAccessForm));
+			CoroutineWithData cd = new CoroutineWithData(this, NetworkManager.Instance.PostFormToResourceRoutine("GetMapList", NetworkManager.defaultDatabaseAccessForm));
 			string result = "";
 			Exception exception;
 			while (string.IsNullOrEmpty(result))
@@ -40,8 +40,8 @@ namespace AmbitiousSnake
 				exception = cd.result as Exception;
 				if (exception != null)
 				{
-					GameManager.GetSingleton<NetworkManager>().notificationText.text = exception.Message;
-					StartCoroutine(GameManager.GetSingleton<NetworkManager>().notificationTextObject.DisplayRoutine ());
+					NetworkManager.Instance.notificationText.text = exception.Message;
+					StartCoroutine(NetworkManager.Instance.notificationTextObject.DisplayRoutine ());
 					yield break;
 				}
 				else

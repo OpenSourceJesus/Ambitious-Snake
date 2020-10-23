@@ -46,19 +46,19 @@ namespace AmbitiousSnake
 		
 		public virtual void MakeConfigFile ()
 		{
-			if (File.Exists(GameManager.GetSingleton<ConfigurationManager>().configFilePath))
+			if (File.Exists(ConfigurationManager.Instance.configFilePath))
 				File.Delete(configFilePath);
-			fileWriter = File.CreateText(GameManager.GetSingleton<ConfigurationManager>().configFilePath);
+			fileWriter = File.CreateText(ConfigurationManager.Instance.configFilePath);
 			string[] config;
 			List<string> finishedCategories = new List<string>();
 			try
 			{
-				foreach (string category in GameManager.GetSingleton<ConfigurationManager>().configurableCatergories.Values)
+				foreach (string category in ConfigurationManager.Instance.configurableCatergories.Values)
 				{
 					if (!finishedCategories.Contains(category))
 					{
 						fileWriter.WriteLine(CATEGORY_SEPERATOR + category + CATEGORY_SEPERATOR);
-						foreach (IConfigurable configurable in GameManager.GetSingleton<ConfigurationManager>().configurableCatergories.Keys)
+						foreach (IConfigurable configurable in ConfigurationManager.Instance.configurableCatergories.Keys)
 						{
 							if (configurable.Category == category)
 							{
@@ -83,13 +83,13 @@ namespace AmbitiousSnake
 		
 		public virtual void ApplyConfigFile ()
 		{
-			fileReader = File.OpenText(GameManager.GetSingleton<ConfigurationManager>().configFilePath);
+			fileReader = File.OpenText(ConfigurationManager.Instance.configFilePath);
 			try
 			{
-				foreach (string category in GameManager.GetSingleton<ConfigurationManager>().configurableCatergories.Values)
+				foreach (string category in ConfigurationManager.Instance.configurableCatergories.Values)
 				{
 					fileReader.ReadLine();
-					foreach (IConfigurable configurable in GameManager.GetSingleton<ConfigurationManager>().configurableCatergories.Keys)
+					foreach (IConfigurable configurable in ConfigurationManager.Instance.configurableCatergories.Keys)
 					{
 						if (configurable.Category == category)
 						{
@@ -112,13 +112,13 @@ namespace AmbitiousSnake
 		[MenuItem("Configuration/Make config file")]
 		public static void _MakeConfigFile ()
 		{
-			GameManager.GetSingleton<ConfigurationManager>().MakeConfigFile ();
+			ConfigurationManager.Instance.MakeConfigFile ();
 		}
 		
 		[MenuItem("Configuration/Apply config file")]
 		public static void _ApplyConfigFile ()
 		{
-			GameManager.GetSingleton<ConfigurationManager>().ApplyConfigFile ();
+			ConfigurationManager.Instance.ApplyConfigFile ();
 		}
 #endif
 		

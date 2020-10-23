@@ -57,13 +57,13 @@ namespace AmbitiousSnake
 		
 		public virtual void SetLevel ()
 		{
-			GameManager.GetSingleton<CommunityLevelHub>().currentLevel = this;
+			CommunityLevelHub.Instance.currentLevel = this;
 			if (LevelMap.previousLevelName == levelName)
 			{
 				LoadLevel ();
 				return;
 			}
-			GameManager.GetSingleton<GameManager>().SetPaused(true);
+			GameManager.Instance.SetPaused(true);
 			for (int i = 0; i < PartOfLevelEditor.instances.Count; i ++)
 			{
 				PartOfLevelEditor part = PartOfLevelEditor.instances[i];
@@ -73,12 +73,12 @@ namespace AmbitiousSnake
 			List<Renderer> createdRenderers = new List<Renderer>();
 			foreach (PartOfLevelEditor part in createdParts)
 				createdRenderers.Add(part.GetComponent<Renderer>());
-			GameManager.GetSingleton<LevelMap>().MakeLevelMap (createdRenderers.ToArray());
-			GameManager.GetSingleton<CommunityLevelHub>().mapNameText.text = levelName;
-			GameManager.GetSingleton<CommunityLevelHub>().mapUsernameText.text = username;
-			GameManager.GetSingleton<CommunityLevelHub>().startButton.onClick.RemoveAllListeners();
-			GameManager.GetSingleton<CommunityLevelHub>().startButton.onClick.AddListener(delegate { LoadLevel (); });
-			GameManager.GetSingleton<CommunityLevelHub>().startButton.interactable = true;
+			LevelMap.Instance.MakeLevelMap (createdRenderers.ToArray());
+			CommunityLevelHub.Instance.mapNameText.text = levelName;
+			CommunityLevelHub.Instance.mapUsernameText.text = username;
+			CommunityLevelHub.Instance.startButton.onClick.RemoveAllListeners();
+			CommunityLevelHub.Instance.startButton.onClick.AddListener(delegate { LoadLevel (); });
+			CommunityLevelHub.Instance.startButton.interactable = true;
 		}
 		
 		public virtual void ReloadLevel ()
@@ -93,9 +93,9 @@ namespace AmbitiousSnake
 		
 		public virtual void LoadLevel ()
 		{
-			GameManager.GetSingleton<GameManager>().SetPaused(false);
-			GameManager.GetSingleton<GameManager>().LoadLevelAdditive("Level");
-			foreach (GameObject canvas in GameManager.GetSingleton<CommunityLevelHub>().canvases)
+			GameManager.Instance.SetPaused(false);
+			GameManager.Instance.LoadLevelAdditive("Level");
+			foreach (GameObject canvas in CommunityLevelHub.Instance.canvases)
 				canvas.SetActive(false);
 		}
 	}

@@ -58,7 +58,7 @@ namespace AmbitiousSnake
 
 		public virtual void LoadLevel ()
 		{
-			GameManager.onLevelTransitionDone += GameManager.GetSingleton<GameManager>().OnLevelLoaded;
+			GameManager.onLevelTransitionDone += GameManager.Instance.OnLevelLoaded;
 		}
 	}
 }

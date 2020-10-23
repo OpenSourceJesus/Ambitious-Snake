@@ -10,7 +10,7 @@ namespace AmbitiousSnake
 {
 	[ExecuteAlways]
 	[RequireComponent(typeof(SparkCreator), typeof(EdgeCollider2D))]
-	public class Snake : NotPartOfLevelEditor, IFixedUpdatable
+	public class Snake : NotPartOfLevelEditor, IUpdatable
 	{
 		public static Snake instance;
 		[HideInInspector]
@@ -89,15 +89,19 @@ namespace AmbitiousSnake
 				gridForce.hasColor = gridForceTemplate.hasColor;
 				gridForces[i] = gridForce;
 			}
-			GameManager.fixedUpdatables = GameManager.fixedUpdatables.Add(this);
+			GameManager.updatables = GameManager.updatables.Add(this);
 		}
 
 		public virtual void OnDestroy ()
 		{
-			GameManager.fixedUpdatables = GameManager.fixedUpdatables.Remove(this);
+#if UNITY_EDITOR
+			if (!Application.isPlaying)
+				return;
+#endif
+			GameManager.updatables = GameManager.updatables.Remove(this);
 		}
 		
-		public virtual void DoFixedUpdate ()
+		public virtual void DoUpdate ()
 		{
 #if UNITY_EDITOR
 			if (!Application.isPlaying)

@@ -86,7 +86,7 @@ namespace AmbitiousSnake
 		[MenuItem("Unlockables/Set display texts")]
 		public static void _SetDisplayTexts ()
 		{
-			GameManager.GetSingleton<UnlockablesManager>().SetDisplayTexts ();
+			UnlockablesManager.Instance.SetDisplayTexts ();
 		}
 #endif
 
@@ -114,9 +114,9 @@ namespace AmbitiousSnake
 		
 		public virtual void NextUnlock ()
 		{
-			if (GameManager.GetSingleton<UnlockablesManager>() != this)
+			if (UnlockablesManager.Instance != this)
 			{
-				GameManager.GetSingleton<UnlockablesManager>().NextUnlock ();
+				UnlockablesManager.Instance.NextUnlock ();
 				return;
 			}
 			unlockedCount ++;
@@ -129,9 +129,9 @@ namespace AmbitiousSnake
 		
 		public virtual void GetUnlocks ()
 		{
-			if (GameManager.GetSingleton<UnlockablesManager>() != this)
+			if (UnlockablesManager.Instance != this)
 			{
-				GameManager.GetSingleton<UnlockablesManager>().GetUnlocks ();
+				UnlockablesManager.Instance.GetUnlocks ();
 				return;
 			}
 			foreach (int unlockableCost in unlockCosts.Values)

@@ -32,14 +32,14 @@ namespace AmbitiousSnake
 			while (rotationViewersParent.childCount > 0)
 				DestroyImmediate(rotationViewersParent.GetChild(0).gameObject);
 			if (!string.IsNullOrEmpty(previousLevelName))
-				GameManager.GetSingleton<GameManager>().UnloadLevelAsync (previousLevelName);
-			GameManager.GetSingleton<GameManager>().SetPaused (true);
-			GameManager.GetSingleton<GameManager>().SetTimeScale (1);
+				GameManager.Instance.UnloadLevelAsync (previousLevelName);
+			GameManager.Instance.SetPaused (true);
+			GameManager.Instance.SetTimeScale (1);
 			loadLevel = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
 			while (!loadLevel.isDone)
 				yield return new WaitForEndOfFrame();
 			if (!string.IsNullOrEmpty(previousLevelName) && previousLevelName != levelName)
-				GameManager.GetSingleton<GameManager>().UnloadLevelAsync (previousLevelName);
+				GameManager.Instance.UnloadLevelAsync (previousLevelName);
 			previousLevelName = levelName;
 			Bounds levelBounds = GetMapBounds();
 			float previousZPos = trs.position.z;

@@ -85,7 +85,7 @@ namespace AmbitiousSnake
 			Rect uvRect = worldCanvas.GetComponentInChildren<RawImage>().uvRect;
 			uvRect.size = worldCanvas.GetComponent<RectTransform>().sizeDelta;
 			worldCanvas.GetComponentInChildren<RawImage>().uvRect = uvRect;
-			whatToErase.AddRange(GameManager.GetSingleton<GameManager>().levelEditorPrefabs);
+			whatToErase.AddRange(GameManager.Instance.levelEditorPrefabs);
 			foreach (GameObject extraOptionsList in extraOptionsLists)
 				extraOptionsList.SetActive(false);
 			moveOverlapDialog.SetActive(false);
@@ -93,7 +93,7 @@ namespace AmbitiousSnake
 			SetUndoAndRedoButtonInteractable ();
 			List<PartOfLevelEditor> uniqueParts = new List<PartOfLevelEditor>();
 			List<PartOfLevelEditor> requiredParts = new List<PartOfLevelEditor>();
-			foreach (PartOfLevelEditor part in GameManager.GetSingleton<GameManager>().levelEditorPrefabs)
+			foreach (PartOfLevelEditor part in GameManager.Instance.levelEditorPrefabs)
 			{
 				if (part.onlyOneExists)
 					uniqueParts.Add(part);
@@ -115,7 +115,7 @@ namespace AmbitiousSnake
 				mapData += part.ToString();
 			form.AddField("mapData", mapData);
 			form.AddField("parTime", parTime);
-			CoroutineWithData cd = new CoroutineWithData(this, GameManager.GetSingleton<NetworkManager>().PostFormToResourceRoutine("SaveMap", NetworkManager.defaultDatabaseAccessForm));
+			CoroutineWithData cd = new CoroutineWithData(this, NetworkManager.Instance.PostFormToResourceRoutine("SaveMap", NetworkManager.defaultDatabaseAccessForm));
 			string result = "";
 			Exception exception;
 			while (string.IsNullOrEmpty(result))
@@ -124,8 +124,8 @@ namespace AmbitiousSnake
 				exception = cd.result as Exception;
 				if (exception != null)
 				{
-					GameManager.GetSingleton<NetworkManager>().notificationText.text = exception.Message;
-					StartCoroutine(GameManager.GetSingleton<NetworkManager>().notificationTextObject.DisplayRoutine ());
+					NetworkManager.Instance.notificationText.text = exception.Message;
+					StartCoroutine(NetworkManager.Instance.notificationTextObject.DisplayRoutine ());
 					yield break;
 				}
 				else
@@ -142,7 +142,7 @@ namespace AmbitiousSnake
 			form.AddField("mapName", mapName);
 			form.AddField("mapUsername", mapUsername);
 			form.AddField("mapPassword", mapPassword);
-			CoroutineWithData cd = new CoroutineWithData(this, GameManager.GetSingleton<NetworkManager>().PostFormToResourceRoutine("LoadMap", NetworkManager.defaultDatabaseAccessForm));
+			CoroutineWithData cd = new CoroutineWithData(this, NetworkManager.Instance.PostFormToResourceRoutine("LoadMap", NetworkManager.defaultDatabaseAccessForm));
 			string result = "";
 			Exception exception;
 			while (string.IsNullOrEmpty(result))
@@ -151,8 +151,8 @@ namespace AmbitiousSnake
 				exception = cd.result as Exception;
 				if (exception != null)
 				{
-					GameManager.GetSingleton<NetworkManager>().notificationText.text = exception.Message;
-					StartCoroutine(GameManager.GetSingleton<NetworkManager>().notificationTextObject.DisplayRoutine ());
+					NetworkManager.Instance.notificationText.text = exception.Message;
+					StartCoroutine(NetworkManager.Instance.notificationTextObject.DisplayRoutine ());
 					yield break;
 				}
 				else
@@ -189,7 +189,7 @@ namespace AmbitiousSnake
 			form.AddField("mapName", mapName);
 			form.AddField("mapUsername", mapUsername);
 			form.AddField("mapPassword", mapPassword);
-			CoroutineWithData cd = new CoroutineWithData(this, GameManager.GetSingleton<NetworkManager>().PostFormToResourceRoutine("DeleteMap", NetworkManager.defaultDatabaseAccessForm));
+			CoroutineWithData cd = new CoroutineWithData(this, NetworkManager.Instance.PostFormToResourceRoutine("DeleteMap", NetworkManager.defaultDatabaseAccessForm));
 			string result = "";
 			Exception exception;
 			while (string.IsNullOrEmpty(result))
@@ -198,8 +198,8 @@ namespace AmbitiousSnake
 				exception = cd.result as Exception;
 				if (exception != null)
 				{
-					GameManager.GetSingleton<NetworkManager>().notificationText.text = exception.Message;
-					StartCoroutine(GameManager.GetSingleton<NetworkManager>().notificationTextObject.DisplayRoutine ());
+					NetworkManager.Instance.notificationText.text = exception.Message;
+					StartCoroutine(NetworkManager.Instance.notificationTextObject.DisplayRoutine ());
 					yield break;
 				}
 				else
@@ -218,7 +218,7 @@ namespace AmbitiousSnake
 			form.AddField("mapUsername", mapUsername);
 			form.AddField("mapPassword", mapPassword);
 			form.AddField("publish", publish.GetHashCode());
-			CoroutineWithData cd = new CoroutineWithData(this, GameManager.GetSingleton<NetworkManager>().PostFormToResourceRoutine("PublishMap", NetworkManager.defaultDatabaseAccessForm));
+			CoroutineWithData cd = new CoroutineWithData(this, NetworkManager.Instance.PostFormToResourceRoutine("PublishMap", NetworkManager.defaultDatabaseAccessForm));
 			string result = "";
 			Exception exception;
 			while (string.IsNullOrEmpty(result))
@@ -227,8 +227,8 @@ namespace AmbitiousSnake
 				exception = cd.result as Exception;
 				if (exception != null)
 				{
-					GameManager.GetSingleton<NetworkManager>().notificationText.text = exception.Message;
-					StartCoroutine(GameManager.GetSingleton<NetworkManager>().notificationTextObject.DisplayRoutine ());
+					NetworkManager.Instance.notificationText.text = exception.Message;
+					StartCoroutine(NetworkManager.Instance.notificationTextObject.DisplayRoutine ());
 					yield break;
 				}
 				else
@@ -251,7 +251,7 @@ namespace AmbitiousSnake
 			if (currentActionType == EditorActionType.Pan || currentActionType == EditorActionType.Zoom)
 				worldMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			else
-				worldMousePos = GameManager.GetSingleton<EditorCamera>().cam.ScreenToWorldPoint(Input.mousePosition);
+				worldMousePos = EditorCamera.Instance.cam.ScreenToWorldPoint(Input.mousePosition);
 			Physics2D.queriesHitTriggers = true;
 			if (mouseDown)
 				OnPointerDown ();
@@ -384,12 +384,12 @@ namespace AmbitiousSnake
 		{
 			Vector2 mouseMovement = worldMousePos - previousWorldMousePos;
 			zoomAmount.SetValue(zoomAmount.GetValue() + mouseMovement.y);
-			GameManager.GetSingleton<EditorCamera>().GetComponent<Camera>().orthographicSize = zoomAmount.GetValue();
+			EditorCamera.Instance.GetComponent<Camera>().orthographicSize = zoomAmount.GetValue();
 		}
 		
 		public virtual void ZoomEnd ()
 		{
-			Camera.main.orthographicSize = GameManager.GetSingleton<EditorCamera>().cam.orthographicSize;
+			Camera.main.orthographicSize = EditorCamera.Instance.cam.orthographicSize;
 		}
 		
 		public virtual void BuildContinue ()
@@ -642,16 +642,16 @@ namespace AmbitiousSnake
 		
 		public virtual void PanContinue ()
 		{
-			Vector3 newCameraPos = GameManager.GetSingleton<EditorCamera>().transform.position;
+			Vector3 newCameraPos = EditorCamera.Instance.transform.position;
 			newCameraPos -= (Vector3) (VectorSnappedToGridSquares(worldMousePos) - VectorSnappedToGridSquares(previousWorldMousePos));
 			newCameraPos = newCameraPos.ClampComponents(-mapSize / 2, mapSize / 2);
-			newCameraPos.z = GameManager.GetSingleton<EditorCamera>().transform.position.z;
-			GameManager.GetSingleton<EditorCamera>().transform.position = newCameraPos;
+			newCameraPos.z = EditorCamera.Instance.transform.position.z;
+			EditorCamera.Instance.transform.position = newCameraPos;
 		}
 		
 		public virtual void PanEnd ()
 		{
-			Camera.main.transform.position = GameManager.GetSingleton<EditorCamera>().transform.position;
+			Camera.main.transform.position = EditorCamera.Instance.transform.position;
 		}
 		
 		public virtual Vector2 VectorSnappedToGridSquares (Vector2 v)
@@ -1049,7 +1049,7 @@ namespace AmbitiousSnake
 		
 		public static PartOfLevelEditor GetPartPrefab (PartOfLevelEditor partInstance)
 		{
-			foreach (PartOfLevelEditor partPrefab in GameManager.GetSingleton<GameManager>().levelEditorPrefabs)
+			foreach (PartOfLevelEditor partPrefab in GameManager.Instance.levelEditorPrefabs)
 			{
 				if (partPrefab.name == partInstance.name)
 					return partPrefab;
@@ -1094,17 +1094,17 @@ namespace AmbitiousSnake
 			
 			public EditorAction ()
 			{
-				if (GameManager.GetSingleton<LevelEditor>() != null)
+				if (LevelEditor.Instance != null)
 				{
-					if (GameManager.GetSingleton<LevelEditor>().whatToBuild != null)
-						whatToBuild = GameManager.GetSingleton<LevelEditor>().whatToBuild;
-					type = GameManager.GetSingleton<LevelEditor>().currentActionType;
+					if (LevelEditor.Instance.whatToBuild != null)
+						whatToBuild = LevelEditor.Instance.whatToBuild;
+					type = LevelEditor.Instance.currentActionType;
 				}
 			}
 			
 			public virtual void Undo ()
 			{
-				GameManager.GetSingleton<LevelEditor>().enabled = false;
+				LevelEditor.Instance.enabled = false;
 				switch (type)
 				{
 					case EditorActionType.Build:
@@ -1112,7 +1112,7 @@ namespace AmbitiousSnake
 						whatToErase.AddRange(whatToActUpon);
 						whatToErase.Add(whatToBuild);
 						foreach (Vector2 loc in whereWereMyActions)
-							GameManager.GetSingleton<LevelEditor>().EraseAt(loc, whatToErase.ToArray());
+							LevelEditor.Instance.EraseAt(loc, whatToErase.ToArray());
 						PartOfLevelEditor.CreateObjects(destroyedData);
 						break;
 					case EditorActionType.Erase:
@@ -1127,22 +1127,22 @@ namespace AmbitiousSnake
 							foreach (Collider2D hit in Physics2D.OverlapPointAll(loc, selectMask))
 							{
 								PartOfLevelEditor hitPart = hit.GetComponent<PartOfLevelEditor>();
-								if (GameManager.GetSingleton<LevelEditor>().selected.Contains(hitPart))
-									GameManager.GetSingleton<LevelEditor>().ForceDeselectObject(hitPart);
+								if (LevelEditor.Instance.selected.Contains(hitPart))
+									LevelEditor.Instance.ForceDeselectObject(hitPart);
 								else
-									GameManager.GetSingleton<LevelEditor>().ForceSelectObject(hitPart);
+									LevelEditor.Instance.ForceSelectObject(hitPart);
 							}
 						}
 						break;
 					case EditorActionType.Move:
 						foreach (Vector2 loc in whereWereMyActions)
-							GameManager.GetSingleton<LevelEditor>().EraseAt(loc, GameManager.GetSingleton<GameManager>().levelEditorPrefabs);
-						PartOfLevelEditor[] createdParts = PartOfLevelEditor.CreateObjects(GameManager.GetSingleton<LevelEditor>().actions[GameManager.GetSingleton<LevelEditor>().currentActionIndex].destroyedData);
+							LevelEditor.Instance.EraseAt(loc, GameManager.Instance.levelEditorPrefabs);
+						PartOfLevelEditor[] createdParts = PartOfLevelEditor.CreateObjects(LevelEditor.Instance.actions[LevelEditor.Instance.currentActionIndex].destroyedData);
 						whereWereMyActions.Clear();
 						whatToActUpon.Clear();
 						foreach (PartOfLevelEditor createdPart in createdParts)
 						{
-							GameManager.GetSingleton<LevelEditor>().ForceSelectObject(createdPart);
+							LevelEditor.Instance.ForceSelectObject(createdPart);
 							whereWereMyActions.Add(createdPart.trs.position);
 							whatToActUpon.Add(LevelEditor.GetPartPrefab(createdPart));
 						}
@@ -1150,34 +1150,34 @@ namespace AmbitiousSnake
 					case EditorActionType.Properties:
 						string eraseData = "";
 						foreach (Vector2 loc in whereWereMyActions)
-							eraseData += GameManager.GetSingleton<LevelEditor>().EraseAt(loc, GameManager.GetSingleton<GameManager>().levelEditorPrefabs);
-						createdParts = PartOfLevelEditor.CreateObjects(GameManager.GetSingleton<LevelEditor>().actions[GameManager.GetSingleton<LevelEditor>().currentActionIndex].destroyedData);
+							eraseData += LevelEditor.Instance.EraseAt(loc, GameManager.Instance.levelEditorPrefabs);
+						createdParts = PartOfLevelEditor.CreateObjects(LevelEditor.Instance.actions[LevelEditor.Instance.currentActionIndex].destroyedData);
 						whereWereMyActions.Clear();
 						whatToActUpon.Clear();
 						foreach (PartOfLevelEditor createdPart in createdParts)
 						{
-							GameManager.GetSingleton<LevelEditor>().ForceSelectObject(createdPart);
+							LevelEditor.Instance.ForceSelectObject(createdPart);
 							whereWereMyActions.Add(createdPart.trs.position);
 							whatToActUpon.Add(LevelEditor.GetPartPrefab(createdPart));
 						}
 						destroyedData = eraseData;
 						break;
 				}
-				GameManager.GetSingleton<LevelEditor>().enabled = true;
+				LevelEditor.Instance.enabled = true;
 			}
 			
 			public virtual void Redo ()
 			{
-				GameManager.GetSingleton<LevelEditor>().enabled = false;
+				LevelEditor.Instance.enabled = false;
 				switch (type)
 				{
 					case EditorActionType.Build:
 						foreach (Vector2 loc in whereWereMyActions)
-							GameManager.GetSingleton<LevelEditor>().BuildAt(loc, whatToBuild);
+							LevelEditor.Instance.BuildAt(loc, whatToBuild);
 						break;
 					case EditorActionType.Erase:
 						foreach (Vector2 loc in whereWereMyActions)
-							GameManager.GetSingleton<LevelEditor>().EraseAt(loc, whatToActUpon);
+							LevelEditor.Instance.EraseAt(loc, whatToActUpon);
 						break;
 					case EditorActionType.Select:
 						LayerMask selectMask = LayerMask.GetMask();
@@ -1188,22 +1188,22 @@ namespace AmbitiousSnake
 							foreach (Collider2D hit in Physics2D.OverlapPointAll(loc, selectMask))
 							{
 								PartOfLevelEditor hitPart = hit.GetComponent<PartOfLevelEditor>();
-								if (GameManager.GetSingleton<LevelEditor>().selected.Contains(hitPart))
-									GameManager.GetSingleton<LevelEditor>().ForceDeselectObject(hitPart);
+								if (LevelEditor.Instance.selected.Contains(hitPart))
+									LevelEditor.Instance.ForceDeselectObject(hitPart);
 								else
-									GameManager.GetSingleton<LevelEditor>().ForceSelectObject(hitPart);
+									LevelEditor.Instance.ForceSelectObject(hitPart);
 							}
 						}
 						break;
 					case EditorActionType.Move:
 						foreach (Vector2 loc in whereWereMyActions)
-							GameManager.GetSingleton<LevelEditor>().EraseAt(loc, GameManager.GetSingleton<GameManager>().levelEditorPrefabs);
-						PartOfLevelEditor[] createdParts = PartOfLevelEditor.CreateObjects(GameManager.GetSingleton<LevelEditor>().actions[GameManager.GetSingleton<LevelEditor>().currentActionIndex].destroyedData);
+							LevelEditor.Instance.EraseAt(loc, GameManager.Instance.levelEditorPrefabs);
+						PartOfLevelEditor[] createdParts = PartOfLevelEditor.CreateObjects(LevelEditor.Instance.actions[LevelEditor.Instance.currentActionIndex].destroyedData);
 						whereWereMyActions.Clear();
 						whatToActUpon.Clear();
 						foreach (PartOfLevelEditor createdPart in createdParts)
 						{
-							GameManager.GetSingleton<LevelEditor>().ForceSelectObject(createdPart);
+							LevelEditor.Instance.ForceSelectObject(createdPart);
 							whereWereMyActions.Add(createdPart.trs.position);
 							whatToActUpon.Add(LevelEditor.GetPartPrefab(createdPart));
 						}
@@ -1211,20 +1211,20 @@ namespace AmbitiousSnake
 					case EditorActionType.Properties:
 						string eraseData = "";
 						foreach (Vector2 loc in whereWereMyActions)
-							eraseData += GameManager.GetSingleton<LevelEditor>().EraseAt(loc, GameManager.GetSingleton<GameManager>().levelEditorPrefabs);
-						createdParts = PartOfLevelEditor.CreateObjects(GameManager.GetSingleton<LevelEditor>().actions[GameManager.GetSingleton<LevelEditor>().currentActionIndex].destroyedData);
+							eraseData += LevelEditor.Instance.EraseAt(loc, GameManager.Instance.levelEditorPrefabs);
+						createdParts = PartOfLevelEditor.CreateObjects(LevelEditor.Instance.actions[LevelEditor.Instance.currentActionIndex].destroyedData);
 						whereWereMyActions.Clear();
 						whatToActUpon.Clear();
 						foreach (PartOfLevelEditor createdPart in createdParts)
 						{
-							GameManager.GetSingleton<LevelEditor>().ForceSelectObject(createdPart);
+							LevelEditor.Instance.ForceSelectObject(createdPart);
 							whereWereMyActions.Add(createdPart.trs.position);
 							whatToActUpon.Add(LevelEditor.GetPartPrefab(createdPart));
 						}
 						destroyedData = eraseData;
 						break;
 				}
-				GameManager.GetSingleton<LevelEditor>().enabled = true;
+				LevelEditor.Instance.enabled = true;
 			}
 		}
 	}

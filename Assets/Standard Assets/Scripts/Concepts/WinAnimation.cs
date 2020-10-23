@@ -19,8 +19,8 @@ namespace AmbitiousSnake
 		
 		public virtual void OnEnable ()
 		{
-			GameManager.GetSingleton<LevelTimer>().timer.Stop ();
-			GameManager.GetSingleton<Snake>().gameObject.SetActive(false);
+			LevelTimer.Instance.timer.Stop ();
+			Snake.instance.gameObject.SetActive(false);
 			for (int i = 0; i < anims.Count; i ++)
 	        {
 	            anim = anims[i];
@@ -44,7 +44,7 @@ namespace AmbitiousSnake
 			if ((animStarted && !anim.isPlaying) || anims.Count == 0)
 			{
 				enabled = false;
-				GameManager.GetSingleton<GameManager>().LoadLevel ("Level Select");
+				GameManager.Instance.LoadLevel ("Level Select");
 			}
 		}
 	}

@@ -32,13 +32,13 @@ namespace AmbitiousSnake
 			if (GameManager.paused)
 				return;
 			shootDir = VectorExtensions.NULL;
-			for (int i = GameManager.GetSingleton<Snake>().verticies.Count; i >= 0; i --)
+			for (int i = Snake.instance.verticies.Count; i >= 0; i --)
 			{
-				snakeVertex = GameManager.GetSingleton<Snake>().GetVertexPos(i);
+				snakeVertex = Snake.instance.GetVertexPos(i);
 				toSnakeVertex = snakeVertex - trs.position;
 				trs.rotation = Quaternion.LookRotation(Vector3.forward, toSnakeVertex);
 				laser.Update ();
-				if (laser.hitBlocker.collider != null && laser.hitBlocker.transform.root == GameManager.GetSingleton<Snake>().trs)
+				if (laser.hitBlocker.collider != null && laser.hitBlocker.transform.root == Snake.instance.trs)
 				{
 					shootDir = toSnakeVertex;
 					line.SetPosition(1, Vector2.up * toSnakeVertex.magnitude);
@@ -53,12 +53,12 @@ namespace AmbitiousSnake
 				if (fireRate.IsAtEnd())
 				{
 					fireRate.JumpToStart();
-					GameManager.GetSingleton<ObjectPool>().Spawn(bulletPrefabIndex, trs.position, Quaternion.LookRotation(Vector3.forward, shootDir));
+					ObjectPool.Instance.Spawn(bulletPrefabIndex, trs.position, Quaternion.LookRotation(Vector3.forward, shootDir));
 				}
 			}
 			else
 			{
-				transform.rotation = Quaternion.LookRotation(Vector3.forward, GameManager.GetSingleton<Snake>().GetHeadPos() - (Vector2) trs.position);
+				transform.rotation = Quaternion.LookRotation(Vector3.forward, Snake.instance.GetHeadPos() - (Vector2) trs.position);
 				line.startColor = searchingColor;
 				line.endColor = searchingColor;
 			}

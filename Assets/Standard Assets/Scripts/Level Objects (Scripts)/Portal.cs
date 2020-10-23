@@ -46,16 +46,16 @@ namespace AmbitiousSnake
 		
 		IEnumerator Teleport (Teleportee teleportee)
 		{
-			if (teleportee.root == GameManager.GetSingleton<Snake>().trs)
+			if (teleportee.root == Snake.instance.trs)
 			{
 				bool done = false;
 				int hitColliderIndex = 0;
 				while (!done)
 				{
-					for (int i = 1; i < GameManager.GetSingleton<Snake>().verticies.Count; i ++)
+					for (int i = 1; i < Snake.instance.verticies.Count; i ++)
 					{
 						toEndPortal = endPortal.transform.position - transform.position;
-						while (Physics2D.Linecast(GameManager.GetSingleton<Snake>().GetVertexPos(i) + toEndPortal, GameManager.GetSingleton<Snake>().GetVertexPos(i - 1) + toEndPortal, GameManager.GetSingleton<Snake>().whatICrashInto).collider != null)
+						while (Physics2D.Linecast(Snake.instance.GetVertexPos(i) + toEndPortal, Snake.instance.GetVertexPos(i - 1) + toEndPortal, Snake.instance.whatICrashInto).collider != null)
 						{
 							hitColliderIndex = i;
 							yield return new WaitForFixedUpdate();
@@ -66,7 +66,7 @@ namespace AmbitiousSnake
 						bool hitAnotherCollider = false;
 						for (int i = 1; i < hitColliderIndex; i ++)
 						{
-							if (Physics2D.Linecast(GameManager.GetSingleton<Snake>().GetVertexPos(i) + toEndPortal, GameManager.GetSingleton<Snake>().GetVertexPos(i - 1) + toEndPortal, GameManager.GetSingleton<Snake>().whatICrashInto).collider != null)
+							if (Physics2D.Linecast(Snake.instance.GetVertexPos(i) + toEndPortal, Snake.instance.GetVertexPos(i - 1) + toEndPortal, Snake.instance.whatICrashInto).collider != null)
 							{
 								hitAnotherCollider = true;
 								break;
@@ -78,7 +78,7 @@ namespace AmbitiousSnake
 					else
 						done = true;
 				}
-				GameManager.GetSingleton<Snake>().trs.position += (Vector3) toEndPortal;
+				Snake.instance.trs.position += (Vector3) toEndPortal;
 			}
 			else
 			{

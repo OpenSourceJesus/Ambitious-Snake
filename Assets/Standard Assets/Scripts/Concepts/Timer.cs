@@ -45,14 +45,14 @@ public class Timer
 	public virtual void Start ()
 	{
 		if (timerRoutine == null)
-			timerRoutine = GameManager.GetSingleton<GameManager>().StartCoroutine(TimerRoutine ());
+			timerRoutine = GameManager.Instance.StartCoroutine(TimerRoutine ());
 	}
 
 	public virtual void Stop ()
 	{
 		if (timerRoutine != null)
 		{
-			GameManager.GetSingleton<GameManager>().StopCoroutine(timerRoutine);
+			GameManager.Instance.StopCoroutine(timerRoutine);
 			timerRoutine = null;
 			isRunning = false;
 		}

@@ -8,14 +8,14 @@ namespace AmbitiousSnake
 	{
 		public void OnCollisionEnter2D (Collision2D coll)
 		{
-			if ((coll == null || coll.transform.root == GameManager.GetSingleton<Snake>().trs) && !GameManager.isInLevelTransition)
-				GameManager.GetSingleton<Level>().Restart ();
+			if ((coll == null || coll.transform.root == Snake.instance.trs) && !GameManager.isInLevelTransition)
+				Level.instance.Restart ();
 		}
 		
 		void OnTriggerEnter2D (Collider2D other)
 		{
-			if (other.transform.root == GameManager.GetSingleton<Snake>().trs && !GameManager.isInLevelTransition)
-				GameManager.GetSingleton<Level>().Restart ();
+			if (other.transform.root == Snake.instance.trs && !GameManager.isInLevelTransition)
+				Level.instance.Restart ();
 		}
 	}
 }

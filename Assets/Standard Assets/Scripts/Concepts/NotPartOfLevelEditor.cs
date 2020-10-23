@@ -8,7 +8,7 @@ namespace AmbitiousSnake
 	{
 		public virtual void Awake ()
 		{
-			if (GameManager.GetSingleton<LevelEditor>() != null)
+			if (LevelEditor.Instance != null)
 				DestroyImmediate(this);
 		}
 	}

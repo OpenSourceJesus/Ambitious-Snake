@@ -19,7 +19,7 @@ namespace AmbitiousSnake
 		{
 			hasBeenAccelerated = false;
 			acceleratable.forces.Clear();
-			GameManager.GetSingleton<ObjectPool>().RangeDespawn(prefabIndex, gameObject, trs, range);
+			ObjectPool.Instance.RangeDespawn(prefabIndex, gameObject, trs, range);
 		}
 		
 		void FixedUpdate ()
@@ -37,7 +37,7 @@ namespace AmbitiousSnake
 		
 		void OnCollisionEnter2D (Collision2D coll)
 		{
-			GameManager.GetSingleton<ObjectPool>().Despawn(prefabIndex, gameObject, trs);
+			ObjectPool.Instance.Despawn(prefabIndex, gameObject, trs);
 		}
 	}
 }

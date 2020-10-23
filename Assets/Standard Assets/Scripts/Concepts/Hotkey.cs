@@ -54,7 +54,7 @@ namespace AmbitiousSnake
 				}
 				foreach (string axisName in axisNames)
 				{
-					// if (GameManager.GetSingleton<InputManager>(). != 0 && InputManager.inputter.GetAxisPrev(axisName) == 0)
+					// if (InputManager.Instance. != 0 && InputManager.inputter.GetAxisPrev(axisName) == 0)
 					// {
 					// 	Activate ();
 					// 	break;

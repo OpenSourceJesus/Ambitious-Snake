@@ -29,7 +29,7 @@ namespace AmbitiousSnake
 		
 		void Start ()
 		{
-			if (GameManager.GetSingleton<LevelEditor>() != null)
+			if (LevelEditor.Instance != null)
 			{
 				uniqueId = lastUniqueId;
 				lastUniqueId ++;
@@ -63,11 +63,11 @@ namespace AmbitiousSnake
 				_pos = ExtractNextStatement(ref data);
 				_rot = ExtractNextStatement(ref data);
 				_size = ExtractNextStatement(ref data);
-				type = GameManager.GetSingleton<GameManager>().levelEditorPrefabs[int.Parse(ExtractNextParam(ref _typeIndex))];
+				type = GameManager.Instance.levelEditorPrefabs[int.Parse(ExtractNextParam(ref _typeIndex))];
 				part = Instantiate(type);
 				part.name = part.name.Replace("(Clone)", "");
-				if (GameManager.GetSingleton<LevelEditor>() != null)
-					GameManager.GetSingleton<LevelEditor>().ForceDeselectObject (part);
+				if (LevelEditor.Instance != null)
+					LevelEditor.Instance.ForceDeselectObject (part);
 				part.parent = long.Parse(_parent);
 				if (part.parent > -1)
 					orphansInNeed.Add(part.parent, part);
@@ -121,10 +121,10 @@ namespace AmbitiousSnake
 		{
 			string output = "";
 			int typeIndex = 0;
-			PartOfLevelEditor type = GameManager.GetSingleton<GameManager>().levelEditorPrefabs[typeIndex];
-			for (int i = 1; i < GameManager.GetSingleton<GameManager>().levelEditorPrefabs.Length; i ++)
+			PartOfLevelEditor type = GameManager.Instance.levelEditorPrefabs[typeIndex];
+			for (int i = 1; i < GameManager.Instance.levelEditorPrefabs.Length; i ++)
 			{
-				type = GameManager.GetSingleton<GameManager>().levelEditorPrefabs[i];
+				type = GameManager.Instance.levelEditorPrefabs[i];
 				if (name == type.name)
 				{
 					typeIndex = i;

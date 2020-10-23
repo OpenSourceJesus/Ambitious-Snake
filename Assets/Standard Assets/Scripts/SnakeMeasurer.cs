@@ -17,8 +17,8 @@ namespace AmbitiousSnake
 		
 		void Update ()
 		{
-			float numerator = GameManager.GetSingleton<Snake>().targetLength.GetValue() - GameManager.GetSingleton<Snake>().targetLength.min;
-			float denominator = GameManager.GetSingleton<Snake>().targetLength.max - GameManager.GetSingleton<Snake>().targetLength.min;
+			float numerator = Snake.instance.targetLength.GetValue() - Snake.instance.targetLength.min;
+			float denominator = Snake.instance.targetLength.max - Snake.instance.targetLength.min;
 			displayText.text = string.Format("Length: {0:F0}%", numerator / denominator * 100);
 		}
 	}

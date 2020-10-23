@@ -153,8 +153,8 @@ namespace AmbitiousSnake
 		
 		public static void ApplyFrictionSparks ()
 		{
-			if (GameManager.GetSingleton<Snake>() != null)
-				GameManager.GetSingleton<Snake>().sparkCreator.enabled = frictionSparks;
+			if (Snake.instance != null)
+				Snake.instance.sparkCreator.enabled = frictionSparks;
 		}
 		
 		public static void ApplyVolume ()

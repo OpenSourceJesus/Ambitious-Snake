@@ -215,9 +215,9 @@ namespace AmbitiousSnake.Analytics
 			
 			public virtual void Init ()
 			{
-				if (GameManager.GetSingleton<AnalyticsManager>() == null)
+				if (AnalyticsManager.Instance == null)
 					return;
-				AnalyticsEvent _event = (AnalyticsEvent) typeof(AnalyticsManager).GetField("_" + GetName()).GetValue(GameManager.GetSingleton<AnalyticsManager>());
+				AnalyticsEvent _event = (AnalyticsEvent) typeof(AnalyticsManager).GetField("_" + GetName()).GetValue(AnalyticsManager.Instance);
 				gameVersion.dataColumnName = _event.gameVersion.dataColumnName;
 				player.dataColumnName = _event.player.dataColumnName;
 				scene.dataColumnName = _event.scene.dataColumnName;
@@ -262,10 +262,10 @@ namespace AmbitiousSnake.Analytics
 			
 			public override void Init ()
 			{
-				if (GameManager.GetSingleton<AnalyticsManager>() == null)
+				if (AnalyticsManager.Instance == null)
 					return;
 				base.Init ();
-				PlayerDiedEvent _event = (PlayerDiedEvent) typeof(AnalyticsManager).GetField("_" + GetName()).GetValue(GameManager.GetSingleton<AnalyticsManager>());
+				PlayerDiedEvent _event = (PlayerDiedEvent) typeof(AnalyticsManager).GetField("_" + GetName()).GetValue(AnalyticsManager.Instance);
 				score.dataColumnName = _event.score.dataColumnName;
 			}
 			
@@ -319,7 +319,7 @@ namespace AmbitiousSnake.Analytics
 		{
 			public override string GetValue (AnalyticsManager analyticsManager)
 			{
-				return "" + GameManager.GetSingleton<BuildManager>().versionIndex;
+				return "" + BuildManager.Instance.versionIndex;
 			}
 		}
 

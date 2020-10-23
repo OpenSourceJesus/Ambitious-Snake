@@ -4,14 +4,14 @@ using UnityEngine.InputSystem;
 
 namespace AmbitiousSnake
 {
-	public class InputManager : MonoBehaviour
+	public class InputManager : SingletonMonoBehaviour<InputManager>
 	{
 		public InputSettings settings;
 		public static InputSettings Settings
 		{
 			get
 			{
-				return GameManager.GetSingleton<InputManager>().settings;
+				return InputManager.Instance.settings;
 			}
 		}
 		public static bool UsingGamepad
