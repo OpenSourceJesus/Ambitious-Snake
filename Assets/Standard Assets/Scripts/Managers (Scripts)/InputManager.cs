@@ -59,6 +59,64 @@ namespace AmbitiousSnake
 				return SubmitInput;
 			}
 		}
+		public static Vector2 MoveInput
+		{
+			get
+			{
+				if (UsingGamepad)
+					return Vector2.ClampMagnitude(Gamepad.current.leftStick.ReadValue(), 1);
+				else
+				{
+					int x = 0;
+					if (Keyboard.current.dKey.isPressed)
+						x ++;
+					if (Keyboard.current.aKey.isPressed)
+						x --;
+					int y = 0;
+					if (Keyboard.current.wKey.isPressed)
+						y ++;
+					if (Keyboard.current.sKey.isPressed)
+						y --;
+					return Vector2.ClampMagnitude(new Vector2(x, y), 1);
+				}
+			}
+		}
+		public Vector2 _MoveInput
+		{
+			get
+			{
+				return MoveInput;
+			}
+		}
+		public static int ChangeLengthInput
+		{
+			get
+			{
+				int output = 0;
+				if (UsingGamepad)
+				{
+					if (Gamepad.current.leftTrigger.isPressed)
+						output --;
+					if (Gamepad.current.rightTrigger.isPressed)
+						output ++;
+				}
+				else
+				{
+					if (Mouse.current.leftButton.isPressed)
+						output --;
+					if (Mouse.current.rightButton.isPressed)
+						output ++;
+				}
+				return output;
+			}
+		}
+		public int _ChangeLengthInput
+		{
+			get
+			{
+				return ChangeLengthInput;
+			}
+		}
 		public static Vector2 UIMovementInput
 		{
 			get
@@ -170,29 +228,12 @@ namespace AmbitiousSnake
 				return MousePosition;
 			}
 		}
-		public static bool ClearDataInput
-		{
-			get
-			{
-				if (UsingKeyboard)
-					return Keyboard.current.leftCtrlKey.isPressed && Keyboard.current.leftShiftKey.isPressed && Keyboard.current.cKey.isPressed && Keyboard.current.dKey.isPressed;
-				else
-					return false;
-			}
-		}
-		public bool _ClearDataInput
-		{
-			get
-			{
-				return ClearDataInput;
-			}
-		}
 		public static bool RestartLevelInput
 		{
 			get
 			{
 				if (UsingKeyboard)
-					return RKeyInput;
+					return Keyboard.current.rKey.isPressed;
 				else
 					return false;
 			}
@@ -202,76 +243,6 @@ namespace AmbitiousSnake
 			get
 			{
 				return RestartLevelInput;
-			}
-		}
-		public static bool WKeyInput
-		{
-			get
-			{
-				return Keyboard.current.wKey.isPressed;
-			}
-		}
-		public bool _WKeyInput
-		{
-			get
-			{
-				return WKeyInput;
-			}
-		}
-		public static bool AKeyInput
-		{
-			get
-			{
-				return Keyboard.current.aKey.isPressed;
-			}
-		}
-		public bool _AKeyInput
-		{
-			get
-			{
-				return AKeyInput;
-			}
-		}
-		public static bool SKeyInput
-		{
-			get
-			{
-				return Keyboard.current.sKey.isPressed;
-			}
-		}
-		public bool _SKeyInput
-		{
-			get
-			{
-				return SKeyInput;
-			}
-		}
-		public static bool DKeyInput
-		{
-			get
-			{
-				return Keyboard.current.dKey.isPressed;
-			}
-		}
-		public bool _DKeyInput
-		{
-			get
-			{
-				return DKeyInput;
-			}
-		}
-		public static bool RKeyInput
-		{
-			get
-			{
-				return Keyboard.current.rKey.isPressed;
-			}
-		}
-		public bool _RKeyInput
-		{
-			get
-			{
-				return RKeyInput;
 			}
 		}
 	}

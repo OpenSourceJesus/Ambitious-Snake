@@ -167,14 +167,14 @@ namespace AmbitiousSnake
 		
 		public virtual void HandleSetFacing ()
 		{
-			// if (ReInput.controllers.joystickCount > 0)
-			// {
-			// 	Vector2 newFacing = InputManager.inputter.GetAxis2D(moveXAxis, moveYAxis);
-			// 	if (newFacing.magnitude > 0)
-			// 		SetFacing (InputManager.inputter.GetAxis2D(moveXAxis, moveYAxis));
-			// }
-			// else
-			// 	SetFacing ((Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition) - GetHeadPos());
+			if (InputManager.UsingGamepad)
+			{
+				Vector2 newFacing = InputManager.MoveInput;
+				if (newFacing.magnitude > 0)
+					SetFacing (newFacing);
+			}
+			else
+				SetFacing ((Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition) - GetHeadPos());
 		}
 
 		float speed;
@@ -205,7 +205,7 @@ namespace AmbitiousSnake
 		
 		public virtual void SetLength ()
 		{
-			// targetLength.SetValue(targetLength.GetValue() + InputManager.inputter.GetAxis(growAxis) * growRate * Time.deltaTime);
+			targetLength.SetValue(targetLength.GetValue() + InputManager.ChangeLengthInput * growRate * Time.deltaTime);
 			if (actualLength >= targetLength.GetValue())
 			{
 				do
