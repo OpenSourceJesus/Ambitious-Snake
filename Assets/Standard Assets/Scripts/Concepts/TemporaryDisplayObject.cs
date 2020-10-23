@@ -25,18 +25,18 @@ namespace AmbitiousSnake
 
 		public virtual void Show ()
 		{
-			if (displayedInstances.Contains_class(this))
+			if (displayedInstances.Contains(this))
 				return;
 			if (obj != null)
 				obj.SetActive(true);
-			displayedInstances = displayedInstances.Add_class(this);
+			displayedInstances = displayedInstances.Add(this);
 		}
 
 		public virtual void Hide ()
 		{
 			if (obj != null)
 				obj.SetActive(false);
-			displayedInstances = displayedInstances.Remove_class(this);
+			displayedInstances = displayedInstances.Remove(this);
 		}
 	}
 }

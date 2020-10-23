@@ -49,11 +49,11 @@ namespace AmbitiousSnake
 			if (uniqueId == 0)
 				uniqueId = Random.Range(int.MinValue, int.MaxValue);
 			Transform[] _saveableChildren = new Transform[0];
-			_saveableChildren.AddRange_class(saveableChildren);
+			_saveableChildren = _saveableChildren.AddRange(saveableChildren);
 			Transform trs = GetComponent<Transform>();
-			if (!_saveableChildren.Contains_class(trs) && GetComponentsInChildren<ISavableAndLoadable>().Length > 0)
+			if (!_saveableChildren.Contains(trs) && GetComponentsInChildren<ISavableAndLoadable>().Length > 0)
 			{
-				_saveableChildren = _saveableChildren.Add_class(trs);
+				_saveableChildren = _saveableChildren.Add(trs);
 				saveableChildren = _saveableChildren;
 			}
 		}

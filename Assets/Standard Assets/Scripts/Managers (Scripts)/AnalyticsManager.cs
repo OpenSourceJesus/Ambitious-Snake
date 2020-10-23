@@ -174,7 +174,7 @@ namespace AmbitiousSnake.Analytics
 						currentLogFileLine += FILLER_CHARACTER;
 					currentLogFileLine += VALUE_SEPERATOR;
 				}
-				currentLogFileLines = currentLogFileLines.Add_class(currentLogFileLine);
+				currentLogFileLines = currentLogFileLines.Add(currentLogFileLine);
 				foreach (string line in currentLogFileLines)
 					writer.Write("\n" + line);
 			}

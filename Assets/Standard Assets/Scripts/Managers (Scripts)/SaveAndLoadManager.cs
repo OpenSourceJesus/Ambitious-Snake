@@ -157,7 +157,7 @@ namespace AmbitiousSnake
 				if (saveAndLoadObject != null)
 				{
 					saveAndLoadObject.Init ();
-					savedObjectEntries = savedObjectEntries.AddRange_class(saveAndLoadObject.saveEntries);
+					savedObjectEntries = savedObjectEntries.AddRange(saveAndLoadObject.saveEntries);
 				}
 			}
 			data.Clear();

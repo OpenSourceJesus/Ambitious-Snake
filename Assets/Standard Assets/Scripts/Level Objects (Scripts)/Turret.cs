@@ -34,7 +34,7 @@ namespace AmbitiousSnake
 			shootDir = VectorExtensions.NULL;
 			for (int i = Snake.instance.verticies.Count; i >= 0; i --)
 			{
-				snakeVertex = Snake.instance.GetVertexPos(i);
+				snakeVertex = Snake.instance.GetVertexPosition(i);
 				toSnakeVertex = snakeVertex - trs.position;
 				trs.rotation = Quaternion.LookRotation(Vector3.forward, toSnakeVertex);
 				laser.Update ();
@@ -58,7 +58,7 @@ namespace AmbitiousSnake
 			}
 			else
 			{
-				transform.rotation = Quaternion.LookRotation(Vector3.forward, Snake.instance.GetHeadPos() - (Vector2) trs.position);
+				transform.rotation = Quaternion.LookRotation(Vector3.forward, Snake.instance.GetHeadPosition() - (Vector2) trs.position);
 				line.startColor = searchingColor;
 				line.endColor = searchingColor;
 			}

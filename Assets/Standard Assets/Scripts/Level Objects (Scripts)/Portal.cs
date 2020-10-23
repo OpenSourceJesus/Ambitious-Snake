@@ -55,7 +55,7 @@ namespace AmbitiousSnake
 					for (int i = 1; i < Snake.instance.verticies.Count; i ++)
 					{
 						toEndPortal = endPortal.transform.position - transform.position;
-						while (Physics2D.Linecast(Snake.instance.GetVertexPos(i) + toEndPortal, Snake.instance.GetVertexPos(i - 1) + toEndPortal, Snake.instance.whatICrashInto).collider != null)
+						while (Physics2D.Linecast(Snake.instance.GetVertexPosition(i) + toEndPortal, Snake.instance.GetVertexPosition(i - 1) + toEndPortal, Snake.instance.whatICrashInto).collider != null)
 						{
 							hitColliderIndex = i;
 							yield return new WaitForFixedUpdate();
@@ -66,7 +66,7 @@ namespace AmbitiousSnake
 						bool hitAnotherCollider = false;
 						for (int i = 1; i < hitColliderIndex; i ++)
 						{
-							if (Physics2D.Linecast(Snake.instance.GetVertexPos(i) + toEndPortal, Snake.instance.GetVertexPos(i - 1) + toEndPortal, Snake.instance.whatICrashInto).collider != null)
+							if (Physics2D.Linecast(Snake.instance.GetVertexPosition(i) + toEndPortal, Snake.instance.GetVertexPosition(i - 1) + toEndPortal, Snake.instance.whatICrashInto).collider != null)
 							{
 								hitAnotherCollider = true;
 								break;

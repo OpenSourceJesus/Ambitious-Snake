@@ -48,14 +48,14 @@ namespace AmbitiousSnake
 			if (!Application.isPlaying)
 				return;
 #endif
-			offset = Snake.instance.GetHeadPos() - (Vector2) trs.position;
+			offset = Snake.instance.GetHeadPosition() - (Vector2) trs.position;
 			if (offset.magnitude > followDist)
 				Reposition ();
 		}
 		
 		public virtual void Reposition ()
 		{
-			viewportBounds.center = (Vector3) Snake.instance.GetHeadPos() - (Vector3) (offset.normalized * followDist);
+			viewportBounds.center = (Vector3) Snake.instance.GetHeadPosition() - (Vector3) (offset.normalized * followDist);
 			viewportBounds.size = viewportSize;
 			Vector3 minDiff;
 			Vector3 maxDiff;

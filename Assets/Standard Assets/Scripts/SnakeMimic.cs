@@ -75,7 +75,7 @@ namespace AmbitiousSnake
 			verticies.Add(playing.nextPositions[positionIndex + 1]);
 			for (int i = 1; i < verticies.Count; i ++)
 			{
-				if (Physics2D.Linecast(GetVertexPos(i) + offset, GetVertexPos(i - 1) + offset, whatICrashInto).collider != null)
+				if (Physics2D.Linecast(GetVertexPosition(i) + offset, GetVertexPosition(i - 1) + offset, whatICrashInto).collider != null)
 					return true;
 			}
 			verticies.RemoveAt(verticies.Count - 1);

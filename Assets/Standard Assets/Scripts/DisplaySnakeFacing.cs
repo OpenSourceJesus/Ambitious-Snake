@@ -1,13 +1,30 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using Extensions;
 
 namespace AmbitiousSnake
 {
-	public class DisplaySnakeFacing : NotPartOfLevelEditor
+	public class DisplaySnakeFacing : NotPartOfLevelEditor, IUpdatable
 	{
-		void FixedUpdate ()
+		public bool PauseWhileUnfocused
 		{
-			transform.position = GetComponentInParent<Snake>().GetHeadPos();
+			get
+			{
+				return true;
+			}
+		}
+
+		void OnEnable ()
+		{
+			GameManager.updatables = GameManager.updatables.Add(this);
+		}
+		
+		void OnDisable ()
+		{
+			GameManager.updatables = GameManager.updatables.Remove(this);
+		}
+
+		public void DoUpdate ()
+		{
+			transform.position = GetComponentInParent<Snake>().GetHeadPosition();
 			transform.right = GetComponentInParent<Snake>().facingVector;
 		}
 	}

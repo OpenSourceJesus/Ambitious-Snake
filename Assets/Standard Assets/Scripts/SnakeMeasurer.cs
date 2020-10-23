@@ -1,4 +1,5 @@
 ﻿using UnityEngine.UI;
+using Extensions;
 
 namespace AmbitiousSnake
 {
@@ -12,6 +13,16 @@ namespace AmbitiousSnake
 			}
 		}
 		public Text displayText;
+
+		void OnEnable ()
+		{
+			GameManager.updatables = GameManager.updatables.Add(this);
+		}
+
+		void OnDisable ()
+		{
+			GameManager.updatables = GameManager.updatables.Remove(this);
+		}
 		
 		public void DoUpdate ()
 		{

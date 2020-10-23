@@ -108,7 +108,7 @@ namespace AmbitiousSnake
 			HandleSetFacing ();
 			Vector2 moveVector = (facingVector.normalized * moveSpeed * Time.deltaTime) + (rigid.velocity * Time.deltaTime);
 			Physics2D.queriesStartInColliders = true;
-			Collider2D hit = Physics2D.OverlapPoint(GetHeadPos() + moveVector, whatICrashInto);
+			Collider2D hit = Physics2D.OverlapPoint(GetHeadPosition() + moveVector, whatICrashInto);
 			SetLength ();
 			if (hit == null)
 				Move ();
@@ -123,7 +123,7 @@ namespace AmbitiousSnake
 					if (hazard != null)
 						hazard.OnCollisionEnter2D(null);
 				}
-				StartCoroutine(sparkCreator.CreateSparkRoutine (GetHeadPos() + moveVector));
+				StartCoroutine(sparkCreator.CreateSparkRoutine (GetHeadPosition() + moveVector));
 			}
 			MakeRipples ();
 			if (IsStuck())
@@ -137,7 +137,7 @@ namespace AmbitiousSnake
 			Physics2D.queriesStartInColliders = true;
 			for (int i = 1; i < verticies.Count; i ++)
 			{
-				if (Physics2D.Linecast(GetVertexPos(i - 1), GetVertexPos(i), whatIStickTo).collider != null)
+				if (Physics2D.Linecast(GetVertexPosition(i - 1), GetVertexPosition(i), whatIStickTo).collider != null)
 					return true;
 			}
 			return false;
@@ -148,15 +148,15 @@ namespace AmbitiousSnake
 			for (int i = 0; i < gridForces.Length; i ++)
 			{
 				VectorGridForce gridForce = gridForces[i];
-				Vector2 vertexPos = GetVertexPos((int) ((verticies.Count - 1) * ((float) i / (gridForces.Length - 1))));
-				gridForce.trs.position = vertexPos;
+				Vector2 vertexPosition = GetVertexPosition((int) ((verticies.Count - 1) * ((float) i / (gridForces.Length - 1))));
+				gridForce.trs.position = vertexPosition;
 				Vector3 direction = new Vector3();
 				if (i > 0 || i < gridForces.Length - 1)
-					direction = -(vertexPos - GetVertexPos((int) ((verticies.Count - 1) * ((float) i / (gridForces.Length - 1)) + 1)));
+					direction = -(vertexPosition - GetVertexPosition((int) ((verticies.Count - 1) * ((float) i / (gridForces.Length - 1)) + 1)));
 				else if (i == 0)
-					direction = -(GetVertexPos(1) - vertexPos);
+					direction = -(GetVertexPosition(1) - vertexPosition);
 				else if (i == gridForces.Length - 1)
-					direction = -(GetVertexPos(verticies.Count - 2) - vertexPos);
+					direction = -(GetVertexPosition(verticies.Count - 2) - vertexPosition);
 				if (i > 0)
 					direction = gridForces[i - 1].trs.position - gridForce.trs.position;
 				direction.z = gridForceTemplate.direction.z;
@@ -174,7 +174,7 @@ namespace AmbitiousSnake
 					SetFacing (newFacing);
 			}
 			else
-				SetFacing ((Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition) - GetHeadPos());
+				SetFacing ((Vector2) Camera.main.ScreenToWorldPoint(InputManager.MousePosition) - GetHeadPosition());
 		}
 
 		float speed;
@@ -230,17 +230,17 @@ namespace AmbitiousSnake
 			}
 		}
 		
-		public virtual Vector2 GetHeadPos ()
+		public virtual Vector2 GetHeadPosition ()
 		{
-			return GetVertexPos(verticies.Count - 1);
+			return GetVertexPosition(verticies.Count - 1);
 		}
 		
-		public virtual Vector2 GetTailPos ()
+		public virtual Vector2 GetTailPosition ()
 		{
-			return GetVertexPos(0);
+			return GetVertexPosition(0);
 		}
 		
-		public virtual Vector2 GetVertexPos (int vertexIndex)
+		public virtual Vector2 GetVertexPosition (int vertexIndex)
 		{
 			vertexIndex = Mathf.Clamp(vertexIndex, 0, verticies.Count - 1);
 			return trs.TransformPoint(verticies[vertexIndex]);
@@ -270,10 +270,10 @@ namespace AmbitiousSnake
 			RaycastHit2D hit;
 			for (int i = 0; i < verticies.Count; i ++)
 			{
-				hit = Physics2D.Linecast(GetVertexPos(i), GetVertexPos(i) + (Vector2.down * gravity * Time.deltaTime), whatICrashInto);
+				hit = Physics2D.Linecast(GetVertexPosition(i), GetVertexPosition(i) + (Vector2.down * gravity * Time.deltaTime), whatICrashInto);
 				if (hit.collider != null)
 				{
-					float checkDistFromGround = GetVertexPos(i).y - hit.point.y;
+					float checkDistFromGround = GetVertexPosition(i).y - hit.point.y;
 					if (checkDistFromGround >= 0 && checkDistFromGround < distFromGround)
 	                    distFromGround = checkDistFromGround;
 					Breakable breakTile = hit.collider.GetComponent<Breakable>();
