@@ -5793,7 +5793,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &355
 GameObject:
   m_ObjectHideFlags: 0
@@ -52009,6 +52009,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handleMultipleInstances: 0
   persistant: 0
+  trs: {fileID: 1060}
   missileMapBounds: 50
   missileTurnRate: 50
   missileSpeed: 50
