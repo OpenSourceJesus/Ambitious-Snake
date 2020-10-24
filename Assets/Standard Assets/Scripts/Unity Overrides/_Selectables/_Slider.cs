@@ -15,10 +15,10 @@ public class _Slider : _Selectable
 	
 	public virtual void Awake ()
 	{
-		#if UNITY_EDITOR
+#if UNITY_EDITOR
 		if (!Application.isPlaying)
 			return;
-		#endif
+#endif
 		if (displayValue != null)
 			initDisplayValue = displayValue.text;
 		SetDisplayValue ();
@@ -41,17 +41,16 @@ public class _Slider : _Selectable
 		base.OnEnable ();
 	}
 	
-	#if UNITY_EDITOR
+#if UNITY_EDITOR
 	public override void Update ()
 	{
 		base.Update ();
 		if (!Application.isPlaying)
 			return;
-	#endif
-	#if !UNITY_EDITOR
+#else
 	public virtual void Update ()
 	{
-	#endif
+#endif
 		if (snapValues.Length > 0)
 			slider.value = MathfExtensions.GetClosestNumber(slider.value, snapValues);
 	}

@@ -1,33 +1,37 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
+using AmbitiousSnake;
 using Extensions;
 
 namespace AmbitiousSnake
 {
-	public class Turret : NotPartOfLevelEditor
+	public class Turret : NotPartOfLevelEditor, IUpdatable
 	{
+		public bool PauseWhileUnfocused
+		{
+			get
+			{
+				return true;
+			}
+		}
 		public ComplexTimer fireRate;
 		public int bulletPrefabIndex;
 		public float bulletWidth;
-		LineRenderer line;
+		public LineRenderer line;
 		public Color lockedOnColor;
 		public Color searchingColor;
-		Transform trs;
+		public Transform trs;
+		public Laser laser;
 		Vector2 shootDir;
 		Vector3 snakeVertex;
 		Vector2 toSnakeVertex;
 		RaycastHit2D hitSnake;
-		Laser laser;
-		
-		void Start ()
+
+		void OnEnable ()
 		{
-			trs = GetComponent<Transform>();
-			line = trs.GetChild(0).GetComponent<LineRenderer>();
-			laser = GetComponentInChildren<Laser>();
-			laser.Start ();
+			GameManager.updatables = GameManager.updatables.Add(this);
 		}
 		
-		void FixedUpdate ()
+		public void DoUpdate ()
 		{
 			if (GameManager.paused)
 				return;
@@ -37,7 +41,7 @@ namespace AmbitiousSnake
 				snakeVertex = Snake.instance.GetVertexPosition(i);
 				toSnakeVertex = snakeVertex - trs.position;
 				trs.rotation = Quaternion.LookRotation(Vector3.forward, toSnakeVertex);
-				laser.Update ();
+				laser.DoUpdate ();
 				if (laser.hitBlocker.collider != null && laser.hitBlocker.transform.root == Snake.instance.trs)
 				{
 					shootDir = toSnakeVertex;
@@ -62,6 +66,11 @@ namespace AmbitiousSnake
 				line.startColor = searchingColor;
 				line.endColor = searchingColor;
 			}
+		}
+
+		void OnDisable ()
+		{
+			GameManager.updatables = GameManager.updatables.Remove(this);
 		}
 	}
 }

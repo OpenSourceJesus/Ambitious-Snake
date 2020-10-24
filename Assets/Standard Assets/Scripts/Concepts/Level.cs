@@ -1,8 +1,7 @@
 using System;
-using Extensions;
 using AmbitiousSnake;
 using UnityEngine.SceneManagement;
-using AmbitiousSnake.Analytics;
+// using AmbitiousSnake.Analytics;
 
 [Serializable]
 public class Level : IUpdatable
@@ -34,8 +33,7 @@ public class Level : IUpdatable
 	public virtual void Start ()
 	{
 		hasStar = false;
-		GameManager.onLevelTransitionDone += GameManager.Instance.OnLevelLoaded;
-		GameManager.updatables = GameManager.updatables.Add(this);
+		// GameManager.onLevelTransitionDone += GameManager.Instance.OnLevelLoaded;
 	}
 
 	public virtual void DoUpdate ()
@@ -46,7 +44,6 @@ public class Level : IUpdatable
 
 	public virtual void Restart ()
 	{
-		GameManager.updatables = GameManager.updatables.Remove(this);
 		hasStar = false;
 		if (CommunityLevelHub.Instance == null)
 		{

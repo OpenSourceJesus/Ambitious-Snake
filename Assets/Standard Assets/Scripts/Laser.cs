@@ -1,27 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+// using AmbitiousSnake;
+// using Extensions;
 
-public class Laser : MonoBehaviour
+public class Laser : MonoBehaviour, IUpdatable
 {
-	LineRenderer line;
+	public bool PauseWhileUnfocused
+	{
+		get
+		{
+			return true;
+		}
+	}
+	public LineRenderer line;
 	public LayerMask whatBlocksMe;
-	Transform trs;
+	public Transform trs;
 	public RaycastHit2D hitBlocker;
 	const int maxLength = int.MaxValue;
+
+	// void OnEnable ()
+	// {
+	// 	GameManager.updatables = GameManager.updatables.Add(this);
+	// }
 	
-	public void Start ()
+	public void DoUpdate ()
 	{
-		this.line = this.GetComponent<LineRenderer>();
-		this.trs = this.transform;
-	}
-	
-	public void Update ()
-	{
-		this.hitBlocker = Physics2D.Raycast(this.trs.position, this.trs.up, maxLength, whatBlocksMe);
-		if (this.hitBlocker.collider != null)
-			this.line.SetPosition(1, this.trs.worldToLocalMatrix.MultiplyPoint(this.hitBlocker.point));
+		hitBlocker = Physics2D.Raycast(trs.position, trs.up, maxLength, whatBlocksMe);
+		if (hitBlocker.collider != null)
+			line.SetPosition(1, trs.worldToLocalMatrix.MultiplyPoint(hitBlocker.point));
 		else
-			this.line.SetPosition(1, this.trs.up * maxLength);
+			line.SetPosition(1, trs.up * maxLength);
 	}
+
+	// void OnDisable ()
+	// {
+	// 	GameManager.updatables = GameManager.updatables.Remove(this);
+	// }
 }

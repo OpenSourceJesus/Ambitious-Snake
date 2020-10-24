@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace AmbitiousSnake
@@ -75,17 +74,17 @@ namespace AmbitiousSnake
 				if (orphansInNeed.ContainsKey(part.uniqueId))
 					orphansInNeed[part.uniqueId].trs.SetParent(part.trs);
 				if (string.IsNullOrEmpty(_pos))
-					part.transform.position = type.transform.position;
+					part.trs.position = type.trs.position;
 				else
-					part.transform.position = new Vector3(int.Parse(ExtractNextParam(ref _pos)), int.Parse(ExtractNextParam(ref _pos)));
+					part.trs.position = new Vector3(int.Parse(ExtractNextParam(ref _pos)), int.Parse(ExtractNextParam(ref _pos)));
 				if (string.IsNullOrEmpty(_rot))
-					part.transform.eulerAngles = type.transform.eulerAngles;
+					part.trs.eulerAngles = type.trs.eulerAngles;
 				else
-					part.transform.eulerAngles = Vector3.forward * int.Parse(ExtractNextParam(ref _rot));
+					part.trs.eulerAngles = Vector3.forward * int.Parse(ExtractNextParam(ref _rot));
 				if (string.IsNullOrEmpty(_size))
-					part.transform.localScale = type.transform.localScale;
+					part.trs.localScale = type.trs.localScale;
 				else
-					part.transform.localScale = new Vector3(int.Parse(ExtractNextParam(ref _size)), int.Parse(ExtractNextParam(ref _size)));
+					part.trs.localScale = new Vector3(int.Parse(ExtractNextParam(ref _size)), int.Parse(ExtractNextParam(ref _size)));
 				output.Add(part);
 			}
 			return output.ToArray();
@@ -134,22 +133,22 @@ namespace AmbitiousSnake
 			output += "id=" + uniqueId + statementSeperater;
 			output += "type=" + typeIndex + statementSeperater;
 			long parentId = -1;
-			if (transform.parent != null)
+			if (trs.parent != null)
 				parentId = GetComponentInParent<PartOfLevelEditor>().uniqueId;
 			if (parentId > -1)
 				output += "parent=" + parentId + statementSeperater;
 			else
 				output += statementSeperater;
-			if (transform.position != type.transform.position)
-				output += "pos=" + (int) transform.position.x + paramSeperator.ToString() + (int) transform.position.y + statementSeperater;
+			if (trs.position != type.trs.position)
+				output += "pos=" + (int) trs.position.x + paramSeperator.ToString() + (int) trs.position.y + statementSeperater;
 			else
 				output += statementSeperater;
-			if (transform.eulerAngles.z != type.transform.eulerAngles.z)
-				output += "rot=" + (int) transform.eulerAngles.z + statementSeperater;
+			if (trs.eulerAngles.z != type.trs.eulerAngles.z)
+				output += "rot=" + (int) trs.eulerAngles.z + statementSeperater;
 			else
 				output += statementSeperater;
-			if ((Vector2) transform.lossyScale != (Vector2) type.transform.lossyScale)
-				output += "size=" + (int) transform.lossyScale.x + paramSeperator.ToString() + (int) transform.lossyScale.y + statementSeperater;
+			if ((Vector2) trs.lossyScale != (Vector2) type.trs.lossyScale)
+				output += "size=" + (int) trs.lossyScale.x + paramSeperator.ToString() + (int) trs.lossyScale.y + statementSeperater;
 			else
 				output += statementSeperater;
 			return output;

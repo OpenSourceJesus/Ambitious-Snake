@@ -13,10 +13,10 @@ namespace AmbitiousSnake
 	public class GameManager : SingletonMonoBehaviour<GameManager>
 	{
 		public static bool paused;
-		public static bool isInLevelTransition;
+		public static bool isInSceneTransition;
 		public GameObject pauseButton;
 		public PartOfLevelEditor[] levelEditorPrefabs;
-		AsyncOperation unloadLevel;
+		public static AsyncOperation unloadLevel;
 		public Animator screenEffectAnimator;
 		public List<GameObject> registeredGos = new List<GameObject>();
 		static string enabledGosString = "";
@@ -70,7 +70,9 @@ namespace AmbitiousSnake
 				if (Level.instance != null)
 				{
 					SetPaused (false);
-					Level.instance.Start ();
+					// Level.instance.Start ();
+					LevelTimer.Instance.timer.Reset ();
+					LevelTimer.Instance.timer.Start ();
 				}
 			}
 			else
@@ -83,7 +85,7 @@ namespace AmbitiousSnake
 				updatable.DoUpdate ();
 			Physics2D.Simulate (Time.deltaTime);
 			InputSystem.Update ();
-			GameCamera.Instance.DoUpdate ();
+			CameraScript.Instance.DoUpdate ();
 		}
 
 		public virtual IEnumerator InitSettingsRoutine ()
@@ -117,15 +119,18 @@ namespace AmbitiousSnake
 				Instance.WaitForLevelTransitionEnd (scene, loadMode);
 				return;
 			}
-			StartCoroutine(WaitForLevelTransitionEndRoutine ());
+			StartCoroutine(WaitForSceneTransitionEndRoutine ());
 			// SceneManager.sceneLoaded -= WaitForLevelTransitionEnd;
 		}
 
-		public virtual IEnumerator WaitForLevelTransitionEndRoutine ()
+		public virtual IEnumerator WaitForSceneTransitionEndRoutine ()
 		{
+			print(0);
+			isInSceneTransition = true;
 			yield return new WaitUntil(() => (!screenEffectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Invisible Screen")));
 			while (true)
 			{
+				print(1);
 				if (screenEffectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Invisible Screen"))
 				{
 					if (onLevelTransitionDone != null)
@@ -133,7 +138,7 @@ namespace AmbitiousSnake
 						onLevelTransitionDone ();
 						onLevelTransitionDone = null;
 					}
-					isInLevelTransition = false;
+					isInSceneTransition = false;
 					yield break;
 				}
 				yield return new WaitForEndOfFrame();
@@ -340,7 +345,6 @@ namespace AmbitiousSnake
 
 		public virtual void OnApplicationQuit ()
 		{
-			SceneManager.sceneLoaded -= WaitForLevelTransitionEnd;
 			onLevelTransitionDone -= OnLevelLoaded;
 		}
 		

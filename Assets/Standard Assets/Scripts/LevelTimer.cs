@@ -48,7 +48,7 @@ namespace AmbitiousSnake
 			GameManager.updatables = GameManager.updatables.Remove(this);
 		}
 		
-		public virtual bool IsOverParTime ()
+		public bool IsOverParTime ()
 		{
 			return IsOverParTime(timer.TimeElapsed);
 		}

@@ -177,7 +177,7 @@ namespace AmbitiousSnake
 		
 		void FixedUpdate ()
 		{
-			if (GameManager.paused || GameManager.isInLevelTransition)
+			if (GameManager.paused || GameManager.isInSceneTransition)
 				return;
 			if (moveSpeed != 0)
 				transform.position = Vector2.Lerp(transform.position, wayPoints[currentWaypoint].transform.position, moveSpeed * (1f / Vector2.Distance(transform.position, wayPoints[currentWaypoint].transform.position)));

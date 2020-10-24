@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace AmbitiousSnake
 {
@@ -55,6 +56,7 @@ namespace AmbitiousSnake
 
 		public virtual void LoadLevel ()
 		{
+			SceneManager.sceneLoaded += GameManager.Instance.FadeIn;
 			GameManager.onLevelTransitionDone += GameManager.Instance.OnLevelLoaded;
 		}
 	}

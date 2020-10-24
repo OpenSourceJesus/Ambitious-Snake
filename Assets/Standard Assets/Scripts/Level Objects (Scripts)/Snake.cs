@@ -103,7 +103,7 @@ namespace AmbitiousSnake
 			if (!Application.isPlaying)
 				return;
 #endif
-			if (GameManager.isInLevelTransition || GameManager.paused)
+			if (GameManager.isInSceneTransition || GameManager.paused)
 				return;
 			HandleSetFacing ();
 			Vector2 moveVector = (facingVector.normalized * moveSpeed * Time.deltaTime) + (rigid.velocity * Time.deltaTime);

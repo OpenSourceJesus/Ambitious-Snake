@@ -1,8 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using Extensions;
 
 namespace AmbitiousSnake
@@ -111,17 +108,24 @@ namespace AmbitiousSnake
 		public override void LoadLevel ()
 		{
 			base.LoadLevel ();
+			GameManager.Instance.StartCoroutine(LoadLevelRoutine ());
+		}
+
+		IEnumerator LoadLevelRoutine ()
+		{
 			button.onClick.RemoveAllListeners();
 			LevelSelect.Instance.startButton.onClick.RemoveAllListeners();
 			LevelSelect.PreviousLevelIndex = siblingIndex;
 			// SaveAndLoadManager.Instance.Save ();
+			GameManager.Instance.UnloadLevelAsync ("Level Select");
+			yield return new WaitUntil(() => (GameManager.unloadLevel.isDone));
 			GameManager.Instance.LoadLevelAdditive ("Level");
 			foreach (string sceneName in extraScenes)
 				GameManager.Instance.LoadLevelAdditive (sceneName);
 			Level.instance = level;
 			Level.instance.Start ();
-			GameManager.Instance.UnloadLevelAsync ("Level Select");
-			GameManager.Instance.SetPaused (false);
+			GameManager.updatables = GameManager.updatables.Add(level);
+			// GameManager.Instance.SetPaused (false);
 		}
 	}
 }

@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 using Extensions;
-using AmbitiousSnake;
 
 [ExecuteAlways]
 public class _Selectable : MonoBehaviour
