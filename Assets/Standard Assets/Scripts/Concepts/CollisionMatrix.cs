@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-[System.Serializable]
-public class CollisionMatrix : System.Object
+[Serializable]
+public class CollisionMatrix
 {
 	public List<LayerCollisionMask> layerCollisions;
 	

@@ -41,7 +41,9 @@ namespace AmbitiousSnake
 		public static IUpdatable[] updatables = new IUpdatable[0];
 		// public static SortedDictionary<int, IUpdatable> pausedUpdatablesDict = new SortedDictionary<int, IUpdatable>();
 		public const string PAUSE_MENU_SCENE_NAME = "Pause Menu";
-
+#if UNITY_EDITOR
+		public bool doEditorUpdates;
+#endif
 
 		public override void Awake ()
 		{

@@ -28,19 +28,19 @@ namespace Extensions
 		
 		public static Vector2 Rotate (this Vector2 v, float degrees)
 		{
-			float ang = GetAngleFrom(v) + degrees;
+			float ang = v.GetFacingAngle() + degrees;
 			ang *= Mathf.Deg2Rad;
 			return new Vector2(Mathf.Cos(ang), Mathf.Sin(ang));
 		}
 		
-		public static float GetAngleFrom (Vector2 v)
+		public static float GetFacingAngle (this Vector2 v)
 		{
 			return Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
 		}
 		
-		public static Vector2 GetFromAngle (float angle)
+		public static Vector2 FromFacingAngle (float angle)
 		{
-			return Rotate(Vector2.right, angle);
+			return Vector2.right.Rotate(angle);
 		}
 		
 		public static Vector3 ClampComponents (this Vector3 v, Vector3 min, Vector3 max)

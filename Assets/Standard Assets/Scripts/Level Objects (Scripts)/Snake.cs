@@ -65,7 +65,7 @@ namespace AmbitiousSnake
 			// distRemainingTillMakeVertex = makeVertexInterval;
 			headCollider.enabled = false;
 			whatICrashInto = Physics2D.GetLayerCollisionMask(gameObject.layer);
-			LevelMap.mapBounds = LevelMap.GetMapBounds();
+			LevelMap.mapBounds = LevelMap.GetBounds();
 			SetFacing (trs.right);
 			trs.eulerAngles = Vector3.zero;
 			verticies.Add(Vector3.zero);
@@ -258,13 +258,13 @@ namespace AmbitiousSnake
 		public virtual void SetFacing (float angle)
 		{
 			facingAngle = angle;
-			facingVector = VectorExtensions.GetFromAngle(facingAngle);
+			facingVector = VectorExtensions.FromFacingAngle(facingAngle);
 		}
 		
 		public virtual void SetFacing (Vector2 direction)
 		{
 			facingVector = direction.normalized;
-			facingAngle = VectorExtensions.GetAngleFrom(facingVector);
+			facingAngle = facingVector.GetFacingAngle();
 		}
 		
 		public virtual void Gravity (float gravity)
@@ -288,7 +288,7 @@ namespace AmbitiousSnake
 					{
 						Hazard hazard = hit.collider.GetComponent<Hazard>();
 						if (hazard != null)
-							hazard.OnCollisionEnter2D(null);
+							hazard.OnCollisionEnter2D (null);
 					}
 					StartCoroutine(sparkCreator.CreateSparkRoutine (hit.point));
 				}

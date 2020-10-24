@@ -995,22 +995,22 @@ namespace AmbitiousSnake
 		
 		public virtual void SetMapName (string mapName)
 		{
-			mapName = mapName;
+			this.mapName = mapName;
 		}
 		
 		public virtual void SetMapUsername (string mapUsername)
 		{
-			mapUsername = mapUsername;
+			this.mapUsername = mapUsername;
 		}
 		
 		public virtual void SetMapPassword (string mapPassword)
 		{
-			mapPassword = mapPassword;
+			this.mapPassword = mapPassword;
 		}
 		
 		public virtual void SetParTime (string parTime)
 		{
-			parTime = parTime;
+			this.parTime = parTime;
 		}
 		
 		public virtual void SetPublish (bool publish)
@@ -1023,28 +1023,28 @@ namespace AmbitiousSnake
 					return;
 				}
 			}
-			publish = publish;
-			StartCoroutine (PublishRoutine ());
+			this.publish = publish;
+			StartCoroutine(PublishRoutine ());
 		}
 		
 		public virtual void Save ()
 		{
-			StartCoroutine (SaveRoutine ());
+			StartCoroutine(SaveRoutine ());
 		}
 		
 		public virtual void Load ()
 		{
-			StartCoroutine (LoadRoutine ());
+			StartCoroutine(LoadRoutine ());
 		}
 		
 		public virtual void Delete ()
 		{
-			StartCoroutine (DeleteRoutine ());
+			StartCoroutine(DeleteRoutine ());
 		}
 		
 		public virtual void SetError (bool error)
 		{
-			error = error;
+			this.error = error;
 		}
 		
 		public static PartOfLevelEditor GetPartPrefab (PartOfLevelEditor partInstance)

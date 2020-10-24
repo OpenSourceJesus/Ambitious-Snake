@@ -41,7 +41,7 @@ namespace AmbitiousSnake
 			if (!string.IsNullOrEmpty(previousLevelName) && previousLevelName != levelName)
 				GameManager.Instance.UnloadLevelAsync (previousLevelName);
 			previousLevelName = levelName;
-			Bounds levelBounds = GetMapBounds();
+			Bounds levelBounds = GetBounds();
 			float previousZPos = trs.position.z;
 			trs.position = VectorExtensions.SetZ(levelBounds.center, previousZPos);
 			cam.orthographicSize = Mathf.Max(levelBounds.size.x, levelBounds.size.y) / 2;
@@ -52,13 +52,13 @@ namespace AmbitiousSnake
 			while (rotationViewersParent.childCount > 0)
 				DestroyImmediate(rotationViewersParent.GetChild(0).gameObject);
 			float previousZPos = trs.position.z;
-			Bounds levelBounds = GetMapBounds();
+			Bounds levelBounds = GetBounds();
 			trs.position = (Vector2) levelBounds.center;
 			trs.position += Vector3.forward * previousZPos;
 			cam.orthographicSize = Mathf.Max(levelBounds.size.x, levelBounds.size.y) / 2;
 		}
 		
-		public static Bounds GetMapBounds ()
+		public static Bounds GetBounds ()
 		{
 			List<Bounds> levelBoundsInstances = new List<Bounds>();
 			foreach (Renderer renderer in FindObjectsOfType<Renderer>())
@@ -66,7 +66,18 @@ namespace AmbitiousSnake
 				if (renderer.GetComponent<OmitFromLevelMap>() == null)
 					levelBoundsInstances.Add(renderer.bounds);
 			}
-			return BoundsExtensions.CombineBounds(levelBoundsInstances.ToArray());
+			return BoundsExtensions.Combine(levelBoundsInstances.ToArray());
+		}
+		
+		public static Rect GetBoundsRect ()
+		{
+			List<Rect> levelBoundRectsInstances = new List<Rect>();
+			foreach (Renderer renderer in FindObjectsOfType<Renderer>())
+			{
+				if (renderer.GetComponent<OmitFromLevelMap>() == null)
+					levelBoundRectsInstances.Add(renderer.bounds.ToRect());
+			}
+			return RectExtensions.Combine(levelBoundRectsInstances.ToArray());
 		}
 	}
 }

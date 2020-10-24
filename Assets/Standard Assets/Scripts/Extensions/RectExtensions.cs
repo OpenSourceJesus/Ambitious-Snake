@@ -50,14 +50,15 @@ namespace Extensions
 			Rect output = rectsArray[0];
 			for (int i = 1; i < rectsArray.Length; i ++)
 			{
-				if (rectsArray[i].min.x < output.min.x)
-					output.min = new Vector2(rectsArray[i].min.x, output.min.y);
-				if (rectsArray[i].min.y < output.min.y)
-					output.min = new Vector2(output.min.x, rectsArray[i].min.y);
-				if (rectsArray[i].max.x > output.max.x)
-					output.max = new Vector2(rectsArray[i].max.x, output.max.y);
-				if (rectsArray[i].max.y > output.max.y)
-					output.max = new Vector2(output.max.x, rectsArray[i].max.y);
+				Rect rect = rectsArray[i];
+				if (rect.xMin < output.xMin)
+					output.xMin = rect.xMin;
+				if (rect.yMin < output.yMin)
+					output.yMin = rect.yMin;
+				if (rect.xMax > output.xMax)
+					output.xMax = rect.xMax;
+				if (rect.yMax > output.yMax)
+					output.yMax = rect.yMax;
 			}
 			return output;
 		}

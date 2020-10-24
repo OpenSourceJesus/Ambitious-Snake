@@ -8,7 +8,7 @@ namespace Extensions
 	{
 		public static Bounds NULL = new Bounds(Vector3.zero, VectorExtensions.NULL);
 		
-		public static Bounds CombineBounds (Bounds[] boundsArray)
+		public static Bounds Combine (Bounds[] boundsArray)
 		{
 			if (boundsArray.Length == 0)
 				return NULL;

@@ -2043,7 +2043,6 @@ GameObject:
   - component: {fileID: 2690}
   - component: {fileID: 2717}
   - component: {fileID: 2716}
-  - component: {fileID: 2718}
   m_Layer: 5
   m_Name: Canvas (World)
   m_TagString: Untagged
@@ -2979,7 +2978,6 @@ GameObject:
   - component: {fileID: 2695}
   - component: {fileID: 2691}
   - component: {fileID: 2720}
-  - component: {fileID: 2719}
   m_Layer: 5
   m_Name: Canvas (Camera)
   m_TagString: Untagged
@@ -10484,7 +10482,6 @@ GameObject:
   - component: {fileID: 2702}
   - component: {fileID: 2692}
   - component: {fileID: 2739}
-  - component: {fileID: 2738}
   - component: {fileID: 770}
   m_Layer: 5
   m_Name: Canvas (World)
@@ -51866,30 +51863,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 10
---- !u!114 &2718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38a9b2c5dae46554d8262ca593b84039, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38a9b2c5dae46554d8262ca593b84039, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52275,18 +52248,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38a9b2c5dae46554d8262ca593b84039, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2739
 MonoBehaviour:
   m_ObjectHideFlags: 0

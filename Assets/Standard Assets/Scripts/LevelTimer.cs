@@ -1,17 +1,23 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using Extensions;
 
 namespace AmbitiousSnake
 {
 	[ExecuteAlways]
-	public class LevelTimer : SingletonMonoBehaviour<LevelTimer>
+	public class LevelTimer : SingletonMonoBehaviour<LevelTimer>, IUpdatable
 	{
+		public bool PauseWhileUnfocused
+		{
+			get
+			{
+				return true;
+			}
+		}
 		public Timer timer;
 		public Text text;
 		
-		public virtual void OnEnable ()
+		void OnEnable ()
 		{
 #if UNITY_EDITOR
 			if (!Application.isPlaying)
@@ -21,19 +27,25 @@ namespace AmbitiousSnake
 				return;
 			}
 #endif
+			GameManager.updatables = GameManager.updatables.Add(this);
 		}
 		
-		public virtual void FixedUpdate ()
+		public void DoUpdate ()
 		{
-#if UNITY_EDITOR
-			if (!Application.isPlaying)
-				return;
-#endif
 			text.text = string.Format("{0:F1}", timer.TimeElapsed);
 			if (IsOverParTime())
 				text.color = Color.red;
 			else
 				text.color = Color.black;
+		}
+
+		void OnDisable ()
+		{
+#if UNITY_EDITOR
+			if (!Application.isPlaying)
+				return;
+#endif
+			GameManager.updatables = GameManager.updatables.Remove(this);
 		}
 		
 		public virtual bool IsOverParTime ()

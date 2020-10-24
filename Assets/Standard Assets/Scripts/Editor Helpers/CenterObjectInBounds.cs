@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 namespace Extensions
 {
@@ -15,28 +14,28 @@ namespace Extensions
 			if (!update)
 				return;
 			update = false;
-			if (this.useChildren)
-				this.renderers = this.GetComponentsInChildren<Renderer>();
-			Bounds[] boundsInstances = new Bounds[this.renderers.Length];
-			if (!this.useChildren)
+			if (useChildren)
+				renderers = GetComponentsInChildren<Renderer>();
+			Bounds[] boundsInstances = new Bounds[renderers.Length];
+			if (!useChildren)
 			{
-				for (int i = 0; i < this.renderers.Length; i ++)
-					boundsInstances[i] = this.renderers[i].bounds;
+				for (int i = 0; i < renderers.Length; i ++)
+					boundsInstances[i] = renderers[i].bounds;
 			}
 			else
 			{
-				for (int i = 0; i < this.renderers.Length; i ++)
+				for (int i = 0; i < renderers.Length; i ++)
 				{
-					this.renderers[i].transform.SetParent(null);
-					boundsInstances[i] = this.renderers[i].bounds;
+					renderers[i].transform.SetParent(null);
+					boundsInstances[i] = renderers[i].bounds;
 				}
 			}
-			Bounds combinedBounds = BoundsExtensions.CombineBounds(boundsInstances);
+			Bounds combinedBounds = BoundsExtensions.Combine(boundsInstances);
 			transform.position = combinedBounds.center;
-			if (this.useChildren)
+			if (useChildren)
 			{
-				for (int i = 0; i < this.renderers.Length; i ++)
-					this.renderers[i].transform.SetParent(transform);
+				for (int i = 0; i < renderers.Length; i ++)
+					renderers[i].transform.SetParent(transform);
 			}
 		}
 	}

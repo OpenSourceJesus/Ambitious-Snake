@@ -129,7 +129,7 @@ namespace AmbitiousSnake
 						List<Bounds> boundsInstances = new List<Bounds>();
 						foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
 							boundsInstances.Add(renderer.bounds);
-						Bounds rotationBounds = BoundsExtensions.CombineBounds(boundsInstances.ToArray());
+						Bounds rotationBounds = BoundsExtensions.Combine(boundsInstances.ToArray());
 						rotationViewer.position = waypoint.position;
 						float greatestRadius = Mathf.Max(rotationBounds.extents.x, rotationBounds.extents.y);
 						foreach (Bounds bounds in boundsInstances)

@@ -20,7 +20,6 @@ public class UIControlManager : SingletonMonoBehaviour<UIControlManager>, IUpdat
 	public static _Selectable[] selectables = new _Selectable[0];
 	Vector2 inputDirection;
 	Vector2 previousInputDirection;
-	_Selectable selectable;
 	bool inControlMode;
 	bool controllingWithJoystick;
 	bool leftClickInput;
@@ -100,13 +99,10 @@ public class UIControlManager : SingletonMonoBehaviour<UIControlManager>, IUpdat
 			if (slider != null)
 			{
 				Vector2 closestPointToMouseCanvasNormalized = new Vector2();
-				if (currentSelected.canvas.renderMode == RenderMode.ScreenSpaceOverlay)
-				{
-					if (selectable != null)
-						closestPointToMouseCanvasNormalized = slider.slidingArea.GetRectInCanvasNormalized(selectable.canvasRectTrs).ClosestPoint(slider.canvasRectTrs.GetWorldRect().ToNormalizedPosition(InputManager.MousePosition));
-				}
-				else if (selectable != null)
-					closestPointToMouseCanvasNormalized = slider.slidingArea.GetRectInCanvasNormalized(selectable.canvasRectTrs).ClosestPoint(slider.canvasRectTrs.GetWorldRect().ToNormalizedPosition(selectable.canvas.worldCamera.ScreenToWorldPoint(InputManager.MousePosition)));
+				if (slider.canvas.renderMode == RenderMode.ScreenSpaceOverlay || (slider.canvas.renderMode == RenderMode.ScreenSpaceCamera && slider.canvas.worldCamera == null))
+					closestPointToMouseCanvasNormalized = slider.slidingArea.GetRectInCanvasNormalized(slider.canvasRectTrs).ClosestPoint(slider.canvasRectTrs.GetWorldRect().ToNormalizedPosition(InputManager.MousePosition));
+				else
+					closestPointToMouseCanvasNormalized = slider.slidingArea.GetRectInCanvasNormalized(slider.canvasRectTrs).ClosestPoint(slider.canvasRectTrs.GetWorldRect().ToNormalizedPosition(slider.canvas.worldCamera.ScreenToWorldPoint(InputManager.MousePosition)));
 				float normalizedValue = slider.slidingArea.GetRectInCanvasNormalized(slider.canvasRectTrs).ToNormalizedPosition(closestPointToMouseCanvasNormalized).x;
 				slider.slider.value = Mathf.Lerp(slider.slider.minValue, slider.slider.maxValue, normalizedValue);
 				if (slider.snapValues.Length > 0)
