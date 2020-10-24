@@ -62,7 +62,7 @@ public class Level : IUpdatable
 			CommunityLevelHub.Instance.currentLevel.ReloadLevel ();
 		if (!GameManager.paused)
 			SnakeRecorder.areRecording = new SnakeRecorder[0];
-		AnalyticsManager.PlayerDiedEvent playerDiedEvent = new AnalyticsManager.PlayerDiedEvent();
-		AnalyticsManager.Instance.LogEvent (playerDiedEvent);
+		// AnalyticsManager.PlayerDiedEvent playerDiedEvent = new AnalyticsManager.PlayerDiedEvent();
+		// AnalyticsManager.Instance.LogEvent (playerDiedEvent);
 	}
 }

@@ -12,7 +12,6 @@ namespace AmbitiousSnake
 		public static Bounds mapBounds;
 		public Transform trs;
 		public Camera cam;
-		AsyncOperation loadLevel;
 		public Transform rotationViewersParent;
 		
 		public override void Awake ()
@@ -22,12 +21,12 @@ namespace AmbitiousSnake
 				previousLevelName = SceneManager.GetSceneByBuildIndex(LevelSelect.firstLevelBuildIndex).name;
 		}
 
-		public virtual void MakeLevelMap (string levelName)
+		public virtual void Make (string levelName)
 		{
-			StartCoroutine(MakeLevelMapRoutine (levelName));
+			StartCoroutine(MakeRoutine (levelName));
 		}
 		
-		public virtual IEnumerator MakeLevelMapRoutine (string levelName)
+		public virtual IEnumerator MakeRoutine (string levelName)
 		{
 			while (rotationViewersParent.childCount > 0)
 				DestroyImmediate(rotationViewersParent.GetChild(0).gameObject);
@@ -35,7 +34,7 @@ namespace AmbitiousSnake
 				GameManager.Instance.UnloadLevelAsync (previousLevelName);
 			GameManager.Instance.SetPaused (true);
 			GameManager.Instance.SetTimeScale (1);
-			loadLevel = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
+			AsyncOperation loadLevel = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
 			while (!loadLevel.isDone)
 				yield return new WaitForEndOfFrame();
 			if (!string.IsNullOrEmpty(previousLevelName) && previousLevelName != levelName)
@@ -47,7 +46,7 @@ namespace AmbitiousSnake
 			cam.orthographicSize = Mathf.Max(levelBounds.size.x, levelBounds.size.y) / 2;
 		}
 		
-		public virtual void MakeLevelMap (Renderer[] renderers)
+		public virtual void Make (Renderer[] renderers)
 		{
 			while (rotationViewersParent.childCount > 0)
 				DestroyImmediate(rotationViewersParent.GetChild(0).gameObject);

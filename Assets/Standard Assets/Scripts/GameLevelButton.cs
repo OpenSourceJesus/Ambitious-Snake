@@ -101,7 +101,7 @@ namespace AmbitiousSnake
 		{
 			// GameManager.Instance.UnloadLevel (levelName);
 			// GameManager.Instance.LoadLevelAdditive (levelName);
-			LevelMap.Instance.MakeLevelMap (levelName);
+			LevelMap.Instance.Make (levelName);
 			LevelSelect.Instance.levelTitle.text = levelName;
 			// if (Time.realtimeSinceStartup - lastPressedTime <= InputManager.Instance.maxDoubleClickDelay)
 			// 	LoadLevel ();

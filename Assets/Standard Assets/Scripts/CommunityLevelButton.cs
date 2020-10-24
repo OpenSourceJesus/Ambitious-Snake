@@ -70,7 +70,7 @@ namespace AmbitiousSnake
 			List<Renderer> createdRenderers = new List<Renderer>();
 			foreach (PartOfLevelEditor part in createdParts)
 				createdRenderers.Add(part.GetComponent<Renderer>());
-			LevelMap.Instance.MakeLevelMap (createdRenderers.ToArray());
+			LevelMap.Instance.Make (createdRenderers.ToArray());
 			CommunityLevelHub.Instance.mapNameText.text = levelName;
 			CommunityLevelHub.Instance.mapUsernameText.text = username;
 			CommunityLevelHub.Instance.startButton.onClick.RemoveAllListeners();

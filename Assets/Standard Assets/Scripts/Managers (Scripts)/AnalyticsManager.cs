@@ -3,25 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.Networking;
-using System.Reflection;
 using UnityEngine.SceneManagement;
 using Extensions;
 using System.IO;
-using AmbitiousSnake;
 
 namespace AmbitiousSnake.Analytics
 {
 	public class AnalyticsManager : SingletonMonoBehaviour<AnalyticsManager>
 	{
-		public Transform trs;
-		public string formUrl;
-		UnityWebRequest webRequest;
-		WWWForm form;
-		public AnalyticsEvent _AnalyticsEvent;
-		public PlayerDiedEvent _PlayerDiedEvent;
-		public Queue<AnalyticsEvent> eventQueue = new Queue<AnalyticsEvent>();
-		public bool collectAnalyticsDefault;
-		public bool logAnalyticsLocallyDefault;
 		public bool CollectAnalytics
 		{
 			get
@@ -66,17 +55,26 @@ namespace AmbitiousSnake.Analytics
 				SaveAndLoadManager.SetValue("Total Gameplay Duration", value);
 			}
 		}
+		public Transform trs;
+		public string formUrl;
+		public AnalyticsEvent _AnalyticsEvent;
+		public PlayerDiedEvent _PlayerDiedEvent;
+		public Queue<AnalyticsEvent> eventQueue = new Queue<AnalyticsEvent>();
+		public bool collectAnalyticsDefault;
+		public bool logAnalyticsLocallyDefault;
 		public static Dictionary<string, AnalyticsManager> analyticsManagers = new Dictionary<string, AnalyticsManager>();
 		public Timer sessionTimer;
 		public Timer timerSinceLastLog;
 		public string localLogFolderPath;
-		string currentLogFilePath;
 		public const int MAX_STRING_LENGTH = 30;
 		public const char FILLER_CHARACTER = ' ';
 		public const string VALUE_SEPERATOR = "-----";
 		public DataColumn[] dataColumns;
 		public Dictionary<string, DataColumn> dataColumnDict = new Dictionary<string, DataColumn>();
 		public Dictionary<string, string> columnData = new Dictionary<string, string>();
+		string currentLogFilePath;
+		UnityWebRequest webRequest;
+		WWWForm form;
 		
 		public override void Awake ()
 		{
@@ -85,6 +83,7 @@ namespace AmbitiousSnake.Analytics
 				Destroy(gameObject);
 				return;
 			}
+			instance = this;
 			foreach (DataColumn dataColumn in dataColumns)
 				dataColumnDict.Add(dataColumn.name, dataColumn);
 			localLogFolderPath = Application.persistentDataPath + Path.DirectorySeparatorChar + localLogFolderPath;
@@ -215,9 +214,9 @@ namespace AmbitiousSnake.Analytics
 			
 			public virtual void Init ()
 			{
-				if (AnalyticsManager.Instance == null)
+				if (AnalyticsManager.instance == null)
 					return;
-				AnalyticsEvent _event = (AnalyticsEvent) typeof(AnalyticsManager).GetField("_" + GetName()).GetValue(AnalyticsManager.Instance);
+				AnalyticsEvent _event = AnalyticsManager.instance.GetMember<AnalyticsEvent>("_" + GetName());
 				gameVersion.dataColumnName = _event.gameVersion.dataColumnName;
 				player.dataColumnName = _event.player.dataColumnName;
 				scene.dataColumnName = _event.scene.dataColumnName;
@@ -262,10 +261,10 @@ namespace AmbitiousSnake.Analytics
 			
 			public override void Init ()
 			{
-				if (AnalyticsManager.Instance == null)
+				if (AnalyticsManager.instance == null)
 					return;
 				base.Init ();
-				PlayerDiedEvent _event = (PlayerDiedEvent) typeof(AnalyticsManager).GetField("_" + GetName()).GetValue(AnalyticsManager.Instance);
+				PlayerDiedEvent _event = AnalyticsManager.instance.GetMember<PlayerDiedEvent>("_" + GetName());
 				score.dataColumnName = _event.score.dataColumnName;
 			}
 			

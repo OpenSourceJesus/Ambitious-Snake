@@ -83,6 +83,7 @@ namespace AmbitiousSnake
 				updatable.DoUpdate ();
 			Physics2D.Simulate (Time.deltaTime);
 			InputSystem.Update ();
+			GameCamera.Instance.DoUpdate ();
 		}
 
 		public virtual IEnumerator InitSettingsRoutine ()
