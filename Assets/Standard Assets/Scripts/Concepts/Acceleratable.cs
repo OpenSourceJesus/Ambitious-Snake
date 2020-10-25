@@ -33,7 +33,7 @@ public class Acceleratable : MonoBehaviour, IUpdatable
 		{
 			if (!appliedForces.Contains(force))
 			{
-				this.rigid.AddForce(force);
+				rigid.AddForce(force);
 				appliedForces.Add(force);
 			}
 		}

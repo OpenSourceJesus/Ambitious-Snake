@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using AmbitiousSnake;
 using Extensions;
 
 namespace AmbitiousSnake
