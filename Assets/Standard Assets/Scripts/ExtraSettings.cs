@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 using UnityEngine.UI;
 using BeautifyEffect;
 using uCP;
-using Extensions;
 
 public class ExtraSettings : SingletonMonoBehaviour<ExtraSettings>, ISavableAndLoadable
 {

@@ -1,11 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using Extensions;
+using AmbitiousSnake;
 
 namespace AmbitiousSnake
 {
-	public class WinAnimation : NotPartOfLevelEditor
+	public class WinAnimation : NotPartOfLevelEditor, IUpdatable
 	{
+		public bool PauseWhileUnfocused
+		{
+			get
+			{
+				return true;
+			}
+		}
 		public static WinAnimation instance;
 		public List<Animation> anims = new List<Animation>();
 		Animation anim;
@@ -17,7 +25,7 @@ namespace AmbitiousSnake
 			instance = this;
 		}
 		
-		public virtual void OnEnable ()
+		void OnEnable ()
 		{
 			LevelTimer.Instance.timer.Stop ();
 			Snake.instance.gameObject.SetActive(false);
@@ -37,9 +45,15 @@ namespace AmbitiousSnake
 				anim.Play();
 				animStarted = true;
 			}
+			GameManager.updatables = GameManager.updatables.Add(this);
+		}
+
+		void OnDisable ()
+		{
+			GameManager.updatables = GameManager.updatables.Remove(this);
 		}
 		
-		public virtual void Update ()
+		public virtual void DoUpdate ()
 		{
 			if ((animStarted && !anim.isPlaying) || anims.Count == 0)
 			{
