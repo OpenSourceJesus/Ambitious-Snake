@@ -324,7 +324,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &328935028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -751,6 +751,7 @@ GameObject:
   - component: {fileID: 1063334838}
   - component: {fileID: 1063334841}
   - component: {fileID: 1063334843}
+  - component: {fileID: 1063334842}
   m_Layer: 5
   m_Name: Resume
   m_TagString: Untagged
@@ -917,6 +918,26 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1063334842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1063334836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ab3736d7d4cb140bf370968578cd66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 1789056331}
+  canvasRectTrs: {fileID: 1789056332}
+  updateCanvas: 0
+  rectTrs: {fileID: 1063334837}
+  selectable: {fileID: 1063334838}
+  priority: 0
+  scrollbarThatMovesMe: {fileID: 0}
+  container: {fileID: 0}
 --- !u!114 &1063334843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1184,6 +1205,7 @@ GameObject:
   - component: {fileID: 1567405726}
   - component: {fileID: 1567405725}
   - component: {fileID: 1567405728}
+  - component: {fileID: 1567405729}
   m_Layer: 5
   m_Name: Level Select
   m_TagString: Untagged
@@ -1337,6 +1359,26 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1567405729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567405723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ab3736d7d4cb140bf370968578cd66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 1789056331}
+  canvasRectTrs: {fileID: 1789056332}
+  updateCanvas: 0
+  rectTrs: {fileID: 1567405724}
+  selectable: {fileID: 1567405725}
+  priority: 0
+  scrollbarThatMovesMe: {fileID: 0}
+  container: {fileID: 0}
 --- !u!1 &1771852379
 GameObject:
   m_ObjectHideFlags: 0
@@ -1351,6 +1393,8 @@ GameObject:
   - component: {fileID: 1771852382}
   - component: {fileID: 1771852381}
   - component: {fileID: 1771852386}
+  - component: {fileID: 1771852387}
+  - component: {fileID: 1771852385}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -1375,8 +1419,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -283.47888}
-  m_SizeDelta: {x: 240, y: 59.661976}
+  m_AnchoredPosition: {x: 125, y: -501}
+  m_SizeDelta: {x: 240, y: 108}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1771852381
 MonoBehaviour:
@@ -1504,6 +1548,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1771852379}
   m_CullTransparentMesh: 0
+--- !u!114 &1771852385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771852379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ab3736d7d4cb140bf370968578cd66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 1789056331}
+  canvasRectTrs: {fileID: 1789056332}
+  updateCanvas: 0
+  rectTrs: {fileID: 1771852380}
+  selectable: {fileID: 1771852382}
+  priority: 0
+  scrollbarThatMovesMe: {fileID: 0}
+  container: {fileID: 0}
 --- !u!114 &1771852386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1525,6 +1589,26 @@ MonoBehaviour:
     m_DisabledColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
+--- !u!114 &1771852387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771852379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ab3736d7d4cb140bf370968578cd66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 1789056331}
+  canvasRectTrs: {fileID: 1789056332}
+  updateCanvas: 0
+  rectTrs: {fileID: 1771852380}
+  selectable: {fileID: 1771852382}
+  priority: 0
+  scrollbarThatMovesMe: {fileID: 0}
+  container: {fileID: 0}
 --- !u!1 &1789056328
 GameObject:
   m_ObjectHideFlags: 0
@@ -1847,6 +1931,7 @@ GameObject:
   - component: {fileID: 1848516234}
   - component: {fileID: 1848516233}
   - component: {fileID: 1848516232}
+  - component: {fileID: 1848516236}
   m_Layer: 5
   m_Name: Settings
   m_TagString: Untagged
@@ -2000,6 +2085,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1848516230}
   m_CullTransparentMesh: 0
+--- !u!114 &1848516236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848516230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ab3736d7d4cb140bf370968578cd66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 1789056331}
+  canvasRectTrs: {fileID: 1789056332}
+  updateCanvas: 0
+  rectTrs: {fileID: 1848516231}
+  selectable: {fileID: 1848516233}
+  priority: 0
+  scrollbarThatMovesMe: {fileID: 0}
+  container: {fileID: 0}
 --- !u!1 &1940091019
 GameObject:
   m_ObjectHideFlags: 0
