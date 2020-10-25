@@ -222,7 +222,7 @@ MonoBehaviour:
     duration: Infinity
     timeRemaining: Infinity
     loop: 0
-    realtime: 0
+    realtime: 1
     pauseWhileNotFocused: 1
     autoStopIfNotLooping: 0
   text: {fileID: 6627868}
@@ -583,7 +583,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1679165266}
+      objectReference: {fileID: 1622795980}
     - target: {fileID: 114000011109216862, guid: 1cdb6e0df1cc0434fae804b0cae8f633,
         type: 3}
       propertyPath: bMat
@@ -1069,7 +1069,7 @@ PrefabInstance:
       objectReference: {fileID: 1283109523}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b53362ade24490499e310f1d1c5bdae, type: 3}
---- !u!43 &1679165266
+--- !u!43 &1622795980
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

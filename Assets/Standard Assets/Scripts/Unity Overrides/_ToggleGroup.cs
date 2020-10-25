@@ -1,13 +1,13 @@
 ﻿using UnityEngine.UI;
 
-public class UIToggleGroup : UIToggle
+public class _ToggleGroup : _Toggle
 {
 	public ToggleGroupType type;
-	public UIToggle[] subToggles;
+	public _Toggle[] subToggles;
 	
 	public override void Awake ()
 	{
-		foreach (UIToggle subToggle in subToggles)
+		foreach (_Toggle subToggle in subToggles)
 			subToggle.toggleGroups.Add(this);
 		toggle = GetComponent<Toggle>();
 		OnUpdate ();
@@ -16,7 +16,7 @@ public class UIToggleGroup : UIToggle
 	public void OnUpdate ()
 	{
 		bool turnOn = true;
-		foreach (UIToggle subToggle in subToggles)
+		foreach (_Toggle subToggle in subToggles)
 		{
 			if (subToggle.toggle != null)
 			{
@@ -44,19 +44,19 @@ public class UIToggleGroup : UIToggle
 			switch (type)
 			{
 				case ToggleGroupType.All:
-					foreach (UIToggle subToggle in subToggles)
+					foreach (_Toggle subToggle in subToggles)
 						subToggle.toggle.isOn = true;
 					break;
 				case ToggleGroupType.None:
-					foreach (UIToggle subToggle in subToggles)
+					foreach (_Toggle subToggle in subToggles)
 						subToggle.toggle.isOn = false;
 					break;
 				case ToggleGroupType.Same:
-					foreach (UIToggle subToggle in subToggles)
+					foreach (_Toggle subToggle in subToggles)
 						subToggle.toggle.isOn = toggle.isOn;
 					break;
 				case ToggleGroupType.Opposite:
-					foreach (UIToggle subToggle in subToggles)
+					foreach (_Toggle subToggle in subToggles)
 						subToggle.toggle.isOn = !toggle.isOn;
 					break;
 			}
@@ -64,7 +64,7 @@ public class UIToggleGroup : UIToggle
 		else
 		{
 			bool turnOn = true;
-			foreach (UIToggle subToggle in subToggles)
+			foreach (_Toggle subToggle in subToggles)
 			{
 				switch (type)
 				{

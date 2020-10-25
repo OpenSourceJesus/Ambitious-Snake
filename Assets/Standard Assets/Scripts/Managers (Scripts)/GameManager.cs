@@ -65,7 +65,7 @@ namespace AmbitiousSnake
 
 		public virtual void OnLevelLoaded (Scene scene = new Scene(), LoadSceneMode loadMode = LoadSceneMode.Single)
 		{
-			print(3);
+			print(4);
 			if (LevelSelect.Instance == null)
 			{
 				if (Level.instance != null)
@@ -127,12 +127,15 @@ namespace AmbitiousSnake
 
 		public virtual IEnumerator WaitForSceneTransitionEndRoutine ()
 		{
+			print(1);
 			isInSceneTransition = true;
-			yield return new WaitUntil(() => (!screenEffectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Invisible Screen")));
+			yield return new WaitUntil(() => (!Instance.screenEffectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Invisible Screen")));
+			print(2);
 			while (true)
 			{
 				if (screenEffectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Invisible Screen"))
 				{
+					print(3);
 					if (onLevelTransitionDone != null)
 					{
 						onLevelTransitionDone ();
@@ -377,17 +380,17 @@ namespace AmbitiousSnake
 			go.SetActive(!go.activeSelf);
 		}
 		
-		public virtual void ToggleUIToggle (UIToggle uiToggle)
+		public virtual void ToggleUIToggle (_Toggle uiToggle)
 		{
 			uiToggle.toggle.isOn = !uiToggle.toggle.isOn;
 		}
 		
-		public virtual void ActivateUIToggle (UIToggle uiToggle)
+		public virtual void ActivateUIToggle (_Toggle uiToggle)
 		{
 			uiToggle.toggle.isOn = true;
 		}
 		
-		public virtual void DeactivateUIToggle (UIToggle uiToggle)
+		public virtual void DeactivateUIToggle (_Toggle uiToggle)
 		{
 			uiToggle.toggle.isOn = false;
 		}

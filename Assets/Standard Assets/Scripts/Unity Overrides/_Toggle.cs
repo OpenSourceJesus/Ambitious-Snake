@@ -3,12 +3,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Toggle))]
-public class UIToggle : _Selectable
+public class _Toggle : _Selectable
 {
 	[HideInInspector]
 	public Toggle toggle;
 	[HideInInspector]
-	public List<UIToggleGroup> toggleGroups;
+	public List<_ToggleGroup> toggleGroups;
 	
 	public virtual void Awake ()
 	{
@@ -18,7 +18,7 @@ public class UIToggle : _Selectable
 	
 	public virtual void OnToggle ()
 	{
-		foreach (UIToggleGroup toggleGroup in toggleGroups)
+		foreach (_ToggleGroup toggleGroup in toggleGroups)
 			toggleGroup.OnUpdate ();
 	}
 	
