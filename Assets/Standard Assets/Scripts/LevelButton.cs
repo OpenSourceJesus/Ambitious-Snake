@@ -22,6 +22,8 @@ namespace AmbitiousSnake
 		public Text nameText;
 		public GameObject parIcon;
 		public GameObject starIcon;
+		public float doubleClickRate;
+		public Level level = new Level();
 		public virtual float LevelTime
 		{
 			get
@@ -44,7 +46,7 @@ namespace AmbitiousSnake
 				SaveAndLoadManager.SetValue(levelName + " Got Star", value);
 			}
 		}
-		public Level level = new Level();
+		float lastPressedTime;
 
 		public virtual void Start ()
 		{
@@ -52,6 +54,9 @@ namespace AmbitiousSnake
 
 		public virtual void SetLevel ()
 		{
+			if (Time.realtimeSinceStartup - lastPressedTime <= doubleClickRate)
+				LoadLevel ();
+			lastPressedTime = Time.realtimeSinceStartup;
 		}
 
 		public virtual void LoadLevel ()

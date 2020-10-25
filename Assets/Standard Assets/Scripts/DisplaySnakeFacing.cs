@@ -1,4 +1,5 @@
-﻿using Extensions;
+﻿using UnityEngine;
+using Extensions;
 
 namespace AmbitiousSnake
 {
@@ -11,6 +12,7 @@ namespace AmbitiousSnake
 				return true;
 			}
 		}
+		public Transform trs;
 
 		void OnEnable ()
 		{
@@ -24,8 +26,8 @@ namespace AmbitiousSnake
 
 		public void DoUpdate ()
 		{
-			transform.position = GetComponentInParent<Snake>().GetHeadPosition();
-			transform.right = GetComponentInParent<Snake>().facingVector;
+			trs.position = Snake.instance.GetHeadPosition();
+			trs.right = Snake.instance.facingVector;
 		}
 	}
 }

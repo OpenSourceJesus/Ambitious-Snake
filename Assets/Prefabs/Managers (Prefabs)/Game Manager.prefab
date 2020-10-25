@@ -55,6 +55,7 @@ MonoBehaviour:
   levelEditorPrefabs: []
   screenEffectAnimator: {fileID: 2574710873587072202}
   registeredGos: []
+  doEditorUpdates: 0
 --- !u!1 &1009934658038266
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,6 +175,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -297,7 +299,7 @@ PrefabInstance:
     - target: {fileID: 4212434525579167946, guid: 05a60eed58b69fd838a44d0cde6ed55d,
         type: 3}
       propertyPath: uniqueId
-      value: 930496849
+      value: 1528614783
       objectReference: {fileID: 0}
     - target: {fileID: 4212589002006113000, guid: 05a60eed58b69fd838a44d0cde6ed55d,
         type: 3}

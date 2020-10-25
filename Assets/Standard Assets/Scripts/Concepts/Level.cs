@@ -32,7 +32,8 @@ public class Level : IUpdatable
 
 	public virtual void Start ()
 	{
-		hasStar = false;
+		// hasStar = false;
+		Restart ();
 		// GameManager.onLevelTransitionDone += GameManager.Instance.OnLevelLoaded;
 	}
 
@@ -49,8 +50,11 @@ public class Level : IUpdatable
 		{
 			ObjectPool.Instance.DespawnAll ();
 			GameManager.Instance.screenEffectAnimator.Play("Opaque Screen");
-			GameManager.Instance.UnloadLevelAsync (LevelMap.previousLevelName);
-			LevelTimer.Instance.timer.Reset ();
+			if (LevelTimer.Instance != null)
+			{
+				GameManager.Instance.UnloadLevelAsync (LevelMap.previousLevelName);
+				LevelTimer.Instance.timer.Reset ();
+			}
 			SceneManager.sceneLoaded += GameManager.Instance.FadeIn;
 			GameManager.onLevelTransitionDone += GameManager.Instance.OnLevelLoaded;
 			GameManager.Instance.LoadLevel (LevelMap.previousLevelName, LoadSceneMode.Additive);

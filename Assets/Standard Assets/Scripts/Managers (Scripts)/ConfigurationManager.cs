@@ -7,8 +7,6 @@ using UnityEditor;
 #endif
 using System.Reflection;
 using System;
-using Extensions;
-using UnityEngine.UI;
 
 namespace AmbitiousSnake
 {

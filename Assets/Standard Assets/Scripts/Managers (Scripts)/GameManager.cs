@@ -50,7 +50,7 @@ namespace AmbitiousSnake
 			base.Awake ();
 			if (!initialized)
 			{
-				SceneManager.sceneLoaded += WaitForLevelTransitionEnd;
+				// SceneManager.sceneLoaded += WaitForLevelTransitionEnd;
 				initialized = true;
 			}
 			SaveAndLoadManager.Instance.Load ();
@@ -65,6 +65,7 @@ namespace AmbitiousSnake
 
 		public virtual void OnLevelLoaded (Scene scene = new Scene(), LoadSceneMode loadMode = LoadSceneMode.Single)
 		{
+			print(3);
 			if (LevelSelect.Instance == null)
 			{
 				if (Level.instance != null)
@@ -85,7 +86,8 @@ namespace AmbitiousSnake
 				updatable.DoUpdate ();
 			Physics2D.Simulate (Time.deltaTime);
 			InputSystem.Update ();
-			CameraScript.Instance.DoUpdate ();
+			// if (CameraScript.Instance != null)
+				CameraScript.Instance.DoUpdate ();
 		}
 
 		public virtual IEnumerator InitSettingsRoutine ()
@@ -125,12 +127,10 @@ namespace AmbitiousSnake
 
 		public virtual IEnumerator WaitForSceneTransitionEndRoutine ()
 		{
-			print(0);
 			isInSceneTransition = true;
 			yield return new WaitUntil(() => (!screenEffectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Invisible Screen")));
 			while (true)
 			{
-				print(1);
 				if (screenEffectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Invisible Screen"))
 				{
 					if (onLevelTransitionDone != null)

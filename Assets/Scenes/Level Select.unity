@@ -16814,6 +16814,7 @@ MonoBehaviour:
   nameText: {fileID: 1599}
   parIcon: {fileID: 64}
   starIcon: {fileID: 356}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -17252,6 +17253,7 @@ MonoBehaviour:
   nameText: {fileID: 1411}
   parIcon: {fileID: 263}
   starIcon: {fileID: 39}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -17442,6 +17444,7 @@ MonoBehaviour:
   nameText: {fileID: 1645}
   parIcon: {fileID: 348}
   starIcon: {fileID: 168}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -17632,6 +17635,7 @@ MonoBehaviour:
   nameText: {fileID: 1069}
   parIcon: {fileID: 257}
   starIcon: {fileID: 207}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -18169,6 +18173,7 @@ MonoBehaviour:
   nameText: {fileID: 1410}
   parIcon: {fileID: 82}
   starIcon: {fileID: 22}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -18412,7 +18417,7 @@ MonoBehaviour:
   _depthOfFieldForegroundDistance: 0.25
   _depthOfFieldBokehThreshold: 1
   _depthOfFieldBokehIntensity: 2
-  isDirty: 0
+  isDirty: 1
   bMat: {fileID: 0}
 --- !u!114 &1121
 MonoBehaviour:
@@ -18538,6 +18543,7 @@ MonoBehaviour:
   nameText: {fileID: 1311}
   parIcon: {fileID: 249}
   starIcon: {fileID: 161}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -19060,6 +19066,7 @@ MonoBehaviour:
   nameText: {fileID: 1390}
   parIcon: {fileID: 152}
   starIcon: {fileID: 151}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -19364,6 +19371,7 @@ MonoBehaviour:
   nameText: {fileID: 1637}
   parIcon: {fileID: 23}
   starIcon: {fileID: 43}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -19588,6 +19596,7 @@ MonoBehaviour:
   nameText: {fileID: 1422}
   parIcon: {fileID: 31}
   starIcon: {fileID: 214}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -19876,6 +19885,7 @@ MonoBehaviour:
   nameText: {fileID: 1191}
   parIcon: {fileID: 111}
   starIcon: {fileID: 253}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -20098,6 +20108,7 @@ MonoBehaviour:
   nameText: {fileID: 1470}
   parIcon: {fileID: 78}
   starIcon: {fileID: 353}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -20358,6 +20369,7 @@ MonoBehaviour:
   nameText: {fileID: 1282}
   parIcon: {fileID: 208}
   starIcon: {fileID: 97}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -20610,6 +20622,7 @@ MonoBehaviour:
   nameText: {fileID: 1319}
   parIcon: {fileID: 12}
   starIcon: {fileID: 75}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -20954,6 +20967,7 @@ MonoBehaviour:
   nameText: {fileID: 1168}
   parIcon: {fileID: 317}
   starIcon: {fileID: 288}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -21437,6 +21451,7 @@ MonoBehaviour:
   nameText: {fileID: 1137}
   parIcon: {fileID: 177}
   starIcon: {fileID: 86}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -21653,6 +21668,7 @@ MonoBehaviour:
   nameText: {fileID: 1133}
   parIcon: {fileID: 245}
   starIcon: {fileID: 268}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -21809,6 +21825,7 @@ MonoBehaviour:
   nameText: {fileID: 1510}
   parIcon: {fileID: 220}
   starIcon: {fileID: 14}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -21965,6 +21982,7 @@ MonoBehaviour:
   nameText: {fileID: 1524}
   parIcon: {fileID: 125}
   starIcon: {fileID: 150}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -22185,6 +22203,7 @@ MonoBehaviour:
   nameText: {fileID: 1407}
   parIcon: {fileID: 250}
   starIcon: {fileID: 211}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -22657,6 +22676,7 @@ MonoBehaviour:
   nameText: {fileID: 1314}
   parIcon: {fileID: 127}
   starIcon: {fileID: 252}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -22843,6 +22863,7 @@ MonoBehaviour:
   nameText: {fileID: 1583}
   parIcon: {fileID: 293}
   starIcon: {fileID: 276}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -23226,6 +23247,7 @@ MonoBehaviour:
   nameText: {fileID: 1558}
   parIcon: {fileID: 352}
   starIcon: {fileID: 349}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -23724,6 +23746,7 @@ MonoBehaviour:
   nameText: {fileID: 1551}
   parIcon: {fileID: 142}
   starIcon: {fileID: 347}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -23980,6 +24003,7 @@ MonoBehaviour:
   nameText: {fileID: 1646}
   parIcon: {fileID: 311}
   starIcon: {fileID: 228}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -24290,6 +24314,7 @@ MonoBehaviour:
   nameText: {fileID: 1573}
   parIcon: {fileID: 270}
   starIcon: {fileID: 229}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -24771,6 +24796,7 @@ MonoBehaviour:
   nameText: {fileID: 1206}
   parIcon: {fileID: 92}
   starIcon: {fileID: 251}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -25059,6 +25085,7 @@ MonoBehaviour:
   nameText: {fileID: 1138}
   parIcon: {fileID: 199}
   starIcon: {fileID: 330}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -25607,6 +25634,7 @@ MonoBehaviour:
   nameText: {fileID: 1441}
   parIcon: {fileID: 114}
   starIcon: {fileID: 24}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -26215,6 +26243,7 @@ MonoBehaviour:
   nameText: {fileID: 1085}
   parIcon: {fileID: 13}
   starIcon: {fileID: 308}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -26401,6 +26430,7 @@ MonoBehaviour:
   nameText: {fileID: 1582}
   parIcon: {fileID: 128}
   starIcon: {fileID: 265}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -26557,6 +26587,7 @@ MonoBehaviour:
   nameText: {fileID: 1609}
   parIcon: {fileID: 320}
   starIcon: {fileID: 303}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -26893,6 +26924,7 @@ MonoBehaviour:
   nameText: {fileID: 1095}
   parIcon: {fileID: 134}
   starIcon: {fileID: 102}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -27181,6 +27213,7 @@ MonoBehaviour:
   nameText: {fileID: 1292}
   parIcon: {fileID: 54}
   starIcon: {fileID: 255}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -27337,6 +27370,7 @@ MonoBehaviour:
   nameText: {fileID: 1651}
   parIcon: {fileID: 7}
   starIcon: {fileID: 350}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -27557,6 +27591,7 @@ MonoBehaviour:
   nameText: {fileID: 1581}
   parIcon: {fileID: 339}
   starIcon: {fileID: 351}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -27966,6 +28001,7 @@ MonoBehaviour:
   nameText: {fileID: 1273}
   parIcon: {fileID: 116}
   starIcon: {fileID: 89}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -28322,6 +28358,7 @@ MonoBehaviour:
   nameText: {fileID: 1579}
   parIcon: {fileID: 281}
   starIcon: {fileID: 65}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -28938,6 +28975,7 @@ MonoBehaviour:
   nameText: {fileID: 1179}
   parIcon: {fileID: 307}
   starIcon: {fileID: 269}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -29094,6 +29132,7 @@ MonoBehaviour:
   nameText: {fileID: 1297}
   parIcon: {fileID: 108}
   starIcon: {fileID: 10}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -29604,6 +29643,7 @@ MonoBehaviour:
   nameText: {fileID: 1379}
   parIcon: {fileID: 226}
   starIcon: {fileID: 213}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -29830,6 +29870,7 @@ MonoBehaviour:
   nameText: {fileID: 1320}
   parIcon: {fileID: 98}
   starIcon: {fileID: 315}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -30322,6 +30363,7 @@ MonoBehaviour:
   nameText: {fileID: 1652}
   parIcon: {fileID: 230}
   starIcon: {fileID: 81}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -30478,6 +30520,7 @@ MonoBehaviour:
   nameText: {fileID: 1253}
   parIcon: {fileID: 333}
   starIcon: {fileID: 336}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -30664,6 +30707,7 @@ MonoBehaviour:
   nameText: {fileID: 1369}
   parIcon: {fileID: 335}
   starIcon: {fileID: 234}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -30866,6 +30910,7 @@ MonoBehaviour:
   nameText: {fileID: 1465}
   parIcon: {fileID: 163}
   starIcon: {fileID: 100}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -31056,6 +31101,7 @@ MonoBehaviour:
   nameText: {fileID: 1644}
   parIcon: {fileID: 113}
   starIcon: {fileID: 202}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -31212,6 +31258,7 @@ MonoBehaviour:
   nameText: {fileID: 1590}
   parIcon: {fileID: 304}
   starIcon: {fileID: 164}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -31528,6 +31575,7 @@ MonoBehaviour:
   nameText: {fileID: 1448}
   parIcon: {fileID: 254}
   starIcon: {fileID: 130}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -32463,6 +32511,7 @@ MonoBehaviour:
   nameText: {fileID: 1159}
   parIcon: {fileID: 273}
   starIcon: {fileID: 119}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -32683,6 +32732,7 @@ MonoBehaviour:
   nameText: {fileID: 1072}
   parIcon: {fileID: 93}
   starIcon: {fileID: 279}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -33033,6 +33083,7 @@ MonoBehaviour:
   nameText: {fileID: 1610}
   parIcon: {fileID: 187}
   starIcon: {fileID: 107}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -33257,6 +33308,7 @@ MonoBehaviour:
   nameText: {fileID: 1313}
   parIcon: {fileID: 237}
   starIcon: {fileID: 135}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -33413,6 +33465,7 @@ MonoBehaviour:
   nameText: {fileID: 1235}
   parIcon: {fileID: 105}
   starIcon: {fileID: 58}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -33599,6 +33652,7 @@ MonoBehaviour:
   nameText: {fileID: 1523}
   parIcon: {fileID: 129}
   starIcon: {fileID: 323}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -34182,6 +34236,7 @@ MonoBehaviour:
   nameText: {fileID: 1612}
   parIcon: {fileID: 322}
   starIcon: {fileID: 149}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -34500,6 +34555,7 @@ MonoBehaviour:
   nameText: {fileID: 1254}
   parIcon: {fileID: 188}
   starIcon: {fileID: 192}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -34848,6 +34904,7 @@ MonoBehaviour:
   nameText: {fileID: 1228}
   parIcon: {fileID: 337}
   starIcon: {fileID: 25}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -35405,6 +35462,7 @@ MonoBehaviour:
   nameText: {fileID: 1446}
   parIcon: {fileID: 338}
   starIcon: {fileID: 321}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -35561,6 +35619,7 @@ MonoBehaviour:
   nameText: {fileID: 1129}
   parIcon: {fileID: 9}
   starIcon: {fileID: 183}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -35781,6 +35840,7 @@ MonoBehaviour:
   nameText: {fileID: 1413}
   parIcon: {fileID: 29}
   starIcon: {fileID: 112}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -36289,6 +36349,7 @@ MonoBehaviour:
   nameText: {fileID: 1300}
   parIcon: {fileID: 110}
   starIcon: {fileID: 69}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -36958,6 +37019,7 @@ MonoBehaviour:
   nameText: {fileID: 617308672}
   parIcon: {fileID: 907237442}
   starIcon: {fileID: 1485583543}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -37259,6 +37321,7 @@ MonoBehaviour:
   nameText: {fileID: 1754447825}
   parIcon: {fileID: 534601784}
   starIcon: {fileID: 1625700012}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -38314,6 +38377,7 @@ MonoBehaviour:
   nameText: {fileID: 34466617}
   parIcon: {fileID: 1539018548}
   starIcon: {fileID: 1935428624}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 
@@ -38867,6 +38931,7 @@ MonoBehaviour:
   nameText: {fileID: 2023335909457064765}
   parIcon: {fileID: 2126502368303945613}
   starIcon: {fileID: 2126502369327647177}
+  doubleClickRate: 1
   level:
     name: 
     restartButton: 

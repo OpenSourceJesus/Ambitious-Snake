@@ -12,7 +12,6 @@ namespace AmbitiousSnake
 		[SerializeField]
 		[HideInInspector]
 		int siblingIndex;
-		float lastPressedTime;
 		
 		public override void Start ()
 		{
@@ -100,9 +99,7 @@ namespace AmbitiousSnake
 			// GameManager.Instance.LoadLevelAdditive (levelName);
 			LevelMap.Instance.Make (levelName);
 			LevelSelect.Instance.levelTitle.text = levelName;
-			// if (Time.realtimeSinceStartup - lastPressedTime <= InputManager.Instance.maxDoubleClickDelay)
-			// 	LoadLevel ();
-			lastPressedTime = Time.realtimeSinceStartup;
+			base.SetLevel ();
 		}
 		
 		public override void LoadLevel ()
@@ -125,7 +122,9 @@ namespace AmbitiousSnake
 			Level.instance = level;
 			Level.instance.Start ();
 			GameManager.updatables = GameManager.updatables.Add(level);
-			// GameManager.Instance.SetPaused (false);
+			yield return new WaitUntil(() => (GameManager.Instance.screenEffectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Invisible Screen")));
+			yield return new WaitForEndOfFrame();
+			GameManager.Instance.SetPaused (false);
 		}
 	}
 }
