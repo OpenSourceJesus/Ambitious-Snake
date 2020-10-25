@@ -65,7 +65,7 @@ namespace AmbitiousSnake
 			// distRemainingTillMakeVertex = makeVertexInterval;
 			headCollider.enabled = false;
 			whatICrashInto = Physics2D.GetLayerCollisionMask(gameObject.layer);
-			LevelMap.mapBounds = LevelMap.GetBounds();
+			LevelMap.boundsRect = LevelMap.GetBoundsRect();
 			SetFacing (trs.right);
 			trs.eulerAngles = Vector3.zero;
 			verticies.Add(Vector3.zero);
@@ -252,7 +252,7 @@ namespace AmbitiousSnake
 		
 		public virtual void SetHasStar (bool hasStar)
 		{
-			Level.hasStar = hasStar;
+			Snake.hasStar = hasStar;
 		}
 		
 		public virtual void SetFacing (float angle)
@@ -294,7 +294,11 @@ namespace AmbitiousSnake
 				}
 			}
 			if (distFromGround == Mathf.Infinity)
+			{
 				trs.position += Vector3.down * gravity * Time.deltaTime;
+				if (!LevelMap.boundsRect.Contains(GetHeadPosition()) && !LevelMap.boundsRect.Contains(GetTailPosition()))
+					Level.instance.Restart ();
+			}
 			else
 			{
 				trs.position += Vector3.down * distFromGround;

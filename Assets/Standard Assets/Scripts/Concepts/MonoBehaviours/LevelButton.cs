@@ -9,8 +9,11 @@ namespace AmbitiousSnake
 		public string[] extraScenes = new string[0];
 		public Transform trs;
 		public string levelName;
+		[HideInInspector]
 		public ColorBlock unfinishedColors;
+		[HideInInspector]
 		public ColorBlock completedColors;
+		[HideInInspector]
 		public ColorBlock acedColors;
 		[HideInInspector]
 		public bool completed;
@@ -32,7 +35,7 @@ namespace AmbitiousSnake
 			}
 			set
 			{
-				SaveAndLoadManager.SetValue(levelName + " Time", value);
+				SaveAndLoadManager.SetValue (levelName + " Time", value);
 			}
 		}
 		public virtual bool GotStar
@@ -43,7 +46,7 @@ namespace AmbitiousSnake
 			}
 			set
 			{
-				SaveAndLoadManager.SetValue(levelName + " Got Star", value);
+				SaveAndLoadManager.SetValue (levelName + " Got Star", value);
 			}
 		}
 		float lastPressedTime;
@@ -54,8 +57,8 @@ namespace AmbitiousSnake
 
 		public virtual void SetLevel ()
 		{
-			if (Time.realtimeSinceStartup - lastPressedTime <= doubleClickRate)
-				LoadLevel ();
+			// if (Time.realtimeSinceStartup - lastPressedTime <= doubleClickRate)
+			// 	LoadLevel ();
 			lastPressedTime = Time.realtimeSinceStartup;
 		}
 

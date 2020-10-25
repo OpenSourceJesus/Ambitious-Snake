@@ -8,18 +8,6 @@ public class Level : IUpdatable
 {
 	public static Level instance;
 	public string name;
-	public static bool hasStar;
-	public static bool KeptStar
-	{
-		get
-		{
-			return SaveAndLoadManager.GetValue<bool>(Level.instance.name + " Kept Star", false);
-		}
-		set
-		{
-			SaveAndLoadManager.SetValue (Level.instance.name + " Kept Star", value);
-		}
-	}
 	public bool PauseWhileUnfocused
 	{
 		get
@@ -29,6 +17,8 @@ public class Level : IUpdatable
 	}
 	public string restartButton;
 	public string[] extraScenes = new string[0];
+	bool restartLevelInput;
+	bool previousRestartLevelInput;
 
 	public virtual void Start ()
 	{
@@ -37,13 +27,14 @@ public class Level : IUpdatable
 
 	public virtual void DoUpdate ()
 	{
-		if (InputManager.RestartLevelInput)
+		restartLevelInput = InputManager.RestartLevelInput;
+		if (restartLevelInput && !previousRestartLevelInput)
 			Restart ();
+		previousRestartLevelInput = restartLevelInput;
 	}
 
 	public virtual void Restart ()
 	{
-		hasStar = false;
 		if (CommunityLevelHub.Instance == null)
 		{
 			ObjectPool.Instance.DespawnAll ();

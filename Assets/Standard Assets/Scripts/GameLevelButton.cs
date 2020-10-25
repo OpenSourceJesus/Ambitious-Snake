@@ -4,8 +4,31 @@ using Extensions;
 
 namespace AmbitiousSnake
 {
-	public class GameLevelButton : LevelButton
+	public class GameLevelButton : LevelButton, ISavableAndLoadable
 	{
+		public string Name
+		{
+			get
+			{
+				return name;
+			}
+			set
+			{
+				name = value;
+			}
+		}
+		public int uniqueId;
+		public int UniqueId
+		{
+			get
+			{
+				return uniqueId;
+			}
+			set
+			{
+				uniqueId = value;
+			}
+		}
 		public int scoreToUnlock;
 		bool unlocked;
 		string displayName;
@@ -114,11 +137,12 @@ namespace AmbitiousSnake
 			LevelSelect.Instance.startButton.onClick.RemoveAllListeners();
 			LevelSelect.PreviousLevelIndex = siblingIndex;
 			// SaveAndLoadManager.Instance.Save ();
-			GameManager.Instance.UnloadLevelAsync ("Level Select");
-			yield return new WaitUntil(() => (GameManager.unloadLevel.isDone));
 			UnityEngine.SceneManagement.SceneManager.sceneLoaded += GameManager.Instance.FadeIn;
 			GameManager.onLevelTransitionDone += GameManager.Instance.OnLevelLoaded;
 			GameManager.Instance.LoadLevelAdditive ("Level");
+			GameManager.Instance.UnloadLevelAsync ("Level Select");
+			if (GameManager.unloadLevel != null)
+				yield return new WaitUntil(() => (GameManager.unloadLevel.isDone));
 			foreach (string sceneName in extraScenes)
 				GameManager.Instance.LoadLevelAdditive (sceneName);
 			Level.instance = level;

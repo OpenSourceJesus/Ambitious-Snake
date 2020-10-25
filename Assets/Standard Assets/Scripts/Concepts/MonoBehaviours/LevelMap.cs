@@ -9,7 +9,7 @@ namespace AmbitiousSnake
 	public class LevelMap : SingletonMonoBehaviour<LevelMap>
 	{
 		public static string previousLevelName;
-		public static Bounds mapBounds;
+		public static Rect boundsRect;
 		public Transform trs;
 		public Camera cam;
 		public Transform rotationViewersParent;

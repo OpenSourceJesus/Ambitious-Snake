@@ -23,10 +23,9 @@ namespace AmbitiousSnake
 		[Multiline]
 		public string savedData;
 		public bool overwriteSaves;
-		public static Dictionary<string, string> data = new Dictionary<string, string>();
 		
 #if UNITY_EDITOR
-		public virtual void OnEnable ()
+		public void OnEnable ()
 		{
 			if (Application.isPlaying)
 			{
@@ -49,7 +48,7 @@ namespace AmbitiousSnake
 		}
 #endif
 		
-		public virtual void Start ()
+		public void Start ()
 		{
 #if UNITY_EDITOR
 			if (!Application.isPlaying)
@@ -60,7 +59,7 @@ namespace AmbitiousSnake
 			Setup ();
 		}
 
-		public virtual void Setup ()
+		public void Setup ()
 		{
 			saveAndLoadObjects.Clear();
 			saveAndLoadObjects.AddRange(FindObjectsOfType<SaveAndLoadObject>());
@@ -78,22 +77,15 @@ namespace AmbitiousSnake
 
 		public static void SetValue (string key, object value)
 		{
-			if (data.ContainsKey(key))
-				data[key] = Serialize(value, value.GetType());
-			else
-				data.Add(key, Serialize(value, value.GetType()));
+			PlayerPrefs.SetString(key, Serialize(value, value.GetType()));
 		}
 
 		public static T GetValue<T> (string key, T defaultValue = default(T))
 		{
-			string dataString;
-			if (data.TryGetValue(key, out dataString))
-				return (T) Deserialize(dataString, typeof(T));
-			else
-				return defaultValue;
+			return (T) Deserialize(PlayerPrefs.GetString(key, Serialize(defaultValue, typeof(T))), typeof(T));
 		}
 		
-		public virtual void SaveToCurrentAccount ()
+		public void SaveToCurrentAccount ()
 		{
 			if (SaveAndLoadManager.Instance != this)
 			{
@@ -103,11 +95,11 @@ namespace AmbitiousSnake
 			Save (ArchivesManager.currentAccountIndex);
 		}
 		
-		public virtual void Save (int accountIndex)
+		public void Save (int accountIndex)
 		{
 			if (SaveAndLoadManager.Instance != this)
 			{
-				SaveAndLoadManager.Instance.SaveToCurrentAccount ();
+				SaveAndLoadManager.Instance.Save (accountIndex);
 				return;
 			}
 			if (accountIndex != -1)
@@ -121,11 +113,11 @@ namespace AmbitiousSnake
 				Save (-1, -1);
 		}
 		
-		public virtual void Save (int accountIndex, int saveIndex)
+		public void Save (int accountIndex, int saveIndex)
 		{
 			if (SaveAndLoadManager.Instance != this)
 			{
-				SaveAndLoadManager.Instance.SaveToCurrentAccount ();
+				SaveAndLoadManager.Instance.Save (accountIndex, saveIndex);
 				return;
 			}
 			OnAboutToSave ();
@@ -175,7 +167,7 @@ namespace AmbitiousSnake
 		{
 		}
 		
-		public virtual void LoadFromCurrentAccount ()
+		public void LoadFromCurrentAccount ()
 		{
 			if (SaveAndLoadManager.Instance != this)
 			{
@@ -185,19 +177,12 @@ namespace AmbitiousSnake
 			Load (ArchivesManager.currentAccountIndex);
 		}
 		
-		public virtual void Load (int accountIndex)
+		public void Load (int accountIndex)
 		{
 			if (SaveAndLoadManager.Instance != this)
 			{
 				SaveAndLoadManager.Instance.Load (accountIndex);
 				return;
-			}
-			if (!usePlayerPrefs)
-			{
-				if (File.Exists(Application.persistentDataPath + Path.DirectorySeparatorChar + "Saved Data.txt"))
-					savedData = File.ReadAllText(Application.persistentDataPath + Path.DirectorySeparatorChar + "Saved Data.txt");
-				else
-					File.CreateText(Application.persistentDataPath + Path.DirectorySeparatorChar + "Saved Data.txt");
 			}
 			StartCoroutine(LoadRoutine (accountIndex));
 		}
@@ -213,6 +198,13 @@ namespace AmbitiousSnake
 
 		IEnumerator LoadRoutine (int accountIndex, int saveIndex)
 		{
+			if (!usePlayerPrefs)
+			{
+				if (File.Exists(Application.persistentDataPath + Path.DirectorySeparatorChar + "Saved Data.txt"))
+					savedData = File.ReadAllText(Application.persistentDataPath + Path.DirectorySeparatorChar + "Saved Data.txt");
+				else
+					File.CreateText(Application.persistentDataPath + Path.DirectorySeparatorChar + "Saved Data.txt");
+			}
 			yield return new WaitForEndOfFrame();
 			Setup ();
 			for (int i = 0; i < saveEntries.Length; i ++)
@@ -220,12 +212,12 @@ namespace AmbitiousSnake
 			OnLoaded ();
 		}
 
-		public virtual void OnLoaded ()
+		public void OnLoaded ()
 		{
 			GameManager.Instance.SetGosActive ();
 		}
 
-		public virtual void DeleteCurrentAccount ()
+		public void DeleteCurrentAccount ()
 		{
 			if (SaveAndLoadManager.Instance != this)
 			{
@@ -235,7 +227,7 @@ namespace AmbitiousSnake
 			Delete (ArchivesManager.currentAccountIndex);
 		}
 
-		public virtual void Delete (int accountIndex)
+		public void Delete (int accountIndex)
 		{
 			if (SaveAndLoadManager.Instance != this)
 			{
@@ -252,7 +244,7 @@ namespace AmbitiousSnake
 				Delete (-1, -1);
 		}
 
-		public virtual void Delete (int accountIndex, int saveIndex)
+		public void Delete (int accountIndex, int saveIndex)
 		{
 			if (SaveAndLoadManager.Instance != this)
 			{
@@ -273,7 +265,7 @@ namespace AmbitiousSnake
 			ArchivesManager.currentAccountIndex = -1;
 		}
 
-		public virtual void DeleteAll ()
+		public void DeleteAll ()
 		{
 			PlayerPrefs.DeleteAll();
 			for (int accountIndex = -1; accountIndex < ArchivesManager.Accounts.Length; accountIndex ++)
@@ -301,111 +293,73 @@ namespace AmbitiousSnake
 			{
 			}
 			
-			public virtual void Save (int accountIndex, int saveIndex)
+			public void Save (int accountIndex, int saveIndex)
 			{
 				foreach (MemberEntry memberEntry in memberEntries)
 				{
-					if (!memberEntry.isField)
+					PropertyInfo property = memberEntry.member as PropertyInfo;
+					string key = GetKeyForMemberEntry(accountIndex, saveIndex, memberEntry);
+					if (property != null)
 					{
-						PropertyInfo property = memberEntry.member as PropertyInfo;
-						if (SaveAndLoadManager.Instance.usePlayerPrefs)
-						{
-							string data = Serialize(property.GetValue(saveableAndLoadable), property.PropertyType);
-							PlayerPrefs.SetString(GetKeyNameForMemberEntry(accountIndex, saveIndex, memberEntry), data);
-							SaveAndLoadManager.Instance.savedData += data;
-						}
-						else
-							SaveAndLoadManager.Instance.savedData += GetKeyNameForMemberEntry(accountIndex, saveIndex, memberEntry) + VALUE_GROUP_SEPERATOR + Serialize(property.GetValue(saveableAndLoadable), property.PropertyType) + VALUE_GROUP_SEPERATOR;
+						object value = property.GetValue(saveableAndLoadable, null);
+						SetValue (key, value);
+						SaveAndLoadManager.Instance.savedData += key + VALUE_GROUP_SEPERATOR + Serialize(value, property.PropertyType) + VALUE_GROUP_SEPERATOR;
 					}
 					else
 					{
 						FieldInfo field = memberEntry.member as FieldInfo;
-						if (SaveAndLoadManager.Instance.usePlayerPrefs)
-						{
-							string data = Serialize(field.GetValue(saveableAndLoadable), field.FieldType);
-							PlayerPrefs.SetString(GetKeyNameForMemberEntry(accountIndex, saveIndex, memberEntry), data);
-							SaveAndLoadManager.Instance.savedData += data;
-						}
-						else
-							SaveAndLoadManager.Instance.savedData += GetKeyNameForMemberEntry(accountIndex, saveIndex, memberEntry) + VALUE_GROUP_SEPERATOR + Serialize(field.GetValue(saveableAndLoadable), field.FieldType) + VALUE_GROUP_SEPERATOR;
+						object value = field.GetValue(saveableAndLoadable);
+						SetValue (key, value);
+						SaveAndLoadManager.Instance.savedData += key + VALUE_GROUP_SEPERATOR + Serialize(value, field.FieldType) + VALUE_GROUP_SEPERATOR;
 					}
 				}
 			}
 			
-			public virtual void Load (int accountIndex, int saveIndex)
+			public void Load (int accountIndex, int saveIndex)
 			{
-				object value;
 				foreach (MemberEntry memberEntry in memberEntries)
 				{
-					if (!memberEntry.isField)
+					string key = GetKeyForMemberEntry(accountIndex, saveIndex, memberEntry);
+					if (!PlayerPrefs.HasKey(key))
+						return;
+					string valueString = PlayerPrefs.GetString(key);
+					PropertyInfo property = memberEntry.member as PropertyInfo;
+					if (property != null)
 					{
-						PropertyInfo property = memberEntry.member as PropertyInfo;
-						if (SaveAndLoadManager.Instance.usePlayerPrefs)
-						{
-							value = Deserialize(PlayerPrefs.GetString(GetKeyNameForMemberEntry(accountIndex, saveIndex, memberEntry), Serialize(property.GetValue(saveableAndLoadable), property.PropertyType)), property.PropertyType);
-							property.SetValue(saveableAndLoadable, value);
-						}
-						else
-						{
-							string[] valueGroups = SaveAndLoadManager.Instance.savedData.Split(new string[] { VALUE_GROUP_SEPERATOR }, StringSplitOptions.None);
-							for (int i = 0; i < valueGroups.Length; i += 2)
-							{
-								string valueGroup = valueGroups[i];
-								if (valueGroup == GetKeyNameForMemberEntry(accountIndex, saveIndex, memberEntry))
-								{
-									valueGroup = valueGroups[i + 1];
-									value = Deserialize(valueGroup, property.PropertyType);
-									property.SetValue(saveableAndLoadable, value);
-								}
-							}
-						}
+						object value = Deserialize(valueString, property.PropertyType);
+						property.SetValue(saveableAndLoadable, value, null);
+						SaveAndLoadManager.Instance.savedData += key + VALUE_GROUP_SEPERATOR + valueString + VALUE_GROUP_SEPERATOR;
 					}
 					else
 					{
 						FieldInfo field = memberEntry.member as FieldInfo;
-						if (SaveAndLoadManager.Instance.usePlayerPrefs)
-						{
-							value = Deserialize(PlayerPrefs.GetString(GetKeyNameForMemberEntry(accountIndex, saveIndex, memberEntry), Serialize(field.GetValue(saveableAndLoadable), field.FieldType)), field.FieldType);
-							field.SetValue(saveableAndLoadable, value);
-						}
-						else
-						{
-							string[] valueGroups = SaveAndLoadManager.Instance.savedData.Split(new string[] { VALUE_GROUP_SEPERATOR }, StringSplitOptions.None);
-							for (int i = 0; i < valueGroups.Length; i += 2)
-							{
-								string valueGroup = valueGroups[i];
-								if (valueGroup == GetKeyNameForMemberEntry(accountIndex, saveIndex, memberEntry))
-								{
-									valueGroup = valueGroups[i + 1];
-									value = Deserialize(valueGroup, field.FieldType);
-									field.SetValue(saveableAndLoadable, value);
-								}
-							}
-						}
+						object value = Deserialize(valueString, field.FieldType);
+						field.SetValue(saveableAndLoadable, value);
+						SaveAndLoadManager.Instance.savedData += key + VALUE_GROUP_SEPERATOR + valueString + VALUE_GROUP_SEPERATOR;
 					}
 				}
 			}
 
-			public virtual void Delete (int accountIndex, int saveIndex)
+			public void Delete (int accountIndex, int saveIndex)
 			{
 				foreach (MemberEntry memberEntry in memberEntries)
 				{
-					if (SaveAndLoadManager.Instance.usePlayerPrefs)
-						PlayerPrefs.DeleteKey(GetKeyNameForMemberEntry(accountIndex, saveIndex, memberEntry));
-					else
+					string[] valueGroups = SaveAndLoadManager.Instance.savedData.Split(new string[] { VALUE_GROUP_SEPERATOR }, StringSplitOptions.None);
+					for (int i = 0; i < valueGroups.Length; i += 2)
 					{
-						string[] valueGroups = SaveAndLoadManager.Instance.savedData.Split(new string[] { VALUE_GROUP_SEPERATOR }, StringSplitOptions.None);
-						for (int i = 0; i < valueGroups.Length; i += 2)
+						string valueGroup = valueGroups[i];
+						string key = GetKeyForMemberEntry(accountIndex, saveIndex, memberEntry);
+						if (valueGroup == key)
 						{
-							string valueGroup = valueGroups[i];
-							if (valueGroup == GetKeyNameForMemberEntry(accountIndex, saveIndex, memberEntry))
-								SaveAndLoadManager.Instance.savedData = SaveAndLoadManager.Instance.savedData.RemoveEach(valueGroup + VALUE_GROUP_SEPERATOR + valueGroups[i + 1] + VALUE_GROUP_SEPERATOR);
+							SaveAndLoadManager.Instance.savedData = SaveAndLoadManager.Instance.savedData.RemoveEach(valueGroup + VALUE_GROUP_SEPERATOR + valueGroups[i + 1] + VALUE_GROUP_SEPERATOR);
+							if (SaveAndLoadManager.Instance.usePlayerPrefs)
+								PlayerPrefs.DeleteKey(key);
 						}
 					}
 				}
 			}
 
-			public virtual string GetKeyNameForMemberEntry (int accountIndex, int saveIndex, MemberEntry memberEntry)
+			public string GetKeyForMemberEntry (int accountIndex, int saveIndex, MemberEntry memberEntry)
 			{
 				// if (memberEntry.isShared)
 				// 	return VALUE_SEPERATOR + saveableAndLoadable.UniqueId + VALUE_SEPERATOR + memberEntry.member.Name;
@@ -416,7 +370,6 @@ namespace AmbitiousSnake
 			public class MemberEntry
 			{
 				public MemberInfo member;
-				public bool isField;
 				// public bool isShared;
 			}
 		}

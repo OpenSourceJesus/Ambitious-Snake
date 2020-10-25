@@ -53,6 +53,7 @@ namespace AmbitiousSnake
 				// SceneManager.sceneLoaded += WaitForLevelTransitionEnd;
 				initialized = true;
 			}
+			SaveAndLoadManager.Instance.Setup ();
 			SaveAndLoadManager.Instance.LoadFromCurrentAccount ();
 			UnlockablesManager.Instance.GetUnlocks ();
 			// StartCoroutine(InitSettingsRoutine ());
@@ -103,6 +104,7 @@ namespace AmbitiousSnake
 
 		public virtual void FadeIn (Scene scene = new Scene(), LoadSceneMode loadMode = LoadSceneMode.Single)
 		{
+			isInSceneTransition = true;
 			if (Instance != this)
 			{
 				Instance.FadeIn (scene, loadMode);
@@ -126,7 +128,6 @@ namespace AmbitiousSnake
 
 		public virtual IEnumerator WaitForSceneTransitionEndRoutine ()
 		{
-			isInSceneTransition = true;
 			// yield return new WaitForSecondsRealtime(1);
 			// if (onLevelTransitionDone != null)
 			// {

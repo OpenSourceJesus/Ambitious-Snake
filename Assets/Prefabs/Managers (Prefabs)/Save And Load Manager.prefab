@@ -51,8 +51,8 @@ MonoBehaviour:
     obj: {fileID: 5709231860657369625}
     duration: 2
     realtime: 1
-    text: {fileID: 0}
-    durationPerCharacter: 0
+    text: {fileID: 7766933656979616598}
+    durationPerCharacter: 0.08
   keepPastSavesCount: 0
   usePlayerPrefs: 1
   savedData: 

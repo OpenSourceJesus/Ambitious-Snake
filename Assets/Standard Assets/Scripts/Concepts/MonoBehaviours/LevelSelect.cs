@@ -1,12 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using UnityEngine.SceneManagement;
-using System;
-using Extensions;
 
 namespace AmbitiousSnake
 {

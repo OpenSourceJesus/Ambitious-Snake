@@ -46,30 +46,16 @@ public class SaveAndLoadObject : MonoBehaviour
 				SaveEntry saveEntry = new SaveEntry();
 				saveEntry.saveableAndLoadable = saveables[i];
 				List<SaveEntry.MemberEntry> memberEntries = new List<SaveEntry.MemberEntry>();
-				PropertyInfo[] properties = saveEntry.saveableAndLoadable.GetType().GetProperties();
-				for (int i2 = 0; i2 < properties.Length; i2 ++)
+				MemberInfo[] members = saveEntry.saveableAndLoadable.GetType().GetMembers();
+				for (int i2 = 0; i2 < members.Length; i2 ++)
 				{
-					PropertyInfo property = properties[i2];
-					SaveAndLoadValue saveAndLoadValue = Attribute.GetCustomAttribute(property, typeof(SaveAndLoadValue)) as SaveAndLoadValue;
+					MemberInfo member = members[i2];
+					SaveAndLoadValue saveAndLoadValue = Attribute.GetCustomAttribute(member, typeof(SaveAndLoadValue)) as SaveAndLoadValue;
 					if (saveAndLoadValue != null)
 					{
 						SaveEntry.MemberEntry memberEntry = new SaveEntry.MemberEntry();
 						// memberEntry.isShared = saveAndLoadValue.isShared;
-						memberEntry.member = property;
-						memberEntries.Add(memberEntry);
-					}
-				}
-				FieldInfo[] fields = saveEntry.saveableAndLoadable.GetType().GetFields();
-				for (int i2 = 0; i2 < fields.Length; i2 ++)
-				{
-					FieldInfo field = fields[i2];
-					SaveAndLoadValue saveAndLoadValue = Attribute.GetCustomAttribute(field, typeof(SaveAndLoadValue)) as SaveAndLoadValue;
-					if (saveAndLoadValue != null)
-					{
-						SaveEntry.MemberEntry memberEntry = new SaveEntry.MemberEntry();
-						// memberEntry.isShared = saveAndLoadValue.isShared;
-						memberEntry.member = field;
-						memberEntry.isField = true;
+						memberEntry.member = member;
 						memberEntries.Add(memberEntry);
 					}
 				}
