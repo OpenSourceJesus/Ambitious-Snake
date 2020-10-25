@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using UnityEngine;
+﻿using UnityEngine;
 using Extensions;
 
 [ExecuteAlways]
@@ -32,4 +31,3 @@ public class SnapPosition : MonoBehaviour
 		trs.position = newPos;
 	}
 }
-#endif

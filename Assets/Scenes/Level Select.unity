@@ -16526,7 +16526,7 @@ MonoBehaviour:
   persistant: 0
   trs: {fileID: 976}
   addNewButton: 0
-  _firstLevelBuildIndex: 15
+  _firstLevelBuildIndex: 16
   levelButtonPrefab: {fileID: 0}
   _parTimes:
   - 11
@@ -21139,7 +21139,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 834}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.2956537
+  m_Size: 0.29396152
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
