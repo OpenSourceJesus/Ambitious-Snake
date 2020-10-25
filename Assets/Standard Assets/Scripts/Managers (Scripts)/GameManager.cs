@@ -65,7 +65,6 @@ namespace AmbitiousSnake
 
 		public virtual void OnLevelLoaded (Scene scene = new Scene(), LoadSceneMode loadMode = LoadSceneMode.Single)
 		{
-			print(4);
 			if (LevelSelect.Instance == null)
 			{
 				if (Level.instance != null)
@@ -127,15 +126,20 @@ namespace AmbitiousSnake
 
 		public virtual IEnumerator WaitForSceneTransitionEndRoutine ()
 		{
-			print(1);
 			isInSceneTransition = true;
-			yield return new WaitUntil(() => (!Instance.screenEffectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Invisible Screen")));
-			print(2);
+			// yield return new WaitForSecondsRealtime(1);
+			// if (onLevelTransitionDone != null)
+			// {
+			// 	onLevelTransitionDone ();
+			// 	onLevelTransitionDone = null;
+			// }
+			// isInSceneTransition = false;
+			// yield break;
+			yield return new WaitUntil(() => (!screenEffectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Invisible Screen")));
 			while (true)
 			{
 				if (screenEffectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Invisible Screen"))
 				{
-					print(3);
 					if (onLevelTransitionDone != null)
 					{
 						onLevelTransitionDone ();
@@ -349,6 +353,11 @@ namespace AmbitiousSnake
 		public virtual void OnApplicationQuit ()
 		{
 			onLevelTransitionDone -= OnLevelLoaded;
+		}
+
+		public static void Log (object o)
+		{
+			print(o);
 		}
 		
 		public static List<Transform> GetAllChildren (Transform root)

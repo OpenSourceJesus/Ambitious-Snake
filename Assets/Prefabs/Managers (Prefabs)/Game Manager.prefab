@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e77218ad6dce4c4c83b9f0cabd25e0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handleMultipleInstances: 2
+  handleMultipleInstances: 1
   persistant: 1
   pauseButton: {fileID: 0}
   levelEditorPrefabs: []
@@ -299,7 +299,7 @@ PrefabInstance:
     - target: {fileID: 4212434525579167946, guid: 05a60eed58b69fd838a44d0cde6ed55d,
         type: 3}
       propertyPath: uniqueId
-      value: 1528614783
+      value: -795401193
       objectReference: {fileID: 0}
     - target: {fileID: 4212589002006113000, guid: 05a60eed58b69fd838a44d0cde6ed55d,
         type: 3}

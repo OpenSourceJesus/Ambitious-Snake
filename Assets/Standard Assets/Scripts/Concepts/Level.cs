@@ -32,9 +32,7 @@ public class Level : IUpdatable
 
 	public virtual void Start ()
 	{
-		// hasStar = false;
 		Restart ();
-		// GameManager.onLevelTransitionDone += GameManager.Instance.OnLevelLoaded;
 	}
 
 	public virtual void DoUpdate ()

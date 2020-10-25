@@ -116,6 +116,8 @@ namespace AmbitiousSnake
 			// SaveAndLoadManager.Instance.Save ();
 			GameManager.Instance.UnloadLevelAsync ("Level Select");
 			yield return new WaitUntil(() => (GameManager.unloadLevel.isDone));
+			UnityEngine.SceneManagement.SceneManager.sceneLoaded += GameManager.Instance.FadeIn;
+			GameManager.onLevelTransitionDone += GameManager.Instance.OnLevelLoaded;
 			GameManager.Instance.LoadLevelAdditive ("Level");
 			foreach (string sceneName in extraScenes)
 				GameManager.Instance.LoadLevelAdditive (sceneName);
