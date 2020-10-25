@@ -122,9 +122,6 @@ namespace AmbitiousSnake
 			Level.instance = level;
 			Level.instance.Start ();
 			GameManager.updatables = GameManager.updatables.Add(level);
-			yield return new WaitUntil(() => (GameManager.Instance.screenEffectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Invisible Screen")));
-			yield return new WaitForEndOfFrame();
-			GameManager.Instance.SetPaused (false);
 		}
 	}
 }
