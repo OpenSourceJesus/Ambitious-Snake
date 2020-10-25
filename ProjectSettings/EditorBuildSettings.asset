@@ -14,10 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Survival.unity
     guid: 778abb1a11a29944e8c0da5439d9ffcd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Community Level Hub.unity
     guid: c283422cc49be2f4f850484a45849d56
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level Editor.unity
     guid: f2e270f650c19c54ba04cf862aca7224
   - enabled: 1

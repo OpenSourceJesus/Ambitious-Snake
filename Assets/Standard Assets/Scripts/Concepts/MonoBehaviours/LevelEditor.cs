@@ -88,7 +88,7 @@ namespace AmbitiousSnake
 			foreach (GameObject extraOptionsList in extraOptionsLists)
 				extraOptionsList.SetActive(false);
 			moveOverlapDialog.SetActive(false);
-			hotkeys = FindObjectsOfType<Hotkey>();
+			// hotkeys = FindObjectsOfType<Hotkey>();
 			SetUndoAndRedoButtonInteractable ();
 			List<PartOfLevelEditor> uniqueParts = new List<PartOfLevelEditor>();
 			List<PartOfLevelEditor> requiredParts = new List<PartOfLevelEditor>();
