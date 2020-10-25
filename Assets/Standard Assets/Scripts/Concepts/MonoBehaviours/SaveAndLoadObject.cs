@@ -1,108 +1,93 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using Extensions;
-using UnityEngine.SceneManagement;
 using System.Reflection;
 using System;
-using SavedObjectEntry = AmbitiousSnake.SaveAndLoadManager.SavedObjectEntry;
-using Random = UnityEngine.Random;
+using SaveEntry = AmbitiousSnake.SaveAndLoadManager.SaveEntry;
+using Extensions;
 
-namespace AmbitiousSnake
+public class SaveAndLoadObject : MonoBehaviour
 {
-	[ExecuteAlways]
-	public class SaveAndLoadObject : MonoBehaviour, IIdentifiable
+	public string Name
 	{
-		public string Name
+		get
 		{
-			get
-			{
-				return name;
-			}
-			set
-			{
-				name = value;
-			}
+			return name;
 		}
-		public int uniqueId;
-		public int UniqueId
+		set
 		{
-			get
-			{
-				return uniqueId;
-			}
-			set
-			{
-				uniqueId = value;
-			}
+			name = value;
 		}
-		public Transform[] saveableChildren = new Transform[0];
-		public ISavableAndLoadable[] saveables = new ISavableAndLoadable[0];
-		public string typeId;
-		public SavedObjectEntry[] saveEntries = new SavedObjectEntry[0];
-		
-#if UNITY_EDITOR
-		public virtual void Start ()
+	}
+	public int UniqueId
+	{
+		get
 		{
-			if (Application.isPlaying)
-				return;
-			if (uniqueId == 0)
-				uniqueId = Random.Range(int.MinValue, int.MaxValue);
-			Transform[] _saveableChildren = new Transform[0];
-			_saveableChildren = _saveableChildren.AddRange(saveableChildren);
-			Transform trs = GetComponent<Transform>();
-			if (!_saveableChildren.Contains(trs) && GetComponentsInChildren<ISavableAndLoadable>().Length > 0)
-			{
-				_saveableChildren = _saveableChildren.Add(trs);
-				saveableChildren = _saveableChildren;
-			}
+			return uniqueId;
 		}
-
-		public virtual void Reset ()
+		set
 		{
-			Start ();
+			uniqueId = value;
 		}
-#endif
-
-		public virtual void Init ()
-		{
-			foreach (Transform saveableChild in saveableChildren)
-				saveables = saveables.AddRange(saveableChild.GetComponentsInChildren<ISavableAndLoadable>());
-			SaveAndLoadObject sameTypeObj;
-			if (!SaveAndLoadManager.saveAndLoadObjectTypeDict.TryGetValue(typeId, out sameTypeObj))
+	}
+	public int uniqueId = MathfExtensions.NULL_INT;
+	public ISavableAndLoadable[] saveables = new ISavableAndLoadable[0];
+	// public string typeId;
+	public SaveEntry[] saveEntries = new SaveEntry[0];
+	
+	public virtual void Setup ()
+	{
+		saveables = GetComponentsInChildren<ISavableAndLoadable>();
+		// SaveAndLoadObject sameTypeObj;
+		// if (!SaveAndLoadManager.saveAndLoadObjectTypeDict.TryGetValue(typeId, out sameTypeObj))
+		// {
+			saveEntries = new SaveEntry[saveables.Length];
+			for (int i = 0; i < saveables.Length; i ++)
 			{
-				saveEntries = new SavedObjectEntry[saveables.Length];
-				for (int i = 0; i < saveables.Length; i ++)
+				SaveEntry saveEntry = new SaveEntry();
+				saveEntry.saveableAndLoadable = saveables[i];
+				List<SaveEntry.MemberEntry> memberEntries = new List<SaveEntry.MemberEntry>();
+				PropertyInfo[] properties = saveEntry.saveableAndLoadable.GetType().GetProperties();
+				for (int i2 = 0; i2 < properties.Length; i2 ++)
 				{
-					SavedObjectEntry saveEntry = new SavedObjectEntry();
-					saveEntry.saveAndLoadObject = this;
-					saveEntry.saveableAndLoadable = saveables[i];
-					saveEntry.members = saveEntry.members.AddRange(saveEntry.saveableAndLoadable.GetType().GetMembers());
-					for (int i2 = 0; i2 < saveEntry.members.Length; i2 ++)
+					PropertyInfo property = properties[i2];
+					SaveAndLoadValue saveAndLoadValue = Attribute.GetCustomAttribute(property, typeof(SaveAndLoadValue)) as SaveAndLoadValue;
+					if (saveAndLoadValue != null)
 					{
-						SaveAndLoadValue saveAndLoadValue = Attribute.GetCustomAttribute(saveEntry.members[i2], typeof(SaveAndLoadValue)) as SaveAndLoadValue;
-						if (saveAndLoadValue == null)
-						{
-							saveEntry.members = saveEntry.members.RemoveAt(i2);
-							i2 --;
-						}
+						SaveEntry.MemberEntry memberEntry = new SaveEntry.MemberEntry();
+						// memberEntry.isShared = saveAndLoadValue.isShared;
+						memberEntry.member = property;
+						memberEntries.Add(memberEntry);
 					}
-					saveEntries[i] = saveEntry;
 				}
-				// SaveAndLoadManager.saveAndLoadObjectTypeDict.Add(typeId, this);
-			}
-			else
-			{
-				saveEntries = sameTypeObj.saveEntries;
-				SavedObjectEntry saveEntry;
-				for (int i = 0; i < saveEntries.Length; i ++)
+				FieldInfo[] fields = saveEntry.saveableAndLoadable.GetType().GetFields();
+				for (int i2 = 0; i2 < fields.Length; i2 ++)
 				{
-					saveEntry = saveEntries[i];
-					saveEntry.saveableAndLoadable = saveables[i];
-					saveEntry.saveAndLoadObject = this;
-					saveEntries[i] = saveEntry;
+					FieldInfo field = fields[i2];
+					SaveAndLoadValue saveAndLoadValue = Attribute.GetCustomAttribute(field, typeof(SaveAndLoadValue)) as SaveAndLoadValue;
+					if (saveAndLoadValue != null)
+					{
+						SaveEntry.MemberEntry memberEntry = new SaveEntry.MemberEntry();
+						// memberEntry.isShared = saveAndLoadValue.isShared;
+						memberEntry.member = field;
+						memberEntry.isField = true;
+						memberEntries.Add(memberEntry);
+					}
 				}
+				saveEntry.memberEntries = memberEntries.ToArray();
+				saveEntries[i] = saveEntry;
 			}
-		}
+		// 	SaveAndLoadManager.saveAndLoadObjectTypeDict.Add(typeId, this);
+		// }
+		// else
+		// {
+		// 	saveEntries = sameTypeObj.saveEntries;
+		// 	SaveEntry saveEntry;
+		// 	for (int i = 0; i < saveEntries.Length; i ++)
+		// 	{
+		// 		saveEntry = saveEntries[i];
+		// 		saveEntry.saveableAndLoadable = saveables[i];
+		// 		saveEntry.saveableAndLoadObject = this;
+		// 	}
+		// }
 	}
 }

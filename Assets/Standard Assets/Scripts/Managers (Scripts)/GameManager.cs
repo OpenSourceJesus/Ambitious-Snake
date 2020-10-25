@@ -19,8 +19,8 @@ namespace AmbitiousSnake
 		public static AsyncOperation unloadLevel;
 		public Animator screenEffectAnimator;
 		public List<GameObject> registeredGos = new List<GameObject>();
-		static string enabledGosString = "";
-		static string disabledGosString = "";
+		public static string enabledGosString = "";
+		public static string disabledGosString = "";
 		public const string STRING_SEPERATOR = "⧫";
 		public static int[] uniqueIds = new int[0];
 		public static uint Score
@@ -53,7 +53,7 @@ namespace AmbitiousSnake
 				// SceneManager.sceneLoaded += WaitForLevelTransitionEnd;
 				initialized = true;
 			}
-			SaveAndLoadManager.Instance.Load ();
+			SaveAndLoadManager.Instance.LoadFromCurrentAccount ();
 			UnlockablesManager.Instance.GetUnlocks ();
 			// StartCoroutine(InitSettingsRoutine ());
 		}

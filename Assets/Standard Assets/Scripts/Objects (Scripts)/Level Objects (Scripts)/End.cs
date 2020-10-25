@@ -19,7 +19,7 @@ namespace AmbitiousSnake
 					GameManager.Score ++;
 				SaveAndLoadManager.SetValue (LevelMap.previousLevelName + " Got Star", true);
 			}
-			SaveAndLoadManager.Instance.Save ();
+			SaveAndLoadManager.Instance.SaveToCurrentAccount ();
 			UnlockablesManager.Instance.GetUnlocks ();
 			WinAnimation.instance.enabled = true;
 		}
