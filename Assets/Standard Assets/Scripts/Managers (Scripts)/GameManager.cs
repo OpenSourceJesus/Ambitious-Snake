@@ -248,6 +248,7 @@ namespace AmbitiousSnake
 		{
 			if (!isFocused && SceneManager.GetSceneByName("Level").isLoaded && LevelSelect.Instance == null && !SceneManager.GetSceneByName(PAUSE_MENU_SCENE_NAME).isLoaded)
 			{
+				SetPaused (true);
 				LoadLevelAdditive (PAUSE_MENU_SCENE_NAME);
 				return;
 			}
