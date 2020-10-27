@@ -468,4 +468,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trs: {fileID: 4000013351295688}
-  snake: {fileID: 114000011661239804}

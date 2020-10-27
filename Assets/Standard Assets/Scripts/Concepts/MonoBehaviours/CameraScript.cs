@@ -39,7 +39,7 @@ namespace AmbitiousSnake
 			// trs.SetParent(null);
 			viewRect.size = viewSize;
 			HandlePosition ();
-			HandleViewSize ();
+			// HandleViewSize ();
 		}
 
 #if UNITY_EDITOR
@@ -75,6 +75,8 @@ namespace AmbitiousSnake
 		
 		void HandleViewSize ()
 		{
+			if (!camera.orthographic)
+				return;
 			screenAspect = Screen.width / Screen.height;
 			camera.aspect = viewSize.x / viewSize.y;
 			camera.orthographicSize = Mathf.Min(viewSize.x / 2 / camera.aspect, viewSize.y / 2);
