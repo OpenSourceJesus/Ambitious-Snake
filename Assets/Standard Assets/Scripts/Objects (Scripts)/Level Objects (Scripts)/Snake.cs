@@ -114,6 +114,8 @@ namespace AmbitiousSnake
 				Move ();
 			else
 			{
+				for (int i = 0; i < verticies.Count; i ++)
+					line.SetPosition(i, verticies[i]);
 				Breakable breakTile = hit.GetComponent<Breakable>();
 				if (breakTile != null)
 					breakTile.OnCollisionEnter2D (null);
