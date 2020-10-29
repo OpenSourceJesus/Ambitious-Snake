@@ -104,6 +104,7 @@ namespace AmbitiousSnake
 
 		public virtual void FadeIn (Scene scene = new Scene(), LoadSceneMode loadMode = LoadSceneMode.Single)
 		{
+			SceneManager.sceneLoaded -= FadeIn;
 			isInSceneTransition = true;
 			if (Instance != this)
 			{
@@ -112,7 +113,6 @@ namespace AmbitiousSnake
 			}
 			WaitForLevelTransitionEnd (scene, loadMode);
 			screenEffectAnimator.Play("Fade In");
-			SceneManager.sceneLoaded -= FadeIn;
 		}
 
 		public virtual void WaitForLevelTransitionEnd (Scene scene = new Scene(), LoadSceneMode loadMode = LoadSceneMode.Single)
@@ -128,14 +128,6 @@ namespace AmbitiousSnake
 
 		public virtual IEnumerator WaitForSceneTransitionEndRoutine ()
 		{
-			// yield return new WaitForSecondsRealtime(1);
-			// if (onLevelTransitionDone != null)
-			// {
-			// 	onLevelTransitionDone ();
-			// 	onLevelTransitionDone = null;
-			// }
-			// isInSceneTransition = false;
-			// yield break;
 			yield return new WaitUntil(() => (!screenEffectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Invisible Screen")));
 			while (true)
 			{
@@ -308,7 +300,8 @@ namespace AmbitiousSnake
 		
 		public virtual void LoadLevel (string levelName, LoadSceneMode loadMode)
 		{
-			SceneManager.LoadScene(levelName, loadMode);
+			if (!SceneManager.GetSceneByName(levelName).isLoaded)
+				SceneManager.LoadScene(levelName, loadMode);
 		}
 		
 		public virtual void LoadLevel (string levelName)

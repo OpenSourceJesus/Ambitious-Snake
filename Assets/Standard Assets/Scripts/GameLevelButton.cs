@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Extensions;
+// using UnityEngine.SceneManagement;
 
 namespace AmbitiousSnake
 {
@@ -59,7 +60,7 @@ namespace AmbitiousSnake
 			{
 				if (completed)
 				{
-					parText.text += string.Format("\n" + "Time: {0:F1}", LevelTime);
+					// parText.text += string.Format("\n" + "Time: {0:F1}", LevelTime);
 					if (GotStar && gotParTime)
 						button.colors = acedColors;
 					else
@@ -137,8 +138,8 @@ namespace AmbitiousSnake
 			LevelSelect.Instance.startButton.onClick.RemoveAllListeners();
 			LevelSelect.PreviousLevelIndex = siblingIndex;
 			// SaveAndLoadManager.Instance.Save ();
-			UnityEngine.SceneManagement.SceneManager.sceneLoaded += GameManager.Instance.FadeIn;
-			GameManager.onLevelTransitionDone += GameManager.Instance.OnLevelLoaded;
+			// SceneManager.sceneLoaded += GameManager.Instance.FadeIn;
+			// GameManager.onLevelTransitionDone += GameManager.Instance.OnLevelLoaded;
 			GameManager.Instance.LoadLevelAdditive ("Level");
 			GameManager.Instance.UnloadLevelAsync ("Level Select");
 			if (GameManager.unloadLevel != null)
