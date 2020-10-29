@@ -148,7 +148,7 @@ namespace AmbitiousSnake
 				GameManager.Instance.LoadLevelAdditive (sceneName);
 			Level.instance = level;
 			Level.instance.Start ();
-			GameManager.updatables = GameManager.updatables.Add(level);
+			// GameManager.updatables = GameManager.updatables.Add(level);
 		}
 	}
 }

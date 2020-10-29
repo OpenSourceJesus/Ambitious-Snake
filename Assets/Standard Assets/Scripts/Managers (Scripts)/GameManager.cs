@@ -74,6 +74,7 @@ namespace AmbitiousSnake
 					// Level.instance.Start ();
 					LevelTimer.Instance.timer.Reset ();
 					LevelTimer.Instance.timer.Start ();
+					updatables = updatables.Add(Level.instance);
 				}
 			}
 			else
@@ -326,11 +327,11 @@ namespace AmbitiousSnake
 		
 		public virtual void UnloadLevelAsync (string levelName)
 		{
-			if (Instance != this)
-			{
-				Instance.UnloadLevelAsync (levelName);
-				return;
-			}
+			// if (Instance != this)
+			// {
+			// 	Instance.UnloadLevelAsync (levelName);
+			// 	return;
+			// }
 			if (SceneManager.GetSceneByName(levelName).isLoaded)
 				unloadLevel = SceneManager.UnloadSceneAsync(levelName);
 		}

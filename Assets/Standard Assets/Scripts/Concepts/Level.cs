@@ -1,6 +1,7 @@
 using System;
 using AmbitiousSnake;
 using UnityEngine.SceneManagement;
+using Extensions;
 // using AmbitiousSnake.Analytics;
 
 [Serializable]
@@ -22,7 +23,6 @@ public class Level : IUpdatable
 
 	public virtual void Start ()
 	{
-		Restart ();
 	}
 
 	public virtual void DoUpdate ()
@@ -30,11 +30,18 @@ public class Level : IUpdatable
 		restartLevelInput = InputManager.RestartLevelInput;
 		if (restartLevelInput && !previousRestartLevelInput)
 			Restart ();
+		if (InputManager.PauseInput && !SceneManager.GetSceneByName(GameManager.PAUSE_MENU_SCENE_NAME).isLoaded)
+		{
+			GameManager.Instance.SetPaused (true);
+			GameManager.Instance.LoadLevelAdditive (GameManager.PAUSE_MENU_SCENE_NAME);
+		}
 		previousRestartLevelInput = restartLevelInput;
 	}
 
 	public virtual void Restart ()
 	{
+		GameManager.isInSceneTransition = true;
+		GameManager.updatables = GameManager.updatables.Remove(this);
 		if (CommunityLevelHub.Instance == null)
 		{
 			ObjectPool.Instance.DespawnAll ();
@@ -54,5 +61,6 @@ public class Level : IUpdatable
 			SnakeRecorder.areRecording = new SnakeRecorder[0];
 		// AnalyticsManager.PlayerDiedEvent playerDiedEvent = new AnalyticsManager.PlayerDiedEvent();
 		// AnalyticsManager.Instance.LogEvent (playerDiedEvent);
+		Start ();
 	}
 }

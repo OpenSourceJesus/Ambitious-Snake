@@ -42,7 +42,7 @@ namespace AmbitiousSnake
 			previousLevelName = levelName;
 			Bounds levelBounds = GetBounds();
 			float previousZPos = trs.position.z;
-			trs.position = VectorExtensions.SetZ(levelBounds.center, previousZPos);
+			trs.position = levelBounds.center.SetZ(previousZPos);
 			cam.orthographicSize = Mathf.Max(levelBounds.size.x, levelBounds.size.y) / 2;
 		}
 		
